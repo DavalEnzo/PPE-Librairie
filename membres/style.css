@@ -1,0 +1,25 @@
+ .hide{
+    opacity: 0;
+    border: none;
+    transition:all 1s ease-in-out;
+}
+
+.body{
+    background-image:url(https://images6.alphacoders.com/872/thumb-1920-872784.jpg) ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    
+}
+.toutnoir{
+    background-color:rgba(0,0,0,0.6);
+}
+
+.cardlivre{
+    color: black;
+    box-shadow: black;
+}
+
+.stext{
+    text-shadow:black 3px 1px 10px;
+}
