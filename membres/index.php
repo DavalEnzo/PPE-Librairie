@@ -84,6 +84,18 @@ $livres = selectBibli();
             </button>
           </div>
         </div> 
+        
+         <ul class="coucou">
+         <?php
+         foreach($livres as $livre){
+         ?>
+            <li>
+              <img src="<?=$livre["Photo"]?>" class="imgslide">
+            </li>
+            <?php
+            }
+            ?>
+         </ul>
         <h1 class="text-center my-3 stext"
               data-aos="fade-right"
               data-aos-duration="3000"

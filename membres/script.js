@@ -8,3 +8,12 @@ cards.forEach(function(card){
         card.querySelector('.hide').style.opacity = '0'
     });
 });
+$(function (){
+$('.coucou').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+  });
+});
