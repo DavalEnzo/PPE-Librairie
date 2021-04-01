@@ -62,7 +62,7 @@ $livres = selectBibli();
                     }else{
                         ?>
                         
-                      <p class="stext"><?=$livre["Prix"]?></p>
+                      <p class="stext"><?=$livre["Prix"]?> €</p>
                       <?php
                     }
                     ?>
@@ -89,7 +89,7 @@ $livres = selectBibli();
               data-aos-duration="3000"
               style="color:white;" 
         >Les Nouveautés :</h1>
-        <div class="card-group" style='margin:1rem;' >
+        <div class="card-group">
           <?php
           $newLivres = selectBiblinew();
           foreach($newLivres as $newLivre){  
@@ -117,7 +117,7 @@ $livres = selectBibli();
                 ?>
                 </div>
 
-              <div class="card-footer hide"  >
+              <div class="card-footer hide mx-5">
                 <a href="pageProduit.php?idLivre=<?=$newLivre["idLivre"]?>"> <button  class="btn btn-success">Voir le produit</button></a> 
               </div>
 

@@ -1,8 +1,6 @@
 <?php
 require_once 'entete.php';
 ?>
-<div class="alert alert-warning text-center">Il n'y a pas encore de livre audio disponible.
-Cette section sera bientôt alimentée ! </div>
 <?php
 
 try{

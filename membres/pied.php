@@ -12,31 +12,24 @@
 
 <footer class="bg-dark text-center text-white">
   <div class="container p-4">
-    <section class="mb-4">
-      <a class="btn btn-outline-light btn-floating m-1" href="index.php" role="button"
-        ><i class="">Contact</i
-      ></a>
-      <a class="btn btn-outline-light btn-floating m-1" href="" role="button"
-        ><i class=""></i
-      ></a>
-    </section>
-    <section class="">
+    <section>
       <form action="">
+        <p style="margin-right:12%;">
+      <strong>Inscrivez vous à notre newsletter</strong></p>
         <div class="row d-flex justify-content-center">
           <div class="col-auto">
             <p class="pt-2">
-              <strong>Inscrivez vous à notre newsletter</strong>
+              <strong><label class="form-label" for="email">Adresse Email</label></strong>
             </p>
           </div>
           <div class="col-md-5 col-12">
             <div class="form-outline form-white mb-4">
               <input type="email" id="email" class="form-control" placeholder="renseignez votre adresse email"/>
-              <label class="form-label" for="email">Adresse Email</label>
             </div>
           </div>
           <div class="col-auto">
             <button type="submit" class="btn btn-outline-light mb-4">
-              Subscribe
+              Abonnez vous à la newsletter
             </button>
           </div>
         </div>

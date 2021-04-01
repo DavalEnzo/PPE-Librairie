@@ -7,7 +7,7 @@ function selectEditeur(){
 }
 
 function recupLivresEditeur($idEditeur){
-    $requete=getBdd()->prepare('SELECT * FROM editeurs INNER JOIN bibliotheque USING (idEditeur) INNER JOIN genres USING (idGenre) WHERE idEditeur = ?');
+    $requete=getBdd()->prepare('SELECT * FROM editeurs INNER JOIN bibliotheque USING (idEditeur) LEFT JOIN genres USING (idGenre) WHERE idEditeur = ?');
     $requete->execute([$idEditeur]);
     return $requete->fetchAll(PDO::FETCH_ASSOC);
 }

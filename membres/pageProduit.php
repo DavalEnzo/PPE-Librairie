@@ -31,7 +31,7 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
             <div class="card mb-3" >
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="<?=$livres["Photo"]?>" >
+                        <img src="<?=$livres["Photo"]?>" style="width: 100%;" >
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">

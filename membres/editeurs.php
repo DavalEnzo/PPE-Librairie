@@ -15,7 +15,7 @@ $editeurs=selectEditeur();
 foreach($editeurs as $editeur){
     ?>
   <ul class="list-group rounded-pill text-center my-2">
-    <a href="selectionEditeur.php?idEditeur=<?=$editeur['idEditeur'];?>" class="list-group-item" style="text-decoration:none; color:black; width:15%;margin:auto"><?=$editeur['nom'];?></a>
+    <a href="selectionEditeur.php?idEditeur=<?=$editeur['idEditeur'];?>" class="list-group-item btn-grad" style="text-decoration:none; color:black; width:15%;margin:auto;"><?=$editeur['nom'];?></a>
     </ul>
 <?php
 }
