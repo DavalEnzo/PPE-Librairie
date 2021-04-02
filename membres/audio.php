@@ -2,7 +2,6 @@
 require_once 'entete.php';
 ?>
 <?php
-
 try{
 $livresAudio = selectBibliaudio();
 }catch (Exception $e){
@@ -32,10 +31,9 @@ if(count($livresAudio)>=1){
             <img  class="card-img-top" style="max-height:340px" src="<?=$livre["Photo"]?>">
           <div class="card-body" id="card" style="min-height:105px;">
               <h6 class="card-title"><?=$livre["Titre"]?></h6>
-              <p class="card-text"><?=$livre["Prix"]?></p>
           </div>
           <div class="card-footer">
-            <a href="pageProduit.php?idLivre=<?=$livre["idLivre"]?>"> <button  class="btn btn-success">Voir le produit</button></a> 
+            <a href="pageProduit.php?idLivre=<?=$livre["idLivre"]?>"> <button  class="btn btn-success mx-5">Voir le produit</button></a> 
           </div>
         </div>
         <?php
@@ -47,3 +45,5 @@ if(count($livresAudio)>=1){
              <audio controls preload="auto" src="https://archive.org/embed/jane-austen-_-emma-l-3"></audio>
             <?php
 }
+?>
+</div>

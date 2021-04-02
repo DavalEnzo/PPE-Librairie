@@ -12,7 +12,7 @@
     <title>Boutique de Livres</title>
 
 </head>
-<body style="background-image:url('https://www.lg.com/ch_fr/images/TV/features/TV-UHD-UM74-02-4K-Resolution-Desktop.jpg'); background-size:cover">
+<body class="body">
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
   <a class="navbar-brand" href="#">

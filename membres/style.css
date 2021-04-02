@@ -9,7 +9,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    
 }
 .toutnoir{
     background-color:rgba(0,0,0,0.6);
@@ -44,3 +43,17 @@
    color: #fff;
    text-decoration: none;
  }
+
+ .btn-balayage {
+    padding: 1%;
+    border: 1px rgba(128, 128, 128, 0.418) solid;
+    border-radius: 50px;
+    background: linear-gradient(to right, #a8ff78, #78ffd6);
+    background-repeat: no-repeat;
+    background-size: 0 100%;
+    transition: background-size 1s 0s;
+  }
+  
+  .btn-balayage:hover {
+    background-size: 100% 100%;
+  }
