@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="css/all.min.css"/>
     <title>Boutique de Livres</title>
     <script
 			  src="https://code.jquery.com/jquery-3.6.0.min.js"

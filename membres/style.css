@@ -25,5 +25,54 @@
 }
 .imgslide{
     height: 340px;
-    width: 272px;
+    width: 280px;
 }
+#slick {
+
+}
+#slick .arrow_prev{
+    position:absolute;
+    right: 105%;
+    bottom: 50%;
+    background-color: red;
+    width: 60px;
+    border-radius: 50px;
+}
+#slick .arrow_next{
+    position:absolute;
+    left: 105%;
+    bottom: 50%;
+    background-color: red;
+    width: 60px;
+    border-radius: 50px;
+}
+#slick .slick-dots li{
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 1%;
+    margin-top: 1%;
+    background: grey ;
+    
+}
+#slick .slick-dots {
+     text-align: center;
+ }
+
+ #slick .slick-dots li button {
+     display: none ;
+ }
+ .slick-dots li.slick-active {
+    background: white!important;
+ }
+ .slick-slide{
+     transform: scale(0.8);
+     opacity: 0.8;
+     transition: all ease-in-out 0.5s;
+ } 
+ .slick-slide.slick-current{
+        transform: scale(1);
+        opacity: 1;
+ }
