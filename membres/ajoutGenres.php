@@ -15,7 +15,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 2 ){
       <?php 
 }
 
- $genres= selectGenre();
+ $g= new Genre();
+ $genres=$g->getGenre();
     ?>
 
 <form method="post" action="../traitement/ajoutGenre.php">

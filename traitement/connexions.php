@@ -36,6 +36,7 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
     // Si après les vérification dans la bdd je n'ai toujours pas d'erreurs
     if (count($erreurs) == 0) {
         // on connecte l'utilisateur
+        $_SESSION["idUtilisateur"] = $utilisateur["idUtilisateur"];
         $_SESSION["email"] = $utilisateur["email"];
         $_SESSION["idPermission"] = $utilisateur["idPermission"];
         header('location:../membres/connexion.php?success=1');

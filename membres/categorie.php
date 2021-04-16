@@ -10,11 +10,11 @@ require_once 'entete.php';
    data-aos = 'fade-left'
    data-aos-duration="3000"
 >
-    
 
     <?php
+    $g = new Genre();
     try{
-        $genres = selectTypeGenre(); 
+        $genres=$g->gettypeGenre();
     }catch(Exception $e){
         ?>
         <div class="alert alert-danger">Erreur lors de la récupération des genres</div>

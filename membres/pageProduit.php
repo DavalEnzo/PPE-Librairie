@@ -3,7 +3,8 @@ require_once("entete.php");
 
 if(isset($_GET["idLivre"]) &&!empty($_GET['idLivre'])){
         $idLivre = $_GET["idLivre"];
-        $livres=livreBibli($idLivre);
+        $Bibli = new Bibliotheque($idLivre);
+        $livres = $Bibli->getInfoId();
     }else{
         header("index.php");
     }
@@ -14,7 +15,8 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
         $idUtilisateur =  $_SESSION["idUtilisateur"];
     
     try{
-        insertCom($contenu,$idLivre,$idUtilisateur);
+        $com = new Commentaire($idLivre);
+        $com->insertCom($contenu,$idLivre,$idUtilisateur);
         ?>
         <div class="alert alert-success mt-3">Le formulaire a bien été enregistrer</div>
         <?php
@@ -31,7 +33,7 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
             <div class="card mb-3" >
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="<?=$livres["Photo"]?>" style="width: 100%;" >
+                        <img src="<?=$livres["Photo"]?>" >
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -69,7 +71,8 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
     </div>
     <?php
     
-    $commentaires=selectCom($idLivre);
+    $com = new Commentaire($idLivre);
+    $commentaires = $com->getCom();
     foreach($commentaires as $commentaire){
     ?>
     <div class="container">

@@ -1,9 +1,12 @@
 <?php
 require_once "entete.php";
+$aut = new Auteur();
+$Bibli = new Bibliotheque();
+$G = new Genre();
 ?>
 <?php
 try {
-    $genres = selectGenre();
+    $genres = $G->getGenre();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">
@@ -12,7 +15,7 @@ try {
     <?php
 }
 try {
-    $auteurs = selectAuteur();
+     $auteurs =  $aut->getAuteur();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">
@@ -21,7 +24,7 @@ try {
     <?php
 }
 try {
-    $bilio = selectBibli();
+    $bilio = $Bibli->getBibli();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">

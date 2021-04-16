@@ -3,16 +3,15 @@
 if(isset($_GET['idEditeur']) && !empty($_GET['idEditeur'])){
     $idEditeur=$_GET['idEditeur'];
 }
+$e=new Editeur($idEditeur);
+$editeurs=$e->getLEditeur();
+$nom=$e->getLEditeur();
 
-$editeurs=recupLivresEditeur($idEditeur);
-$nom=recupLivresEditeur($idEditeur);
-?>
-
-<?php
-foreach($nom as $n){}
+if(count($editeurs)!=0){
 ?>
 <div class="alert alert-info">
 <?php
+foreach($nom as $n){}
  if(count($editeurs)<2){
      ?>
      L'éditeur <?=$n['nom'];?> possède <?=count($editeurs);?> livre.
@@ -22,8 +21,17 @@ foreach($nom as $n){}
      L'éditeur <?=$n['nom'];?> possède <?=count($editeurs);?> livres.
      <?php
  }
- ?>
+?>
  </div>
+ <?php
+}else{
+    ?>
+    <div class="alert alert-warning">
+    Cet éditeur ne possède aucun livre. Revenez plus tard !
+    </div>
+    <?php
+}
+?>
  <div class="card-group">
  <?php
     foreach($editeurs as $editeur){

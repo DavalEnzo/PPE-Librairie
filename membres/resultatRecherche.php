@@ -1,9 +1,10 @@
 <?php require_once 'entete.php';
 
 if(isset($_GET['recherche']) && !empty($_GET['recherche'])){
-    $recherche = $_GET['recherche'];
+    $recherche = $_GET['recherche'];  
     try{
-        $resultats=rechercherLivre($recherche);
+        $recherche=new Bibliotheque("",$recherche);
+        $resultats = $recherche->getRLivre();
     }catch (Exception $e){
         ?>
         <div class="alert alert-danger text-center">Erreur lors de la recherche</div>

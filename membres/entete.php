@@ -68,8 +68,4 @@
         <button class="btn btn-light" type="submit">Rechercher</button>
       </form>
     </div>
-  </div>
 </nav>
-
-</body>
-</html>

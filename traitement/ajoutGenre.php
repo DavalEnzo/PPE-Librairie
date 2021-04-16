@@ -1,11 +1,11 @@
 <?php
 require_once '../modeles/modele.php';
-if(isset($_POST['typeGenre']) && !empty($_POST['typeGenre'])){
-    $libelle = $_POST['typeGenre'];
-    $idGenre = $_POST['genre'];
+if(isset($_POST['nomGenre']) && !empty($_POST['nomGenre'])){
+    $libelle = $_POST['nomGenre'];
+    $Genre=new Genre();
     try {
-       insertTypegenre($libelle,$idGenre);
-       header('location:../membres/ajoutGenres.php?success=2&typeGenre='.$_POST["typeGenre"]);
+        $Genre->insertGenre($libelle);
+       header('location:../membres/ajoutGenres.php?success=1&typeGenre='.$_POST["nomGenre"]);
             
     } catch (Exception $e) {
         header('location:../membres/ajoutGenres.php?success=0');

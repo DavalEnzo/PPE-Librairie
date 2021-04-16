@@ -5,7 +5,8 @@ if(isset($_GET['idGenre']) && !empty($_GET['idGenre'])){
     $idGenre= $_GET['idGenre'];
 }
 
-$livres=filtreGenre($idGenre);
+$l=new Genre($idGenre);
+$livres=$l->getlivreGenre()
 
 ?>
 <div class="alert alert-info">

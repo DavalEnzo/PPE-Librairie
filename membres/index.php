@@ -1,7 +1,8 @@
 <?php
 require_once 'entete.php';
+$Bibli=new Bibliotheque();
 
-$livres = selectBibli();
+$livres = $Bibli->getBibli();
 ?>
 <div class="body">
   <div class="toutnoir">
@@ -15,9 +16,7 @@ $livres = selectBibli();
               </div>
           </div>
       </div>
-      <div class="container" style="max-width: 1280px"
-                
-      >
+      <div class="container" style="max-width: 1280px">
         <div class="p-1 mb-2 bg-info text-center"
                 data-aos="fade-right"
                 data-aos-duration="3000">
@@ -91,7 +90,7 @@ $livres = selectBibli();
         >Les Nouveautés :</h1>
         <div class="card-group">
           <?php
-          $newLivres = selectBiblinew();
+          $newLivres = $Bibli->getBibliNew();
           foreach($newLivres as $newLivre){  
             ?>
           <div  class="card mx-3 my-5 cardlivre"
@@ -127,6 +126,7 @@ $livres = selectBibli();
           ?>
       </div>
   </div>
+</div>
 </div>    
 <?php
 require_once 'pied.php';

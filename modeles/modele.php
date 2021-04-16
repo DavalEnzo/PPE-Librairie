@@ -1,7 +1,9 @@
 <?php
 session_start();
-function getBdd(){
+class Modele{
+protected function getBdd(){
     return new PDO('mysql:host=localhost;dbname=livres;charset=utf8', 'root', '',[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+}
 }
 
 require_once 'utilisateur.php';

@@ -1,6 +1,10 @@
 <?php
 require_once '../modeles/modele.php';
 
+$bibli =new Bibliotheque();
+$aut = new Auteur();
+$Ecrit = new Ecrit();
+
 if (isset($_POST["photo"]) && !empty($_POST["photo"]) &&
 isset($_POST["titre"]) && !empty($_POST["titre"]) &&
 isset($_POST["prix"]) && !empty($_POST["prix"]) &&
@@ -38,9 +42,9 @@ isset($_POST['genre']) && !empty($_POST['genre']))
         if(isset($_POST['auteur']) && !empty($_POST['auteur']) && $a ==0){
 
             try {
-                insertBibli($titre, $date, $prix, $photo, $genres, $check, $droit);
-                insertAuteur($auteur);
-                insertEcrit();   
+                $bibli->insertBibli($titre, $date, $prix, $photo, $genres, $check, $droit);
+                $aut->insertAuteur($auteur);
+                $Ecrit->insertEcrit();   
                 ?>
 
       
@@ -55,8 +59,8 @@ isset($_POST['genre']) && !empty($_POST['genre']))
         }
         if(isset($_POST['auteurs']) && !empty($_POST['auteurs']) && $a>0 && empty($_POST["auteur"])){
             try {
-                insertBibli($titre, $date, $prix, $photo, $genres, $check, $droit);
-                insertAuteur2($a);
+                $bibli->insertBibli($titre, $date, $prix, $photo, $genres, $check, $droit);
+                $aut->insertAuteur2($a);
                 header("location:../membres/ajoutLivre.php?success=1");
         
             // si une erreur php est généré, alors on rentre dans notre catch
