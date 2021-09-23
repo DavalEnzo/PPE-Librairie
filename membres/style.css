@@ -22,43 +22,54 @@
 .stext{
     text-shadow:black 3px 1px 10px;
 }
+.imgslide{
+    height: 340px;
+    width: 280px;
+}
 
-
-.btn-grad {background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA  51%, #77A1D3  100%)}
-.btn-grad {
-   margin: 10px;
-   padding: 10px 45px;
-   text-align: center;
-   text-transform: uppercase;
-   transition: 0.5s;
-   background-size: 200% auto;
-   color: white;            
-   box-shadow: 0 0 20px #eee;
-   border-radius: 10px;
-   display: block;
- }
-
- .btn-grad:hover {
-   background-position: right center;
-   color: #fff;
-   text-decoration: none;
- }
-
- .btn-balayage {
-    padding: 1%;
-    border: 1px rgba(128, 128, 128, 0.418) solid;
+#slick .arrow_prev{
+    position:absolute;
+    right: 105%;
+    bottom: 50%;
+    background-color: red;
+    width: 60px;
     border-radius: 50px;
-    background: linear-gradient(to right, #a8ff78, #78ffd6);
-    background-repeat: no-repeat;
-    background-size: 0 100%;
-    transition: background-size 1s 0s;
-  }
-  
-  .btn-balayage:hover {
-    background-size: 100% 100%;
-  }
+}
+#slick .arrow_next{
+    position:absolute;
+    left: 105%;
+    bottom: 50%;
+    background-color: red;
+    width: 60px;
+    border-radius: 50px;
+}
+#slick .slick-dots li{
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 1%;
+    margin-top: 1%;
+    background: grey ;
+    
+}
+#slick .slick-dots {
+     text-align: center;
+ }
 
-  .checkbox1 {
-    margin-top: 5%;
-    margin-bottom: 2%;
-  }
+ #slick .slick-dots li button {
+     display: none ;
+ }
+ .slick-dots li.slick-active {
+    background: white!important;
+ }
+ .slick-slide{
+     transform: scale(0.8);
+     opacity: 0.8;
+     transition: all ease-in-out 0.5s;
+ } 
+ .slick-slide.slick-current{
+        transform: scale(1);
+        opacity: 1;
+ }
