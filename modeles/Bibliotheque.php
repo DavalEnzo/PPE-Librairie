@@ -40,6 +40,12 @@ private $RLivre;
 
         $this->BibliAudio = $BibliAudio;
 
+        $requete = $this->getBdd()->prepare("SELECT * FROM bibliotheque WHERE Prix = 0");
+        $requete->execute();
+        $BibliNum = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->BibliNum = $BibliNum;
+
         if($idLivre != null) 
             {
                 $requete = $this->getBdd()-> prepare ("SELECT * FROM bibliotheque WHERE idLivre = ? ");
@@ -97,6 +103,10 @@ private $RLivre;
     public function getBibliAudio()
     {
         return $this->BibliAudio;
+    }
+    public function getBibliNum()
+    {
+        return $this->BibliNum;
     }
     public function getRLivre()
     {

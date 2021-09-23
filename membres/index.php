@@ -17,14 +17,11 @@ $livres = $Bibli->getBibli();
           </div>
       </div>
       <div class="container" style="max-width: 1280px">
-        <div class="p-1 mb-2 bg-info text-center"
+        <div style="border-radius: 30px;" class="p-1 mb-2 bg-info text-center"
                 data-aos="fade-right"
                 data-aos-duration="3000">
           <h2 class='fw-bold' style="text-decoration:underline; text-shadow: black 0.2em 0.1em 0.3em;">Les livres à la une</h2>
         </div>
-        <?php
-          $i = 0;
-          ?>
         <div class="container my-5" style='height: 500px'>    
           <div id="carouselExampleCaptions" class="carousel slide col-md-3" style="margin:auto;width:17rem" data-bs-ride="carousel"
                 data-aos="fade-left"

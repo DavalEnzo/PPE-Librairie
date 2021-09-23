@@ -39,6 +39,15 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                 <label for="mdp">Mot de passe</label>
                 <input type="password" class ="form-control" style="border-radius: 20px;" name="mdp" id="mdp" placeholder="Saisissez votre mot de passe" value="<?=(isset($_POST["mdp"]) ? $_POST["mdp"] : "");?>"/>
             </div>
+
+            <div class="form-check checkbox1">
+        <input class="form-check-input" type="checkbox" value="1" id="consentement" name="consentement" required>
+        <label class="form-check-label" for="consentement">
+        En cochant cette case, vous consentez au traitement de vos informations 
+        personnelles comme expliqué dans les <a href="mentionsLegales.php">Mentions Légales</a>.
+        </label>
+        </div>
+
         
             
         <div class="text-center my-2">

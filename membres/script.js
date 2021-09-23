@@ -8,3 +8,4 @@ cards.forEach(function(card){
         card.querySelector('.hide').style.opacity = '0'
     });
 });
+

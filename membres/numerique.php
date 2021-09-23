@@ -1,6 +1,8 @@
 <?php
 require_once "entete.php";
-$livrenums =selectBibli();
+$BibliNum=new Bibliotheque();
+
+$livrenums = $BibliNum->getBibliNum();
 ?>
 <div class='card-group' style="margin-left: 10%;">
     <?php
