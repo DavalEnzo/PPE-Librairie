@@ -3,8 +3,11 @@ require_once "entete.php";
 $BibliNum=new Bibliotheque();
 
 $livrenums = $BibliNum->getBibliNum();
+<<<<<<< HEAD
 
 if(isset($_SESSION["idUtilisateur"]) && !empty ($_SESSION['idUtilisateur'])){
+=======
+>>>>>>> 693b967291d3f1f6330de97b9f2d267896161081
 ?>
     <div class='card-group' style="margin-left: 10%;">
         <?php
