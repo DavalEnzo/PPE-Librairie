@@ -1,19 +1,23 @@
-<?php
-require_once "entete.php";
+<?php 
+
 
 if(isset($_GET["success"])&& $_GET['success'] == 1 ){
-    ?>
-      <div class="alert alert-success mt-3">Connexion réussie ! Connecté en tant que <?=$_SESSION['email'];?></div>
-      
-      <?php
-      header("refresh:3;index.php"); 
-  }else if(isset($_GET["success"])&& $_GET['success'] == 0 ){
-      ?>
-      <div class="alert alert-danger">La connexion n'a pas pu être finalisée, veuillez contacter un administrateur<br>
-      Erreur: <?= $_GET['erreurs'];?></div>
-      <?php
-  }
-?>  
+        header("Refresh:3;index.php");
+        require_once 'entete.php';
+        ?>
+        <div class="alert alert-success mt-3">Connexion réussie ! Connecté en tant que <?=$_SESSION['email'];?><br>
+        <a href="index.php">Cliquez ici pour revenir à l'accueil</a>
+    </div>
+        <?php        
+    }else if(isset($_GET["success"])&& $_GET['success'] == 0 ){
+        require_once 'entete.php';
+        ?>        
+        <div class="alert alert-danger">La connexion n'a pas pu être finalisée, veuillez contacter un administrateur<br>
+        Erreur: <?= $_GET['erreurs'];?></div>
+        <?php
+    }else{
+        require_once 'entete.php';
+      ?>      
     <div class="container my-5">
     <div class="rounded" style="background-color: white; width:50%; margin:auto; padding:2%; box-shadow: 1px 1px 10px black;">
     <h1>Formulaire de connexion</h1>
@@ -32,3 +36,6 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     </form>
     </div>
     </div>
+    <?php
+}
+

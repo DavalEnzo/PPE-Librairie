@@ -22,9 +22,61 @@
 .stext{
     text-shadow:black 3px 1px 10px;
 }
+.imgslide{
+    height: 340px;
+    width: 280px;
+}
 
+#slick .arrow_prev{
+    position:absolute;
+    right: 105%;
+    bottom: 50%;
+    background-color: red;
+    width: 60px;
+    border-radius: 50px;
+}
+#slick .arrow_next{
+    position:absolute;
+    left: 105%;
+    bottom: 50%;
+    background-color: red;
+    width: 60px;
+    border-radius: 50px;
+}
+#slick .slick-dots li{
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 1%;
+    margin-top: 1%;
+    background: grey ;
+    
+}
+#slick .slick-dots {
+     text-align: center;
+ }
 
-.btn-grad {background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA  51%, #77A1D3  100%)}
+ #slick .slick-dots li button {
+     display: none ;
+ }
+ .slick-dots li.slick-active {
+    background: white!important;
+ }
+ .slick-slide{
+     transform: scale(0.8);
+     opacity: 0.8;
+     transition: all ease-in-out 0.5s;
+ } 
+ .slick-slide.slick-current{
+        transform: scale(1);
+        opacity: 1;
+ }
+ .red{
+     color: red;
+ }
+ .btn-grad {background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA  51%, #77A1D3  100%)}
 .btn-grad {
    margin: 10px;
    padding: 10px 45px;
@@ -56,4 +108,25 @@
   
   .btn-balayage:hover {
     background-size: 100% 100%;
+  }
+
+  .checkbox1 {
+    margin-top: 5%;
+    margin-bottom: 2%;
+  }
+
+  .back{
+      position: absolute;
+      top: 5%;
+      left: 2%;
+      color: white;
+  }
+
+  .roundedBorders{
+      border-radius: 10px;
+      background-color: white;
+      margin-top: 4%;
+      width: 75%;
+      padding: 1%;
+      box-shadow: 2px 8px 10px black;
   }

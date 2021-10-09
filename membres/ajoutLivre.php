@@ -28,7 +28,7 @@ try {
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">
-        Erreur lors de la récupération des auteurs
+        Erreur lors de la récupération des livres
     </div>
     <?php
 }  
@@ -45,10 +45,9 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         </div>
       <?php
   }
-
 ?>
-<div class="container">
-<h1 class="text-center">Ajout d'un nouveau produit</h1>
+<div class="container rounded my-5" style="background-color:white; box-shadow: 1px 1px 15px black;">
+<h1 class="text-center" style="padding-top: 2%;">Ajout d'un nouveau produit</h1>
 <form method="post" class="form" action="../traitement/ajoutLivres.php"> 
 
     <div class="form-group">

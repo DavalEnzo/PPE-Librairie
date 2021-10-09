@@ -2,17 +2,31 @@
 
 class Auteur extends Modele
 {
-    private $aut;
+    private $idAuteur;
     private $auteur;
     private $a;
+    private $toutAuteur;
 
-   public function selectAuteur(){
+   public function __construct($idAuteur=null)
+   {
+       if($idAuteur!=null){
+        $requete=$this->getBdd()->prepare('SELECT * FROM auteurs WHERE idAuteur = ?');
+        $requete->execute([$idAuteur]);  
+        $auteur= $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->idAuteur=$idAuteur;
+
+        $this->auteur=$auteur;
+        
+       }
+   {
             $requete = $this->getBdd()->prepare("SELECT * FROM auteurs ORDER BY nom ASC");
             $requete->execute();
             $infoAut = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-            $this->aut = $infoAut;
+            $this->toutAuteur = $infoAut;
     }
+}
 
    public function insertAuteur($auteur){
         $requete= $this->getBdd()->prepare("INSERT INTO auteurs (nom) VALUES (?)");
@@ -29,6 +43,6 @@ class Auteur extends Modele
     
     public function getAuteur()
     {
-       return  $this->aut;
+       return  $this->toutAuteur;
     }
 }

@@ -1,6 +1,10 @@
 <?php
 require_once '../modeles/modele.php';
+
+$u = New Utilisateur;
+
 extract($_POST);
+
 if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
 
     $erreurs = [];
@@ -11,11 +15,12 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
         $erreurs[] = "L'un des champs est vide";
     }
 
+
   
   
     // Si on a pas d'erreurs à ce stade, on va commencer les vérification dans la bdd
     if (count($erreurs) == 0) {
-        $requete=connexion([$email]);
+        $requete=$connexion = $u->connexion([$email]);;
 
         // Vérification si l'email n'existe pas en regardant le nombre de lignes retournées par la requête
         if ($requete->rowCount() > 0) {
@@ -54,7 +59,7 @@ foreach ($erreurs as $erreur) {
         ?>
             </div>
             <?php
-            header("location:../membres/inscription.php?success=0&erreurs=".$erreurs);
+            header("location:../membres/connexion.php?success=0&erreurs=".$erreurs);
 }
 
 }

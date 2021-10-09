@@ -46,7 +46,7 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
                             <?php
                         }else{
                             ?>
-                            <a href="#" class="btn btn-primary">Ajouter au panier</a>
+                            <a href="panier.php" class="btn btn-primary">Ajouter au panier</a>
                             <?php
                         }
                             ?>
@@ -61,8 +61,7 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
             
             <div class="form-group">
                 <label for="contenu">Commenter le produit</label>
-                <textarea class ="form-control" name="contenu" id="contenu" placeholder="Saisisser le contenu de votre post" rows="3">
-                </textarea>
+                <textarea class ="form-control" name="contenu" id="contenu" placeholder="Saisisser le contenu de votre post" rows="3"></textarea>
             </div>    
         <div class="form-group text-center my-3">
             <button type="submit" class="btn btn-primary">Ajouter le Commentaire</button>

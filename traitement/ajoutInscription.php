@@ -1,6 +1,10 @@
 <?php
 require_once '../modeles/modele.php';
 
+$u = New Utilisateur;
+
+$utilisateur = $u->verifUtilisateur();
+
     if(isset($_POST["envoi"]) && !empty($_POST["envoi"])
     && $_POST["envoi"] == 1){
         $erreurs = [];
@@ -9,8 +13,7 @@ require_once '../modeles/modele.php';
 
             ){
                 
-                verifUtilisateur();
-                if(verifUtilisateur()->rowcount() > 0){
+                if($utilisateur->rowcount() > 0){
                     $erreurs[]= "L'adresse mail saisie existe déjà";
                 }
 
@@ -29,7 +32,7 @@ require_once '../modeles/modele.php';
                             //on hash le mdp
                             $mdp = password_hash($mdp, PASSWORD_BCRYPT);
                             //insertion dans la base de donnée
-                            inscriptionUtilisateur($nom,$prenom,$email,$mdp);
+                            $u->inscriptionUtilisateur($nom,$prenom,$email,$mdp);
                             header("location:../membres/inscription.php?success=1&nom=".$nom);
                         }catch(Exception $e){
                             //un problème s'est produit lors de l'insertion en bdd

@@ -2,8 +2,9 @@
 require_once 'entete.php';
 ?>
 <?php
+$BibliAudio=new Bibliotheque();
 try{
-$livresAudio = selectBibliaudio();
+$livresAudio = $BibliAudio->getBibliAudio();
 }catch (Exception $e){
     ?><div class="alert alert-danger"> Erreur lors de la récupération des livres audio</div>
     <?php

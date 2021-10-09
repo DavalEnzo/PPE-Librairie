@@ -1,21 +1,24 @@
 <?php
-require_once "entete.php";
+
 
 if(isset($_GET["success"])&& $_GET['success'] == 1 ){
+    header("refresh:3;index.php");  
+    require_once "entete.php";
     ?>
         <div class="alert alert-success">
             Bienvenue dans la librairie Mr/Mme <?=$_GET['nom'];?> , votre inscription a été complétée.<br>
             <a href="index.php">Retour à l'accueil</a> 
         </div>
       <?php
-      header("refresh:3;index.php");  
   }else if(isset($_GET["success"])&& $_GET['success'] == 0 ){
+      require_once 'entete.php';
       ?>
           <div class="alert alert-danger">
                         Erreur: <?= $_GET['erreurs'];?>
             </div>
       <?php
-  }
+  }else{
+    require_once 'entete.php';
     ?>
     <div class="container my-3">
     <div class="rounded" style="background-color: white; width:50%; margin:auto; padding: 1% 2% 2% 2%;box-shadow: 1px 1px 10px black;">
@@ -39,6 +42,15 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                 <label for="mdp">Mot de passe</label>
                 <input type="password" class ="form-control" style="border-radius: 20px;" name="mdp" id="mdp" placeholder="Saisissez votre mot de passe" value="<?=(isset($_POST["mdp"]) ? $_POST["mdp"] : "");?>"/>
             </div>
+
+            <div class="form-check checkbox1">
+        <input class="form-check-input" type="checkbox" value="1" id="consentement" name="consentement" required>
+        <label class="form-check-label" for="consentement">
+        En cochant cette case, vous consentez au traitement de vos informations 
+        personnelles comme expliqué dans les <a href="mentionsLegales.php">Mentions Légales</a>.
+        </label>
+        </div>
+
         
             
         <div class="text-center my-2">
@@ -47,3 +59,5 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         </form>
     </div>
     </div>
+    <?php
+  }

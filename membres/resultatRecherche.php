@@ -11,7 +11,7 @@ if(isset($_GET['recherche']) && !empty($_GET['recherche'])){
         <?php
     }
 }else{
-    header('location:index.php');
+    header('Location:index.php');
 }
 ?>
 <?php
