@@ -1,6 +1,9 @@
 <?php
 require_once("entete.php");
 
+
+
+
 if(isset($_GET["idLivre"]) &&!empty($_GET['idLivre'])){
         $idLivre = $_GET["idLivre"];
         $Bibli = new Bibliotheque($idLivre);
@@ -18,7 +21,7 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
         $com = new Commentaire($idLivre);
         $com->insertCom($contenu,$idLivre,$idUtilisateur);
         ?>
-        <div class="alert alert-success mt-3">Le formulaire a bien été enregistrer</div>
+        <div class="alert alert-success mt-3">Le commentaire a bien été enregistré</div>
         <?php
 
         }catch(Exception $e){
@@ -27,9 +30,19 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
         }  
 };
 
+if(isset($_GET["success"])&& $_GET['success'] == 1 ){
+    ?>
+      <div class="alert alert-success mt-3">Le livre <strong>"<?=$livres["Titre"]?>"</strong> a bien été ajouté dans votre panier, vous pouvez le consulter <a href="panier.php"><strong>ici</strong></a></div>
+      <?php 
+  }else if(isset($_GET["success"])&& $_GET['success'] == 0 ){
+      ?>
+      <div class="alert alert-danger">Le livre n'a pas pu être ajouté à votre panier</div>
+      <?php
+  }
+
 ?>
 
-        <div class="container  d-flex justify-content-center" >
+        <div class="container  d-flex justify-content-center my-2" >
             <div class="card mb-3" >
                 <div class="row g-0">
                     <div class="col-md-4">
@@ -46,7 +59,7 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
                             <?php
                         }else{
                             ?>
-                            <a href="panier.php" class="btn btn-primary">Ajouter au panier</a>
+                            <a type="submit" href="../traitement/ajoutPanier.php?id=<?=$idLivre?>" class="btn btn-primary">Ajouter au panier</a>
                             <?php
                         }
                             ?>

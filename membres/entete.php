@@ -1,5 +1,6 @@
 <?php 
 require_once '../modeles/modele.php';
+
 ?> 
 <!DOCTYPE html>
 <html lang="fr">
@@ -61,10 +62,18 @@ require_once '../modeles/modele.php';
           <li class="nav-item">
               <a class="btn btn-success btn" href="ajoutLivre.php">Ajouter livre</a>
             </li></ul>
+            <?php
+            ?>
           <form method="POST" action="../traitement/deconnexion.php?email=<?=$_SESSION['email']?>">
           <button type="submit" name="deco" class="btn btn-danger" style="margin-left: 5%;" value="1">Déconnexion</button>
         </form>
         <?php 
+            if (isset($_SESSION['idPanier']) && !empty($_SESSION['idPanier'])) {
+              
+            ?>
+              <a href="panier.php" style="width: 3%;"><img style="width: 125%; margin-left:65%" src="https://cdn0.iconfinder.com/data/icons/minimal-set-seven/32/minimal-49-512.png" alt=""></a>
+              <?php
+            }
         }else{
           ?>
         <ul class="navbar-nav">

@@ -14,3 +14,6 @@ require_once 'commentaire.php';
 require_once 'Genre.php';
 require_once 'Editeur.php';
 require_once 'lectures.php';
+require_once '../modeles/Panier.php';
+require_once 'Stockage.php';
+require_once 'utilisateur.php';

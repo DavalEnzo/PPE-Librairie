@@ -5,15 +5,11 @@
         
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>	
     	
-<<<<<<< HEAD
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="style.css">
 
       </body>
-=======
-</body>
->>>>>>> 693b967291d3f1f6330de97b9f2d267896161081
 
 
 <footer class="bg-dark text-center text-white">
