@@ -3,6 +3,7 @@ class Editeur extends Modele
 {
     private $recupLEditeur;
     private $SelectEditeur;
+    
     public function __construct($idEditeur = null)
     {
         if($idEditeur != null)

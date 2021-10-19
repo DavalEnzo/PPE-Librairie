@@ -4,10 +4,6 @@ class Panier extends Modele{
 
     private $panier;
 
-    private $idLivres;
-
-    private $idPanier;
-
     public function __construct($idpanier = null, $idutilisateur = null)
     {
     

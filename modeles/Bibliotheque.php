@@ -1,13 +1,6 @@
 <?php
 class Bibliotheque extends Modele 
 {
-private $titre;
-private $droit;
-private $check;
-private $genres;
-private $photo;
-private $prix;
-private $date;
 
 private $Bibli;
 

@@ -20,7 +20,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
       ?>      
     <div class="container my-5">
     <div class="rounded" style="background-color: white; width:50%; margin:auto; padding:2%; box-shadow: 1px 1px 10px black;">
-    <h1>Formulaire de connexion</h1>
+    <h1>Se connecter</h1>
     <form method="post" action="../traitement/connexions.php">
         <div class="form-group rounded">
             <label for="email">Adresse Mail</label>

@@ -2,9 +2,6 @@
 
 class Auteur extends Modele
 {
-    private $idAuteur;
-    private $auteur;
-    private $a;
     private $toutAuteur;
 
    public function __construct($idAuteur=null)
