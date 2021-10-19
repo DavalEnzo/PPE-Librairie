@@ -42,7 +42,9 @@ $livres = $Bibli->getBibli();
                                     foreach($livres as $livre){
                                       ?>
                                       <div class="slider_items">
+                                        <a href="pageProduit.php?idLivre=<?=$livre["idLivre"]?>">
                                           <img class="imgslide mx-1" src="<?=$livre["Photo"]?>" >
+                                          </a>
                                       </div>
                                       <?php
                                     }
