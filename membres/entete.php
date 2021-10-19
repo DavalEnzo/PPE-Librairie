@@ -50,11 +50,16 @@ require_once '../modeles/modele.php';
         <?php 
         if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
           ?>
+          <?php
+          if(isset($_SESSION['idPermission']) && $_SESSION['idPermission'] == 1){
+          ?>
           <li class="nav-item">
               <a class="btn btn-success btn" href="ajoutLivre.php">Ajouter livre</a>
-            </li></ul>
+            </li>
             <?php
-            ?>
+          }
+          ?>
+          </ul>
           <form method="POST" action="../traitement/deconnexion.php?email=<?=$_SESSION['email']?>">
           <button type="submit" name="deco" class="btn btn-danger" style="margin-left: 5%;" value="1">Déconnexion</button>
         </form>

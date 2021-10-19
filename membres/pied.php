@@ -1,15 +1,15 @@
 
 		<script type="text/javascript" src="script.js"></script>
-  
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>	
-    	
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-        <link rel="stylesheet" href="style.css">
-
-      </body>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>	
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="style.css">
+    
+  </body>
 
 
 <footer class="bg-dark text-center text-white">
@@ -39,8 +39,8 @@
     </section>
     <section class="mb-4">
       <p>
-      Nous sommes un groupe aux valeurs de la mère patrie, nous vous patageons des livre libre de droit dans la langues de molière dans le but d'embellir vos journée d'une petite lecture au coin du feu.
-      Dans le respect des lois anti-social des gouvernements capitaliste légal et pratique pour petits et grands.
+      Nous sommes une petite librairie située dans les Yvelines, nous vous patageons des livre libres de droit dans la langues de molière dans le but d'embellir vos journée d'une petite lecture au coin du feu.
+      Cette librairie contient des livres pour petits et grands.
       Amusez vous et découvrez toutes nos offres!
       </p>
     </section>

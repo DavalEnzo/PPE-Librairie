@@ -3,10 +3,20 @@ require_once "entete.php";
 $aut = new Auteur();
 $Bibli = new Bibliotheque();
 $G = new Genre();
+$E = new Editeur();
 ?>
 <?php
 try {
     $genres = $G->getGenre();
+} catch (Exception $e) {
+    ?>
+    <div class="alert alert-danger">
+        Erreur lors de la récupération des genres
+    </div>
+    <?php
+}
+try {
+    $editeurs = $E->getSEditeur();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">
@@ -95,6 +105,25 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     }
     ?>
                 </select>
+    </div>
+
+    <div class="form-group">
+            <label for="auteurs">Si l'éditeur est déjà dans la base de données</label>
+                <select name="editeurs" id="editeurs" class="form-control">
+                    ?>
+                    <option value="0">Pas dans la base de données</option>
+                    <?php
+    foreach ($editeurs as $editeur) {
+        ?>
+                            <option
+                            value="<?=$editeur["idEditeur"];?>">
+                            <?=$editeur["nom"];?>
+                            </option>
+                            <?php
+    }
+    ?>
+                </select>
+    </div>
     <div class="form-group">
             <label for="genre">Genre de l'oeuvre</label>
                 <select name="genre" id="genre" class="form-control">

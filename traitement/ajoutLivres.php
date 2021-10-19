@@ -19,6 +19,13 @@ isset($_POST['genre']) && !empty($_POST['genre']))
 
         $titre = $_POST['titre'];
         $auteur = $_POST['auteur'];
+
+        if(isset($_POST['editeur']) && !empty($_POST['editeur'])){
+            $editeur = $_POST['editeur'];
+        }else{
+            $editeur = $_POST['editeurs'];
+        }
+
         $editeur = $_POST['editeur'];
         $date = $_POST['date'];
         $prix = $_POST['prix'];

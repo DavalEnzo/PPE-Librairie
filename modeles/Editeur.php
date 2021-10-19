@@ -7,7 +7,7 @@ class Editeur extends Modele
     {
         if($idEditeur != null)
         {
-            $requete=$this->getBdd()->prepare('SELECT * FROM editeurs INNER JOIN bibliotheque USING (idEditeur) INNER JOIN genres USING (idGenre) WHERE idEditeur = ?');
+            $requete=$this->getBdd()->prepare('SELECT * FROM editeurs INNER JOIN bibliotheque USING (idEditeur) WHERE idEditeur = ?');
             $requete->execute([$idEditeur]);
             $recupLEditeur =  $requete->fetchAll(PDO::FETCH_ASSOC);
 

@@ -5,20 +5,19 @@ if(isset($_GET['idEditeur']) && !empty($_GET['idEditeur'])){
 }
 $e=new Editeur($idEditeur);
 $editeurs=$e->getLEditeur();
-$nom=$e->getLEditeur();
 
 if(count($editeurs)!=0){
 ?>
 <div class="alert alert-info">
 <?php
-foreach($nom as $n){}
+foreach($editeurs as $e){}
  if(count($editeurs)<2){
      ?>
-     L'éditeur <?=$n['nom'];?> possède <?=count($editeurs);?> livre.
+     L'éditeur <?=$e['nom'];?> possède <?=count($editeurs);?> livre.
      <?php
  }else{
      ?>
-     L'éditeur <?=$n['nom'];?> possède <?=count($editeurs);?> livres.
+     L'éditeur <?=$e['nom'];?> possède <?=count($editeurs);?> livres.
      <?php
  }
 ?>
