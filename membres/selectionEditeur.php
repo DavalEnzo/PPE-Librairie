@@ -45,12 +45,12 @@ foreach($editeurs as $e){}
                 <?php
                 if($editeur['Prix']== 0.00){
                     ?>
-                    <p>Libre de droit</p>
+                    <p><strong>Libre de droit</strong></p>
                 <?php
                 }else{
                     ?>
                     
-                <p class="card-text"><?=$editeur["Prix"]?> €</p>
+                <p class="card-text"><strong><?=$editeur["Prix"]?> €</strong></p>
              <?php 
                }
              ?>

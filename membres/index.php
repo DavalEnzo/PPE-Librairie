@@ -87,12 +87,12 @@ $livres = $Bibli->getBibli();
                     <?php
                     if($newLivre['Prix']== 0.00){
                         ?>
-                        <p>Libre de droit</p>
+                        <p><strong>Libre de droit</strong></p>
                     <?php
                     }else{
                         ?>
                         
-                        <p class="card-text"><?=$newLivre["Prix"]?> €</p>
+                        <p class="card-text"><strong><?=$newLivre["Prix"]?> €</strong></p>
                 <?php 
                   }
                 ?>

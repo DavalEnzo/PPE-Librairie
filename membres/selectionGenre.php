@@ -37,12 +37,12 @@ foreach($livres as $livre){
                 <?php
                 if($livre['Prix']== 0.00){
                     ?>
-                    <p>Libre de droit</p>
+                    <p><strong>Libre de droit</strong></p>
                 <?php
                 }else{
                     ?>
                     
-                <p class="card-text"><?=$livre["Prix"]?> €</p>
+                <p class="card-text"><strong><?=$livre["Prix"]?> €</strong></p>
              <?php 
                }
              ?>

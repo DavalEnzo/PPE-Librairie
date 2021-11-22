@@ -9,7 +9,7 @@ require_once '../modeles/modele.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
     <link rel="stylesheet" type="text/css" href="css/all.min.css"/>
@@ -59,6 +59,9 @@ require_once '../modeles/modele.php';
             <?php
           }
           ?>
+          <li class="nav-item">
+              <a href="modifierProfil.php" style="text-decoration: none; color:white;"></a>
+            </li>
           </ul>
           <form method="POST" action="../traitement/deconnexion.php?email=<?=$_SESSION['email']?>">
           <button type="submit" name="deco" class="btn btn-danger" style="margin-left: 5%;" value="1">Déconnexion</button>
@@ -84,6 +87,22 @@ require_once '../modeles/modele.php';
         ?>
 
     </div>
+    <?php 
+    if(isset($_SESSION['idUtilisateur']) && !empty ($_SESSION['idUtilisateur'])){
+      ?>
+      <div class="btn-group" style="margin-left: 1%;">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Mr/Mme <?=$_SESSION['nomSimple'];?>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="profile.php?id=<?=$_SESSION['idUtilisateur'];?>">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Commandes</a></li>
+          <li><a class="dropdown-item" href="#">Gestion du compte</a></li>
+        </ul>
+      </div>
+      <?php
+    }
+    ?>
       <form class="d-flex mb-lg-0 collapse navbar-collapse" style="width: auto; margin-left:2%" action="resultatRecherche.php">
         <input class="form-control me-1" type="search" placeholder="Rechercher un livre" aria-label="Rechercher" id="recherche" name="recherche">
         <button class="btn btn-light" type="submit">Rechercher</button>

@@ -1,6 +1,4 @@
 <?php 
-
-
 if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         header("Refresh:3;index.php");
         require_once 'entete.php';
@@ -17,7 +15,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         <?php
     }else{
         require_once 'entete.php';
-      ?>      
+      ?>
+      
     <div class="container my-5">
     <div class="rounded" style="background-color: white; width:50%; margin:auto; padding:2%; box-shadow: 1px 1px 10px black;">
     <h1>Se connecter</h1>

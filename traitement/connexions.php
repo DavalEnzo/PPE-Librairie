@@ -20,7 +20,7 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
   
     // Si on a pas d'erreurs à ce stade, on va commencer les vérification dans la bdd
     if (count($erreurs) == 0) {
-        $requete=$connexion = $u->connexion([$email]);;
+        $requete=$connexion = $u->connexion([$email]);
         
         // Vérification si l'email n'existe pas en regardant le nombre de lignes retournées par la requête
         if ($requete->rowCount() > 0) {
@@ -45,6 +45,10 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
         $_SESSION["idUtilisateur"] = $utilisateur["idUtilisateur"];
         $_SESSION["email"] = $utilisateur["email"];
         $_SESSION["idPermission"] = $utilisateur["idPermission"];
+        $_SESSION["photoProfile"] = $utilisateur["photoProfile"];
+        $_SESSION['nom'] = $utilisateur['prenom'].' '.$utilisateur['nom'];
+        $_SESSION['nomSimple'] = $utilisateur['nom'];
+        $_SESSION['prenom'] = $utilisateur['prenom'];
         $recupPanier=$u->userPanier($utilisateur['idUtilisateur']);
 
         if($recupPanier->rowCount() != 0){

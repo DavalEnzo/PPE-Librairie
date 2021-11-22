@@ -40,7 +40,7 @@ foreach($resultats as $resultat){
       <?php
         if($resultat['Prix']== 0.00){
             ?>
-            <p>Libre de droit</p>
+            <p><strong>Libre de droit</strong></p>
         <?php
         }else{
             ?>
