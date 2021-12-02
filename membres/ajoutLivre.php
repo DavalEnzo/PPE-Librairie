@@ -60,38 +60,38 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
 <h1 class="text-center" style="padding-top: 2%;">Ajout d'un nouveau produit</h1>
 <form method="post" class="form" action="../traitement/ajoutLivres.php"> 
 
-    <div class="form-group">
+    <div class="form-group mt-1">
         <label for="photo">Photo</label>
         <input type="text" class="form-control w-100" name="photo" id="photo" placeholder="Entrez le lien de l'image">
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-1">
         <label for="auteur">Auteur (ne rien écrire si le/les auteur(s) est/sont déjà dans la base de données)</label>
         <input type="text" class="form-control" name="auteur" placeholder="Saisissez l'auteur du livre">
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-1">
         <label for="titre">Titre</label>
         <input type="text" class="form-control" name="titre" placeholder="Saisissez le titre du livre">
     </div>
-    <div class="form-group">
-        <label for="editeur">Editeur</label>
+    <div class="form-group mt-1">
+        <label for="editeur">Editeur (ne rien écrire si le/les editeur(s) est/sont déjà dans la base de données)</label>
         <input type="text" class="form-control" name="editeur" placeholder="Saisissez l'éditeur du livre">
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-1">
         <label for="date">Date de parution</label>
         <input type="text" class="form-control" name="date" placeholder="Saisissez la date de sortie du livre (jj-mm-aaaa)">
     </div>
 
-    <div class="form-group">
-        <label for="prix">Prix</label>
-        <input type="number" class="form-control" name="prix" placeholder="Saisissez le prix du livre" step="0.01" value="0.00">
-        <br>
+    <div class="form-group mt-1">
+        <label for="prixAjout">Prix</label>
+        <input type="number" class="form-control" id="prixAjout" name="prix" oninput="isNumerique()" min="0.00" placeholder="Saisissez le prix du livre" step="0.01" value="0.00">
     </div>    
-    <div class="form-group">
-            <label for="auteurs">Si le ou les auteur(s) est/sont déjà dans la base de données</label>
-                <select name="auteurs" id="auteurs" class="form-control">
+
+    <div class="form-group mt-1">
+        <label for="auteurs">Si le ou les auteur(s) est/sont déjà dans la base de données</label>
+        <select name="auteurs" id="auteurs" class="form-control">
                     ?>
                     <option value="0">Pas dans la base de données</option>
                     <?php
@@ -100,15 +100,15 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                             <option
                             value="<?=$a["idAuteur"];?>">
                             <?=$a["nom"];?>
-                            </option>
-                            <?php
+                        </option>
+                        <?php
     }
     ?>
                 </select>
-    </div>
-
-    <div class="form-group">
-            <label for="auteurs">Si l'éditeur est déjà dans la base de données</label>
+            </div>
+            
+            <div class="form-group mt-1">
+                <label for="auteurs">Si l'éditeur est déjà dans la base de données</label>
                 <select name="editeurs" id="editeurs" class="form-control">
                     ?>
                     <option value="0">Pas dans la base de données</option>
@@ -118,14 +118,14 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                             <option
                             value="<?=$editeur["idEditeur"];?>">
                             <?=$editeur["nom"];?>
-                            </option>
-                            <?php
+                        </option>
+                        <?php
     }
     ?>
                 </select>
-    </div>
-    <div class="form-group">
-            <label for="genre">Genre de l'oeuvre</label>
+            </div>
+            <div class="form-group mt-1">
+                <label for="genre">Genre de l'oeuvre</label>
                 <select name="genre" id="genre" class="form-control">
                     <?php
     foreach ($genres as $genre) {
@@ -133,22 +133,26 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                             <option
                             value="<?=$genre["idGenre"];?>">
                             <?=$genre["nomGenre"];?>
-                            </option>
-                            <?php
+                        </option>
+                        <?php
     }
     ?>
                 </select>
-        <div class="form-check" style="margin-left: 43%; margin-top: 2%;">
-        <input class="form-check-input" type="checkbox" value="1" id="audio" name="audio">
-        <label class="form-check-label" for="audio">
-        Est-ce un livre audio ?
-        </label>
-        </div>
 
-    <div class="form-group text-center">
-        <button type="submit" class="btn btn-primary my-4">Ajouter le livre</button>
-    </div>
-
-
+                <div class="form-group" id="numerique">
+                                <label for="numerique">Entrez le pdf du livre numérique</label>
+                                <input type="file" class="form-control" id="inputGroupFile01" onchange="isNumerique()" name="numerique">
+                            </div>  
+                
+                <div class="form-group mt-1 text-center">
+                    <button type="submit" class="btn btn-primary my-4">Ajouter le livre</button>
+                </div>
+                
+                
             </div>
-</form>
+        </form>
+    </div>
+    
+    <?php
+
+require_once 'pied.php';

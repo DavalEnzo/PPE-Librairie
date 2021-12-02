@@ -89,7 +89,8 @@ require_once '../modeles/modele.php';
         Mr/Mme <?=$_SESSION['nomSimple'];?>
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="profile.php?id=<?=$_SESSION['idUtilisateur'];?>">Profile</a></li>
+          <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+          <li><a class="dropdown-item" href="mesCommentaires.php">Commentaires</a></li>
           <li><a class="dropdown-item" href="#">Commandes</a></li>
           <li><a class="dropdown-item" href="#">Gestion du compte</a></li>
         </ul>

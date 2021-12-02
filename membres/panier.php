@@ -36,10 +36,11 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
             <img src="<?=$panier['Photo'];?>" style="max-height: 200px;" class="rounded-start" alt="...">
           </div>
           <div class="col-md-10" style="margin-left: 2%;">
-            <div class="card-body">
+            <div class="card-body" style="margin-left: 5%;">
               <h5 class="card-title"><?=$panier['Titre'];?></h5>
-              <h5 class="card-subtitle mb-2 text-muted"><?=$panier['nomEditeur'];?></h5>
+              <h5 class="card-subtitle text-muted"><?=$panier['nomEditeur'];?></h5>
               <p class="card-text">Prix : <?=$panier['Prix'];?>€</p>
+              <p class="card-text">Quantité : <?=$panier['quantite'];?></p>
               <a type="submit" href="../traitement/suppressionArticlePanier.php?idStockage=<?=$panier['idStockage']?>" class="btn btn-danger" style="margin-left:80%; margin-top:4%">Supprimer l'article</a>
             </div>
           </div>

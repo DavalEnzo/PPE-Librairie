@@ -8,8 +8,7 @@ class Panier extends Modele{
     {
     
         if($idpanier != null && $idutilisateur != null){
-            $requete = $this->getBdd()->prepare('SELECT *, editeurs.nom as nomEditeur FROM paniers INNER JOIN stockage USING (idPanier) INNER JOIN bibliotheque ON stockage.idLivre = bibliotheque.idLivre INNER JOIN editeurs ON bibliotheque.idEditeur = editeurs.idEditeur INNER JOIN utilisateurs USING (idUtilisateur) WHERE idPanier = ? AND idUtilisateur = ?
-            ');
+            $requete = $this->getBdd()->prepare('CALL select_panier(?,?)');
             $requete->execute([$idpanier,$idutilisateur]);
 
             $panier = $requete->fetchAll(PDO::FETCH_ASSOC);
