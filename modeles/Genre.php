@@ -14,7 +14,7 @@ class Genre extends Modele{
     public function __construct($idGenre=null)
     {
         if($idGenre!=null){
-        $requete=$this->getBdd()->prepare('SELECT * FROM genres INNER JOIN bibliotheque USING(idGenre) LEFT JOIN ecrit USING(idLivre) WHERE idGenre = ?');
+        $requete=$this->getBdd()->prepare('CALL select_genre_with_livre_and_auteur(?)');
         $requete->execute([$idGenre]);  
         $genre= $requete->fetchAll(PDO::FETCH_ASSOC);
 

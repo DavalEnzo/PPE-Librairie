@@ -10,15 +10,30 @@ if(isset($_GET['id']) && !empty($_GET['id']) && isset($_SESSION['idUtilisateur']
 
             $panier = $_SESSION['idPanier'];
 
-            $stocker->insertStockage($panier, $idLivre);
+            $recupQuantite = $stocker->verifQuantite($panier, $idLivre);
 
-            header('location:../membres/pageProduit.php?idLivre='.$_GET['id'].'&success=1');
+            $quantite = $recupQuantite['quantite'];
+
+            if($quantite >= 1){
+
+                $quantite++;
+
+                $stocker->modifQuantite($quantite, $panier, $idLivre);
+                header('location:../membres/pageProduit.php?idLivre='.$_GET['id'].'&success=1');
+            }else if($quantite == null){
+                $quantite = 1;
+                $stocker->insertStockage($panier, $idLivre, $quantite);
+                header('location:../membres/pageProduit.php?idLivre='.$_GET['id'].'&success=1');
+            }     
+
         }catch(Exception $e){
             header('location:../membres/pageProduit.php?idLivre='.$_GET['id'].'&success=0');
         }
     }else if(!isset($_SESSION['idPanier']) && empty($_SESSION['idPanier'])){
 
         $stocker = new Stockage();
+
+        $quantite = 1;
 
         $ajoutPanier = new Panier();
 
@@ -43,7 +58,7 @@ if(isset($_GET['id']) && !empty($_GET['id']) && isset($_SESSION['idUtilisateur']
 
             $idLivre = $_GET['id'];
 
-            $stocker->insertStockage($_SESSION['idPanier'], $idLivre);
+            $stocker->insertStockage($_SESSION['idPanier'], $idLivre, $quantite);
 
             header('location:../membres/pageProduit.php?idLivre='.$_GET['id'].'&success=1');
 

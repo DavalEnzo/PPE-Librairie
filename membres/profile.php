@@ -1,13 +1,7 @@
 
 <?php
-if(isset($_GET['id']) && !empty($_GET['id'])){
-?>
-
-<?php require_once 'entete.php';
-?>
-
-<?php
     if(isset($_GET['success']) && !empty($_GET['success'])){
+        require_once 'entete.php';
         if($_GET['success'] == 1){
             ?>
             <div class="alert alert-success">Les modifications ont bien été enregistrées !
@@ -49,6 +43,10 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
     }
 ?>
 
+<?php 
+require_once 'entete.php';
+if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
+?>
 <div class="container my-5">
     <div class="rounded" style="background-color: white; padding: 1% 2% 2% 2%;box-shadow: 1px 1px 5px black;">
         <h1 class="text-center my-3">Profile de <?=$_SESSION['nom'];?></h1>
@@ -95,5 +93,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
 <?php 
 
 }else{
-    header("location:index.php");
+    ?>
+    <div style="margin-top:12%; margin-left:18%; width:60%; padding: 2%;" class="alert alert-danger text-center">Vous ne pouvez pas accéder à votre profile sans être connecté, veuillez <strong><a href="index.php">Retourner à l'accueil.</a></strong></div>;
+<?php
 }

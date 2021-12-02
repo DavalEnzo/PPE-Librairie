@@ -10,6 +10,9 @@
     foreach($commentaires as $commentaire){
         $date = $commentaire['date_heure'];
         $dateFormatee = date('d-m-Y H:i:s', strtotime($date));
+
+        $dateSeulement = substr($dateFormatee, 0, -9);
+        $heureSeulement = substr($dateFormatee, -8);
         ?>
 
     <div class="container roundedBorders my-3" style="width: 60%;">
@@ -64,13 +67,13 @@
                         ?>
                     </div>
                     <div class="col-md-6" style="text-align: right;" >
-                        <span>Publier le : <?=$commentaire['date_heure']?></span>
+                        <span>Publié le : <?=$dateSeulement;?> à <?=$heureSeulement;?> sur le livre <a href="pageProduit.php?idLivre=<?=$commentaire['idLivre'];?>"><strong><?=$commentaire['Titre'];?></strong></a></span>
                     </div>
                      <?php
                 }else{
                     ?>
                     <div class="col-md-12" style="margin-left:auto" >
-                        <p>Publié le : <?=$dateFormatee;?> sur le livre <a href="pageProduit.php?idLivre=<?=$commentaire['idLivre'];?>"><strong><?=$commentaire['Titre'];?></strong></a></p>
+                        <p>Publié le : <?=$dateSeulement;?> à <?=$heureSeulement;?> sur le livre <a href="pageProduit.php?idLivre=<?=$commentaire['idLivre'];?>"><strong><?=$commentaire['Titre'];?></strong></a></p>
                     </div>
                     <?php
                     }

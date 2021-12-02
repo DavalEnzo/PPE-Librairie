@@ -1,9 +1,6 @@
 <?php
 require_once("entete.php");
 
-
-
-
 if(isset($_GET["idLivre"]) &&!empty($_GET['idLivre'])){
         $idLivre = $_GET["idLivre"];
         $Bibli = new Bibliotheque($idLivre);
@@ -53,7 +50,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                             <h5 class="card-title"><?=$livres["Titre"]?></h5>
                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 <?php       
-    if($livres["droit"] == 2 ){
+    if($livres["droit"] == 1 ){
         ?>
                             <a href="lecture.php?id=<?=$idLivre?>" class="btn btn-primary">Lecture libre de droit</a>
                             <?php
@@ -69,19 +66,28 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
             </div>
         </div>
         </br>
-    <div class="container">
-        <form method="post">
-            
-            <div class="form-group">
-                <label for="contenu">Commenter le produit</label>
-                <textarea class ="form-control" name="contenu" id="contenu" placeholder="Saisisser le contenu de votre post" rows="3"></textarea>
-            </div>    
-        <div class="form-group text-center my-3">
-            <button type="submit" class="btn btn-primary">Ajouter le Commentaire</button>
-        </div>
-        </form>
-    </div>
-    <?php
+        <?php 
+        
+        if(isset($_SESSION) && !empty($_SESSION)){
+            ?>
+            <div class="container">
+                <form method="post">
+                    
+                    <div class="form-group">
+                        <label for="contenu">Commenter le produit</label>
+                        <textarea class ="form-control" name="contenu" id="contenu" placeholder="Saisisser le contenu de votre post" rows="3"></textarea>
+                    </div>    
+                <div class="form-group text-center my-3">
+                    <button type="submit" class="btn btn-primary">Ajouter le Commentaire</button>
+                </div>
+                </form>
+            </div>
+            <?php
+        }else{
+            ?>
+            <div style="margin-left: 25%;" class="alert alert-danger w-50 text-center">Vous devez être connecté pour pouvoir commenter un livre</div>
+            <?php
+        }
     
     $com = new Commentaire($idLivre);
     $commentaires = $com->getCom();
