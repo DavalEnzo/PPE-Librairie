@@ -48,9 +48,6 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
     <?php
 
     }
-    ?>
-    <div class="roundedBorders" style="width: 10%; padding:0.8%; margin-left:72%; margin-top:auto">Prix Total : <?=$total;?>€</div>
-    <?php
      }else{
          ?>        
     <div class="alert alert-danger container text-center" style="margin-top: 15%;">Vous n'avez pas encore ajouté de livres dans votre panier</div>

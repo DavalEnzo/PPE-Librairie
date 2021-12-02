@@ -64,15 +64,9 @@ require_once '../modeles/modele.php';
             </li>
           </ul>
           <form method="POST" action="../traitement/deconnexion.php?email=<?=$_SESSION['email']?>">
-          <button type="submit" name="deco" class="btn btn-danger" style="margin-left: 5%;" value="1">Déconnexion</button>
+          <button type="submit" name="deco" class="btn btn-danger" value="1">Déconnexion</button>
         </form>
-        <?php 
-            if (isset($_SESSION['idPanier']) && !empty($_SESSION['idPanier'])) {
-              
-            ?>
-              <a href="panier.php" style="width: 3%;"><img style="width: 125%; margin-left:65%" src="https://cdn0.iconfinder.com/data/icons/minimal-set-seven/32/minimal-49-512.png" alt=""></a>
-              <?php
-            }
+        <?php
         }else{
           ?>
         <ul class="navbar-nav">
@@ -90,7 +84,7 @@ require_once '../modeles/modele.php';
     <?php 
     if(isset($_SESSION['idUtilisateur']) && !empty ($_SESSION['idUtilisateur'])){
       ?>
-      <div class="btn-group" style="margin-left: 1%;">
+      <div class="btn-group" style="margin-left: 0.7%;">
         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         Mr/Mme <?=$_SESSION['nomSimple'];?>
         </button>
@@ -102,8 +96,15 @@ require_once '../modeles/modele.php';
       </div>
       <?php
     }
+    if (isset($_SESSION['idPanier']) && !empty($_SESSION['idPanier'])) {
+              
+      ?>
+        <a href="panier.php" class="btn-sm btn-light" style="width: 2.9%; margin-left:0.7%;  margin-right:0.7%;"><img style="width: 80%;" src="https://cdn0.iconfinder.com/data/icons/minimal-set-seven/32/minimal-49-512.png" alt=""></a>
+        <?php
+      }
+
     ?>
-      <form class="d-flex mb-lg-0 collapse navbar-collapse" style="width: auto; margin-left:2%" action="resultatRecherche.php">
+      <form class="d-flex mb-lg-0 collapse navbar-collapse" style="width:auto; margin-left:0.7%" action="resultatRecherche.php">
         <input class="form-control me-1" type="search" placeholder="Rechercher un livre" aria-label="Rechercher" id="recherche" name="recherche">
         <button class="btn btn-light" type="submit">Rechercher</button>
       </form>
