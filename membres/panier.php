@@ -28,12 +28,12 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
     <?php
     $total = 0;
      foreach($recupPanier as $panier){
-         $total += $panier['Prix'];
+         $total += $panier['Prix'] * $panier['quantite'];
          ?>
-        <div class="card mb-3 my-3 container" style="max-width: 1200px; height: 200px;">
+        <div class="card mb-3 my-3 container" style="max-width: 1400px; height: 230px;">
         <div class="row g-0">
           <div class="col-md-1">
-            <img src="<?=$panier['Photo'];?>" style="max-height: 200px;" class="rounded-start" alt="...">
+            <img src="<?=$panier['Photo'];?>" style="max-height: 228px;" class="rounded-start" alt="...">
           </div>
           <div class="col-md-10" style="margin-left: 2%;">
             <div class="card-body" style="margin-left: 5%;">
@@ -41,14 +41,18 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
               <h5 class="card-subtitle text-muted"><?=$panier['nomEditeur'];?></h5>
               <p class="card-text">Prix : <?=$panier['Prix'];?>€</p>
               <p class="card-text">Quantité : <?=$panier['quantite'];?></p>
-              <a type="submit" href="../traitement/suppressionArticlePanier.php?idStockage=<?=$panier['idStockage']?>" class="btn btn-danger" style="margin-left:80%; margin-top:4%">Supprimer l'article</a>
+              <p class="card-text">Prix avec quantité : <?=$panier['quantite'] * $panier['Prix'];?> €</p>
+              <a type="submit" href="../traitement/suppressionArticlePanier.php?idStockage=<?=$panier['idStockage']?>" style="margin-left: 85%;" class="btn btn-danger">Supprimer l'article</a>
             </div>
           </div>
         </div>
     </div>
-    <?php
 
-    }
+    <?php
+  }
+  ?>
+  <div class="roundedBorders" style="width: 10%; padding:0.8%; margin-left:72%; margin-top:auto">Prix Total : <?=$total;?>€</div>
+  <?php
      }else{
          ?>        
     <div class="alert alert-danger container text-center" style="margin-top: 15%;">Vous n'avez pas encore ajouté de livres dans votre panier</div>

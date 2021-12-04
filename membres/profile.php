@@ -52,7 +52,7 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
         <h1 class="text-center my-3">Profile de <?=$_SESSION['nom'];?></h1>
         <div>
             <div style="max-width:220px;display:inline-block;">
-                <div style="max-height:240px; width:100%">
+                <div style="max-height:240px; width:auto">
                     <img src="<?=$_SESSION['photoProfile'];?>" style="width: 100%; display:inline-block;" alt="">
                 </div>
                     <a href="../membres/mesCommentaires.php" type="button" class="btn btn-primary" style="max-height: 50px; display:inline-block; margin-left:2%; margin-bottom:5%; margin-top:15%; width:100%">Mes commentaires</a>

@@ -27,21 +27,27 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
 
             <div class="form-group">
                 <label for="nom">Nom</label>
-                <input type="text" class ="form-control" style="border-radius: 20px;" name="nom" id="nom" placeholder="Saisissez votre nom" value="<?=(isset($_POST["nom"]) ? $_POST["nom"] : "");?>"/>
+                <input type="text" class ="form-control" style="border-radius: 20px;" name="nom" id="nom" placeholder="Saisissez votre nom" value="<?=(isset($_POST["nom"]) ? $_POST["nom"] : "");?>"required/>
             </div>
             <div class="form-group">
                 <label for="prenom">Prénom</label>
-                <input type="text" class ="form-control" style="border-radius: 20px;" name="prenom" id="prenom" placeholder="Saisissez votre prénom" value="<?=(isset($_POST["prenom"]) ? $_POST["prenom"] : "");?>"/>
+                <input type="text" class ="form-control" style="border-radius: 20px;" name="prenom" id="prenom" placeholder="Saisissez votre prénom" value="<?=(isset($_POST["prenom"]) ? $_POST["prenom"] : "");?>" required/>
             </div>
             <div class="form-group">
                 <label for="email">Adresse Mail</label>
-                <input type="text" class ="form-control" style="border-radius: 20px;" name="email" id="email" placeholder="Saisissez votre email" value="<?=(isset($_POST["email"]) ? $_POST["email"] : "");?>"/>
+                <input type="email" class ="form-control" style="border-radius: 20px;" name="email" id="email" placeholder="Saisissez votre email" value="<?=(isset($_POST["email"]) ? $_POST["email"] : "");?>" required/>
             </div>
         
             <div class="form-group">
                 <label for="mdp">Mot de passe</label>
-                <input type="password" class ="form-control" style="border-radius: 20px;" name="mdp" id="mdp" placeholder="Saisissez votre mot de passe" value="<?=(isset($_POST["mdp"]) ? $_POST["mdp"] : "");?>"/>
+                <input type="password" class ="form-control" style="border-radius: 20px;" name="mdp" id="mdp" placeholder="Saisissez votre mot de passe" value="<?=(isset($_POST["mdp"]) ? $_POST["mdp"] : "");?>" required/>
             </div>
+
+            <div class="form-group">
+                <label for="mdp">Confirmation mot de passe</label>
+                <input type="password" class ="form-control" style="border-radius: 20px;" name="confirmMdp" id="confirmMdp" placeholder="Veuillez confirmer votre mot de passe" value="<?=(isset($_POST["confirmMdp"]) ? $_POST["confirmMdp"] : "");?>" required/>
+            </div>
+            <span id='message'></span>
 
             <div class="form-check checkbox1">
         <input class="form-check-input" type="checkbox" value="1" id="consentement" name="consentement" required>
@@ -54,10 +60,12 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         
             
         <div class="text-center my-2">
-        <button type="submit" class="btn-balayage" name="envoi" value ="1">Inscription</button>
+        <button type="submit" class="btn-balayage" id="envoi" name="envoi" value ="1">Inscription</button>
         </div>
         </form>
     </div>
     </div>
     <?php
+
+    require_once 'pied.php';
   }
