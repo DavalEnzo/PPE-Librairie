@@ -28,6 +28,16 @@ require_once '../modeles/modele.php';
   }elseif(isset($_POST["refusé"])){
     setcookie("consentement", 0,  time() + 60*60*25);
   }
+
+  if(isset($_COOKIE['souvenir']) && !empty($_COOKIE['souvenir'] && !isset($_SESSION['idUtilisateur']))){
+    $array = explode('-', $_COOKIE['souvenir']);
+
+    $id = $array[0];
+    $token = $array[1];
+
+    header('location:../traitement/connexionAuto.php?id='.$id.'&token='.$token);
+    
+  }
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">

@@ -49,6 +49,14 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
         $_SESSION['nom'] = $utilisateur['prenom'].' '.$utilisateur['nom'];
         $_SESSION['nomSimple'] = $utilisateur['nom'];
         $_SESSION['prenom'] = $utilisateur['prenom'];
+
+        if(isset($souvenir) && ($souvenir) == 1 )
+        {
+            $token = bin2hex(random_bytes(20));
+            $u->addToken($token,$utilisateur['idUtilisateur']);
+            setcookie('souvenir',$utilisateur['idUtilisateur']."-".$token,time() + (10 * 365 * 24 * 60 * 60), "/");
+        }
+
         $recupPanier=$u->userPanier($utilisateur['idUtilisateur']);
 
         if($recupPanier->rowCount() != 0){

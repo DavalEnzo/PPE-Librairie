@@ -52,4 +52,17 @@ class Utilisateur extends Modele{
         $requete->execute([$idUser]);
     }
     
+    public function fetchToken($idUser)
+    {
+        $requete = $this->getBdd()->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
+        $requete->execute([$idUser]);
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function addToken($token, $idUser)
+    {
+        $requete = $this->getBdd()->prepare("UPDATE utilisateurs SET token = ? WHERE idUtilisateur = ?");
+        $requete->execute([$token, $idUser]);
+    }
+    
 }
