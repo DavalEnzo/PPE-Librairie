@@ -33,6 +33,10 @@
                 <div class="alert alert-danger">La modification n'a pas pu être effectuée.<br>
                 Erreur: Le type de fichier n'a pas été reconnu.</div>
                 <?php
+            }else if($_GET['erreur'] == 6){
+                ?>        
+                <div class="alert alert-danger">L'email entré n'est pas valide, veuillez vérifier qu'il contient un '@' et un domaine (.com, .fr...).</div>
+                <?php
             }
         }else if($_GET['success'] == 3 ){
             ?>
@@ -74,7 +78,7 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
                 </div>
                 <div class="form-group">
                     <label for="email">Adresse Mail</label>
-                    <input type="text" class ="form-control" style="border-radius: 20px;" name="email" id="email" value="<?=$_SESSION['email'];?>"/>
+                    <input type="email" class ="form-control" style="border-radius: 20px;" name="email" id="email" value="<?=$_SESSION['email'];?>"/>
                 </div>
                 <div class="form-group mb-3 my-3">
                     <label for="photoProfile">Photo de profile</label>

@@ -10,7 +10,7 @@ class Utilisateur extends Modele{
     }
 
     public function inscriptionUtilisateur($nom,$prenom,$email,$mdp){
-        $requete = $this->getBdd()->prepare("INSERT INTO utilisateurs(nom,prenom,email,mdp) VALUES(?,?,?,?)");
+        $requete = $this->getBdd()->prepare("INSERT INTO utilisateurs(nom,prenom,email,mdp,dateMentionAcceptée) VALUES(?,?,?,?, NOW())");
         $requete->execute([$nom,$prenom,$email,$mdp]);
     }
 

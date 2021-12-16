@@ -50,6 +50,11 @@ if(isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["prenom"])
 
                 extract($_POST);
 
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $erreur = 6;
+                    header("location:../membres/profile?success=2&erreur=".$erreur);exit;
+                  }
+
                 $utilisateur->modifProfile($nom, $prenom, $email, $_SESSION['idUtilisateur']);
 
                 $_SESSION['nomSimple'] = $nom; 
