@@ -20,6 +20,15 @@ require_once '../modeles/modele.php';
     <title>Boutique de Livres</title>
 </head>
 <body class="body">
+
+
+<?php
+  if(isset($_POST["accepté"])){
+    setcookie("consentement", 1,  time() + 60*60*25);
+  }elseif(isset($_POST["refusé"])){
+    setcookie("consentement", 0,  time() + 60*60*25);
+  }
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
   <a class="navbar-brand" href="#">
@@ -101,34 +110,49 @@ require_once '../modeles/modele.php';
               
       ?>
         <a href="panier.php" class="btn-sm btn-light" style="width: 2.9%; margin-left:0.7%;  margin-right:0.7%;"><img style="width: 80%;" src="https://cdn0.iconfinder.com/data/icons/minimal-set-seven/32/minimal-49-512.png" alt=""></a>
+        <form class="d-flex mb-lg-0 collapse navbar-collapse" style="margin-left:0.7%" action="resultatRecherche.php">
+          <input class="form-control me-1" type="search" placeholder="Rechercher un livre" aria-label="Rechercher" id="recherche" name="recherche">
+          <button class="btn btn-light" type="submit">Rechercher</button>
+        </form>
+        <?php
+      }else{
+        ?>
+        <form class="d-flex mb-lg-0 collapse navbar-collapse" style="width:auto; margin-left:0.7%" action="resultatRecherche.php">
+          <input class="form-control me-1" type="search" placeholder="Rechercher un livre" aria-label="Rechercher" id="recherche" name="recherche">
+          <button class="btn btn-light" type="submit">Rechercher</button>
+        </form>
         <?php
       }
 
     ?>
-      <form class="d-flex mb-lg-0 collapse navbar-collapse" style="width:auto; margin-left:0.7%" action="resultatRecherche.php">
-        <input class="form-control me-1" type="search" placeholder="Rechercher un livre" aria-label="Rechercher" id="recherche" name="recherche">
-        <button class="btn btn-light" type="submit">Rechercher</button>
-      </form>
     </div>
 </nav>
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="margin-top: 10%;">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title">Autorisation des cookies</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                      <p>Notre site est susceptible de collecter des cookies afin d'améliorer votre expérience utilisateur.
-                        Néanmoins, vous êtes en droit de refuser cette collecte.
-                      </p>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Je n'autorise pas la collecte</button>
-                      <button type="button" class="btn btn-primary"  data-bs-dismiss="modal">J'accepte la collecte de cookie</button>
-                  </div>
-              </div>
-          </div>
-      </div>
+<?php 
+  if(!isset($_COOKIE['consentement'])) {
+    ?>
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="margin-top: 10%;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Autorisation des cookies</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Notre site est susceptible de collecter des cookies afin d'améliorer votre expérience utilisateur.
+                              Néanmoins, vous êtes en droit de refuser cette collecte.
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                          <form method="POST">
+                            <button type="submit" name="refusé" id="refusé" class="btn btn-secondary" data-bs-dismiss="modal">Je n'autorise pas la collecte</button>
+                            <button type="submit" name="accepté" id="accepté" class="btn btn-primary"  data-bs-dismiss="modal">J'accepte la collecte de cookie</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+<?php
+}
+    
   

@@ -63,7 +63,14 @@ $(window).on('load', function () {
     AOS.init();
   });
 
+  $(document).ready(function(){
+        $("#staticBackdrop").modal('show'); 
+});
+
+
   //Mettre un si afin qu'il ne recharge que la page index et non toutes les pages
+
+
   $(window).resize(function(){
       $window.refresh();
   });

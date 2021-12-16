@@ -15,14 +15,22 @@ $utilisateur = $u->verifUtilisateur();
                 
                 if($utilisateur->rowcount() > 0){
                     $erreurs[]= "L'adresse mail saisie existe déjà";
-                }
-
-            }else{
+                }elseif(strlen($_POST['mdp']) < 8){
                 
-                  $erreurs[] = "au moins un champ n'a pas été saisi";
-
-                
+                    $erreurs[] = "Le mot de passe doit faire au moins 8 caractères";
+    
+                }elseif(!preg_match("#[0-9]+#", $_POST["mdp"])){
+                    
+                    $erreurs[] = "Le mot de passe doit contenir au moins un caractère numérique (ex: 5)";
+    
+                }elseif(!preg_match("#[A-Z]+#", $_POST["mdp"])){
+                    
+                    $erreurs[] = "Le mot de passe doit contenir au moins une lettre majuscule (ex: A)";
+                }elseif(empty($_POST['mdp'])){
+                    $erreurs[] = "au moins un champ n'a pas été saisi";
                 }
+            }
+
                 if(count($erreurs)===0){
                         //on envoie le formulaire
                         extract($_POST);
@@ -40,6 +48,6 @@ $utilisateur = $u->verifUtilisateur();
                         }
                 }else{
                     // on affiche les erreurs
-                    header("location:../membres/inscription.php?success=0&erreurs=".$erreurs);
+                    header("location:../membres/inscription.php?success=0&erreurs=".$erreurs[0]);
                 }
     } 
