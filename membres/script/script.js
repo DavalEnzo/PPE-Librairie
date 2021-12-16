@@ -75,15 +75,35 @@ $(window).on('load', function () {
       $window.refresh();
   });
 
-  function isNumerique(){
-  if(document.getElementById("prixAjout").value == 0){
-      console.log(document.getElementById("prixAjout").value);
-      document.getElementById("numerique").style.display = "visible";
-      
-    }else if(document.getElementById("prixAjout").value > 0.00){
-        console.log(document.getElementById("prixAjout").value);
-        document.getElementById("numerique").style.display = "none"
+  $('#mdp, #confirmMdp').on('keyup', function () {
+      if ($('#mdp').val() != $('#confirmMdp').val() && $('#confirmMdp').val().length > 0) {
+          $('#message').html('Les mots de passe ne sont pas identiques').css('color', 'red');
+          $('#envoi').attr("disabled", true);
+        }else{
+            $('#envoi').attr("disabled", false);
+            $('#message').html("").css('color', 'red');
+
     }
-}
-console.log(isNumerique());
+    });
+
+  $('#prixAjout ,#numerique').on('keyup', function () {
+      if ($('#prixAjout').val() == 0) {
+          $('#numerique').attr("disabled", false);
+        }else{
+            $('#numerique').attr("disabled", true);
+    }
+    });
+
+//   function isNumerique(){
+//   if(document.getElementById("prixAjout").value == 0){
+//       console.log(document.getElementById("prixAjout").value);
+//       document.getElementById("numerique").style.display = "visible";
+      
+//     }else if(document.getElementById("prixAjout").value > 0.00){
+//         console.log(document.getElementById("prixAjout").value);
+//         document.getElementById("numerique").style.display = "none"
+//     }
+
+// }
+// console.log(isNumerique());
 

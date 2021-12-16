@@ -72,9 +72,6 @@ require_once '../modeles/modele.php';
               <a href="modifierProfil.php" style="text-decoration: none; color:white;"></a>
             </li>
           </ul>
-          <form method="POST" action="../traitement/deconnexion.php?email=<?=$_SESSION['email']?>">
-          <button type="submit" name="deco" class="btn btn-danger" value="1">Déconnexion</button>
-        </form>
         <?php
         }else{
           ?>
@@ -102,6 +99,9 @@ require_once '../modeles/modele.php';
           <li><a class="dropdown-item" href="mesCommentaires.php">Commentaires</a></li>
           <li><a class="dropdown-item" href="#">Commandes</a></li>
           <li><a class="dropdown-item" href="#">Gestion du compte</a></li>
+          <li><form class="mx-4 my-2" method="POST" action="../traitement/deconnexion.php?email=<?=$_SESSION['email']?>">
+          <button type="submit" name="deco" class="btn btn-danger" value="1">Déconnexion</button>
+        </form></li>
         </ul>
       </div>
       <?php

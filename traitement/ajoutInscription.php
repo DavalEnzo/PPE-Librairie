@@ -8,10 +8,12 @@ $utilisateur = $u->verifUtilisateur();
     if(isset($_POST["envoi"]) && !empty($_POST["envoi"])
     && $_POST["envoi"] == 1){
         $erreurs = [];
-        if(isset($_POST["email"]) && !empty($_POST["email"]) 
+        if(isset($_POST["email"]) && !empty($_POST["email"])
             && isset($_POST["mdp"]) && !empty($_POST["mdp"]) 
-
             ){
+                if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+                    $erreurs[]= "L'adresse mail est invalide, veuillez vérifier qu'il contient un '@' et un domaine (.com, .fr...).";
+                  }
                 
                 if($utilisateur->rowcount() > 0){
                     $erreurs[]= "L'adresse mail saisie existe déjà";
