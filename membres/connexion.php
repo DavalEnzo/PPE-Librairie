@@ -30,16 +30,23 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
             <input type="password" class="form-control" style="border-radius: 20px;" name="mdp" id="mdp" placeholder="Saisissez votre mot de passe" value="<?=(isset($_POST["mdp"]) ? $_POST["mdp"] : "")?>" required/>
         </div>
         <div class="form-check mt-2 mx-3">
-            <input class="form-check-input" type="checkbox" name="souvenir" value="1" id="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" name="souvenir" id="souvenir"  value="1" id="flexCheckDefault">
             <label class="form-check-label" for="flexCheckDefault">
                 Se souvenir de moi
-            </label>
+            </label><br>
+            <span><i class="fas fa-exclamation-triangle" id="exclamation" style="color: red; display:none"></i></span>
+            <span id="avertissement"></span>
             </div>
         <div class="form-group text-center my-2">
             <button type="submit" class="btn-balayage" style="border-radius: 20px;" name="envoi" value="1">Connexion</button>
         </div>
     </form>
     </div>
+    </div>
+    <div style="margin-top: 13.97%;">
+    <?php
+    require_once 'pied.php';
+    ?>
     </div>
     <?php
 }

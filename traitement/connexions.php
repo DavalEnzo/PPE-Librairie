@@ -79,7 +79,7 @@ foreach ($erreurs as $erreur) {
         ?>
             </div>
             <?php
-            header("location:../membres/connexion.php?success=0&erreurs=".$erreurs);
+            header("location:../membres/connexion.php?success=0&erreurs=".$erreurs[0]);
 }
 
 }

@@ -13,10 +13,11 @@ $utilisateur = $u->verifUtilisateur();
             ){
                 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                     $erreurs[]= "L'adresse mail est invalide, veuillez vérifier qu'il contient un '@' et un domaine (.com, .fr...).";
-                  }
-                
-                if($utilisateur->rowcount() > 0){
+
+                }elseif($utilisateur->rowcount() > 0){
+
                     $erreurs[]= "L'adresse mail saisie existe déjà";
+
                 }elseif(strlen($_POST['mdp']) < 8){
                 
                     $erreurs[] = "Le mot de passe doit faire au moins 8 caractères";
@@ -28,7 +29,9 @@ $utilisateur = $u->verifUtilisateur();
                 }elseif(!preg_match("#[A-Z]+#", $_POST["mdp"])){
                     
                     $erreurs[] = "Le mot de passe doit contenir au moins une lettre majuscule (ex: A)";
-                }elseif(empty($_POST['mdp'])){
+
+                }elseif(empty($_POST['mdp']) || empty($_POST['email'])){
+
                     $erreurs[] = "au moins un champ n'a pas été saisi";
                 }
             }

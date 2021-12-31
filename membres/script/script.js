@@ -86,6 +86,18 @@ $(window).on('load', function () {
     }
     });
 
+    $('#souvenir, #avertissement, #exclamation').on('click', function () {
+        if($('#souvenir').is(':checked')) {
+            $('#exclamation').show();
+            $('#avertissement').show();
+            $('#avertissement').html('Si vous cochez cette case, vous devrez vous déconnecter manuellement avec le bouton de déconnexion').css('color', '#FF6600').css('font-size', '12px');
+        }else{
+            $('#avertissement').hide();
+            $('#exclamation').hide();
+        }
+    });
+
+
   $('#prixAjout ,#numerique').on('keyup', function () {
       if ($('#prixAjout').val() == 0) {
           $('#numerique').attr("disabled", false);
