@@ -24,9 +24,9 @@ require_once '../modeles/modele.php';
 
 <?php
   if(isset($_POST["accepté"])){
-    setcookie("consentement", 1,  time() + 60*60*25);
+    setcookie("consentement", 1);
   }elseif(isset($_POST["refusé"])){
-    setcookie("consentement", 0,  time() + 60*60*25);
+    setcookie("consentement", 0);
   }
 
   if(isset($_COOKIE['souvenir']) && !empty($_COOKIE['souvenir'] && !isset($_SESSION['idUtilisateur']))){
