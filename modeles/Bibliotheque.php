@@ -8,8 +8,6 @@ private $infoId;
 
 private $bibliNew;
 
-private $BibliAudio;
-
 private $RLivre;
 
     public function __construct($idLivre = null,$recherche = null)
@@ -26,12 +24,6 @@ private $RLivre;
         $bibliNew= $requete->fetchAll(PDO::FETCH_ASSOC);
 
         $this->bibliNew = $bibliNew;
-
-        $requete = $this->getBdd()->prepare("SELECT * FROM bibliotheque WHERE audio = 1");
-        $requete->execute();
-        $BibliAudio = $requete->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->BibliAudio = $BibliAudio;
 
         $requete = $this->getBdd()->prepare("SELECT * FROM bibliotheque WHERE Prix = 0");
         $requete->execute();
@@ -92,10 +84,6 @@ private $RLivre;
     public function getInfoId()
     {
         return $this->infoId;
-    }
-    public function getBibliAudio()
-    {
-        return $this->BibliAudio;
     }
     public function getBibliNum()
     {
