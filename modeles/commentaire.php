@@ -111,9 +111,39 @@ class Commentaire extends Modele
         return $this->dateHeure;
     }
 
-    public function getCom()
+
+    public function setIdCom($idCom)
     {
-        return $this->com;
+        $this->idCom = $idCom;
     }
 
+    public function setEntete($entete)
+    {
+        $this->entete = $entete;
+    }
+
+    public function setIdUtilisateur($idUtilisateur)
+    {
+        $this->idUtilisateur = $idUtilisateur;
+    }
+
+    public function setContenu($contenu)
+    {
+        $this->contenu = $contenu;
+    }
+
+    public function setIdLivre($idLivre)
+    {
+        $this->idLivre = $idLivre;
+    }
+
+    public function setGrade($grade)
+    {
+        $this->grade = $grade;
+    }
+
+    public function setDateHeure($dateHeure)
+    {
+        $this->dateHeure = $dateHeure;
+    }
 }

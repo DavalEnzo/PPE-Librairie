@@ -44,19 +44,26 @@ class Genre extends Modele{
         $requete->execute([$libelle, $idGenre]);
     }
 
+    // GETTERS
     public function getIdGenre()
     {
         return $this->idGenre;
     }
 
-    public function setIDGenre($idGenre)
-    {
-        $this->idGenre = $idGenre;
-    }
-
     public function getNomGenre()
     {
         return $this->nomGenre;
+    }
+    
+    public function getImgGenre()
+    {
+        return $this->imgGenre;
+    }
+
+    // SETTERS
+    public function setIdGenre($idGenre)
+    {
+        $this->idGenre = $idGenre;
     }
 
     public function setNomGenre($nomGenre)
@@ -64,13 +71,8 @@ class Genre extends Modele{
         $this->nomGenre = $nomGenre;
     }
 
-    public function getImgGenre()
-    {
-        return $this->imgGenre;
-    }
-
     public function setImgGenre($imgGenre)
     {
         $this->nomGenre = $imgGenre;
-    }
+    }    
 }

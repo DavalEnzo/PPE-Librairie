@@ -21,6 +21,22 @@ public function __construct($idLivre=null){
     }
 }
 
+
+////GETTERS
+
+public function getIdLivre()
+{
+    return $this->idLivre;
+}
+public function getIdLecture()
+{
+    return $this->idLecture;
+}
+public function getContenu()
+{
+    return $this->contenu;
+}
+
 ////SETTERS
 
     public function setIdLivre($livre)
@@ -37,20 +53,4 @@ public function __construct($idLivre=null){
     {
         $this->idLecture=$idlivre;
     }
-
-////GETTERS
-
-    public function getIdLivre()
-    {
-        return $this->idLivre;
-    }
-    public function getIdLecture()
-    {
-        return $this->idLecture;
-    }
-    public function getContenu()
-    {
-        return $this->contenu;
-    }
-
 }

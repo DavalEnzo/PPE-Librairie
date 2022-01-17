@@ -3,8 +3,8 @@
 if(isset($_GET['idEditeur']) && !empty($_GET['idEditeur'])){
     $idEditeur=$_GET['idEditeur'];
 }
-$e=new Editeur($idEditeur);
-$editeurs=$e->getLEditeur();
+$e=new Editeur();
+$editeurs=$e->getEditeurLivre($idEditeur);
 
 if(count($editeurs)!=0){
 ?>
