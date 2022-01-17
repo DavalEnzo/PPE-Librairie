@@ -2,4 +2,7 @@
 #   Config
 # --------------
 
-Redirect 301 /PPE-WEB/modeles/ http://localhost/PPE-WEB/membres/index.php
+# Redirect 301 /PPE-WEB/modeles/ http://localhost/PPE-WEB/membres/index.php
+Redirect 301 /PPE-WEB/modeles/ http://unlivrepresdechezvous.ipssi-sio.fr/membres/index.php
+# Redirect 301 /PPE-WEB/traitements/ http://localhost/PPE-WEB/membres/index.php
+Redirect 301 /PPE-WEB/traitements/ http://unlivrepresdechezvous.ipssi-sio.fr/membres/index.php
