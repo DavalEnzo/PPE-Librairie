@@ -7,42 +7,50 @@ class Lecture extends Modele{
 
     private $idLecture;
 
-    public function __construct($idLivre=null){
-        if($idLivre!=null){
+public function __construct($idLivre=null){
+    if($idLivre!=null){
         $sql = $this->getBdd()->prepare("SELECT * FROM lectures WHERE idLivre = ?");
         $sql -> execute([$idLivre]);
         $livre = $sql-> fetch(PDO::FETCH_ASSOC);
 
-        $this->idLivre=$idLivre;
+        $this->idLivre = $idLivre;
 
-        $this->contenu=$livre['contenu'];
+        $this->contenu = $livre['contenu'];
 
-        $this->contenu=$livre['idLecture'];
+        $this->idLecture = $livre['idLecture'];
     }
 }
-    public function setidLivre($idlivre)
+
+////SETTERS
+
+    public function setIdLivre($livre)
     {
-        $this->idLivre=$idlivre;
+        $this->idLivre=$livre;
     }
-    public function setLecture($idLecture)
+
+    public function setContenu($livre)
     {
-        $this->idLecture=$idLecture;
+        $this->contenu=$livre;
     }
-    public function getLecture()
+    
+    public function setidLecture($idlivre)
+    {
+        $this->idLecture=$idlivre;
+    }
+
+////GETTERS
+
+    public function getIdLivre()
+    {
+        return $this->idLivre;
+    }
+    public function getIdLecture()
     {
         return $this->idLecture;
     }
-    public function setLivre($contenu)
-    {
-        $this->contenu=$contenu;
-    }
-    public function getLivre()
+    public function getContenu()
     {
         return $this->contenu;
-    }
-    public function getidLivre()
-    {
-        return $this->idLivre;
     }
 
 }

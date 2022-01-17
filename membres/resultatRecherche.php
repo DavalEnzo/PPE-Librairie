@@ -3,8 +3,8 @@
 if(isset($_GET['recherche']) && !empty($_GET['recherche'])){
     $recherche = $_GET['recherche'];  
     try{
-        $recherche=new Bibliotheque("",$recherche);
-        $resultats = $recherche->getRLivre();
+        $bibli =new Bibliotheque();
+        $resultats = $bibli->rechercherLivre($recherche);
     }catch (Exception $e){
         ?>
         <div class="alert alert-danger text-center">Erreur lors de la recherche</div>

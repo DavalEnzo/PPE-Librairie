@@ -1,7 +1,56 @@
 <?php
 
 class Utilisateur extends Modele{
+  
+    private $idUtilisateur;
 
+    private $nom;
+
+    private $prenom;
+
+    private $email;
+
+    private $mdp;
+
+    private $photoProfile;
+
+    private $idPermission;
+
+    private $token;
+
+    private $dateMentionAccepte;
+
+    public function __construct($idUtilisateur = null)
+    {
+
+        if($idUtilisateur != null)
+        {
+            
+            $requete=$this->getBdd()->prepare('SELECT * FROM utilisateur WHERE idUtilisateur = ?');
+            $requete->execute([$idUtilisateur]);    
+            $User= $requete->fetch(PDO::FETCH_ASSOC);
+
+            $this->idUtilisateur = $User['idUtilisateur'];
+
+            $this->nom = $User['nom'];
+
+            $this->prenom = $User['prenom'];
+        
+            $this->email = $User['email'];
+        
+            $this->mdp = $User['mdp'];
+
+            $this->photoProfile = $User['photoProfile'];
+
+            $this->idPermission = $User['idPermission'];
+            
+            $this->token = $User['token'];
+
+            $this->dateMentionAccepte = $User['sateMentionAcceptée'];
+        
+        }
+
+    }
     public function verifUtilisateur()
     {
         $requete = $this->getBdd()->prepare("SELECT email FROM utilisateurs WHERE email = ?");
@@ -64,5 +113,75 @@ class Utilisateur extends Modele{
         $requete = $this->getBdd()->prepare("UPDATE utilisateurs SET token = ? WHERE idUtilisateur = ?");
         $requete->execute([$token, $idUser]);
     }
-    
+//////SETTERS
+    public function setName($var = null)
+    {
+       $this->nom = $var;
+    }
+    public function setPrenom($var = null)
+    {
+        $this->prenom = $var;
+    }
+    public function setEmail($var = null)
+    {
+        $this->email = $var;
+    }
+    public function setMdp($var = null)
+    {
+        $this->mdp = $var;
+    }
+    public function setPhotoProfile($var = null)
+    {
+        $this->photoProfile = $var;
+    }
+    public function setIdPermission($var = null)
+    {
+        $this->idPermission = $var;
+    }
+    public function setDateMentionAccepte($var = null)
+    {
+        $this->dateMentionAccepte = $var;
+    }
+    public function setToken($var = null)
+    {
+        $this->token = $var;
+    }
+//// GETTERS
+    public function getIdUtilisateur()
+    {
+        return  $this->idUtilisateur;
+    }
+    public function getNom()
+    {
+        return  $this->nom;
+    }
+    public function getPrenom()
+    {
+        return  $this->prenom;
+    }
+    public function getEmail()
+    {
+        return  $this->email;
+    }
+    public function getMdp()
+    {
+        return  $this->mdp;
+    }
+    public function getToken()
+    {
+        return  $this->token;
+    }
+    public function getIdPermission()
+    {
+        return  $this->idPermission;
+    }
+    public function getPhotoProfile()
+    {
+        return  $this->photoProfile;
+    }
+    public function getdateMentionAccepte()
+    {
+        return  $this->dateMentionAccepte;
+    }
+
 }

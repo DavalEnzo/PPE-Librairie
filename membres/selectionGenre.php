@@ -1,23 +1,24 @@
 <?php
 require_once 'entete.php';
 
-if(isset($_GET['idGenre']) && !empty($_GET['idGenre'])){
-    $idGenre= $_GET['idGenre'];
+if(isset($_GET['idTypeGenre']) && !empty($_GET['idTypeGenre'])){
+    $idTypeGenre= $_GET['idTypeGenre'];
 }
 
-$l=new Genre($idGenre);
-$livres=$l->getlivreGenre()
+$genre=new Genre();
+
+$livresGenre = $genre->selectToutGenres($idTypeGenre)
 
 ?>
 <div class="alert alert-info">
  <?php
-    if(count($livres)<2){
+    if(count($livresGenre)<2){
         ?>
-        Ce genre contient <?=count($livres);?> livres.
+        Ce genre contient <?=count($livresGenre);?> livres.
         <?php
     }else{
         ?>
-        Cette catégorie contient <?=count($livres);?> livres.
+        Cette catégorie contient <?=count($livresGenre);?> livres.
         <?php
     }
 ?>
@@ -25,7 +26,7 @@ $livres=$l->getlivreGenre()
 <div class="card-group">
 <?php
 
-foreach($livres as $livre){
+foreach($livresGenre as $livre){
     ?>
 <div class="card mx-3 my-5 cardlivre"
                 style="max-height:450px;max-width:17rem;min-width:17rem;min-height:450px;border:none">

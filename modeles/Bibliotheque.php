@@ -10,7 +10,7 @@ private $bibliNew;
 
 private $RLivre;
 
-    public function __construct($idLivre = null,$recherche = null)
+    public function __construct($idLivre = null)
     {
         
         $requete = $this->getBdd()->prepare("SELECT * FROM bibliotheque");
@@ -39,22 +39,13 @@ private $RLivre;
 
                 $this->infoId = $infoId ;
             }
-            if($recherche != null) 
-            {
-                    $requete= $this->getBdd()->prepare('SELECT * FROM bibliotheque WHERE Titre LIKE ? ORDER BY Titre
-                    ');
-                    $requete->execute(["%".$recherche."%"]);
-                    $RLivre =  $requete->fetchAll(PDO::FETCH_ASSOC);
-
-                    $this->RLivre = $RLivre;
-            }
-    }
-
-    public function insertBibli($titre, $date, $prix, $photo, $genres, $check, $droit){
-        $requete = $this->getBdd()->prepare("INSERT INTO bibliotheque( Titre, date_sortie, Prix, Photo, idGenre, date_heure, audio, droit)
+        }
+        
+        public function insertBibli($titre, $date, $prix, $photo, $genres, $check, $droit){
+            $requete = $this->getBdd()->prepare("INSERT INTO bibliotheque( Titre, date_sortie, Prix, Photo, idGenre, date_heure, audio, droit)
             VALUES(?, ?, ?, ?, ?, NOW(), ?, ?)");
         $requete->execute([$titre, $date, $prix, $photo, $genres, $check, $droit]);
-
+        
         $this->titre = $titre;
         $this->droit = $droit;
         $this->check = $check;
@@ -63,20 +54,19 @@ private $RLivre;
         $this->prix = $prix;
         $this->date = $date;
     }
-
+    
     public function rechercherLivre($recherche){
         $requete= $this->getBdd()->prepare('SELECT * FROM bibliotheque WHERE Titre LIKE ? ORDER BY Titre
         ');
         $requete->execute(["%".$recherche."%"]);
-        $RLivre =  $requete->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->RLivre = $RLivre;
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
-
+    
     public function getBibli()
     {
         return $this->Bibli;
     }
+
     public function getBibliNew()
     {
         return $this->bibliNew;

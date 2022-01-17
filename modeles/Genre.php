@@ -3,26 +3,29 @@ class Genre extends Modele{
 
     private $idGenre;
 
-    private $Genre;
+    private $nomGenre;
+
+    private $imgGenre;
 
     public function __construct($idGenre=null)
     {
+
         if($idGenre!=null){
-        $requete=$this->getBdd()->prepare('CALL select_genre_with_livre_and_auteur(?)');
-        $requete->execute([$idGenre]);  
-        $genre= $requete->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->idGenre=$idGenre;
-
-        $this->Genre=$genre;
-        }  
+            $requete=$this->getBdd()->prepare("CALL select_genre_with_livre_and_auteur(?)");
+            $requete->execute([$idGenre]);  
+            $genre= $requete->fetch(PDO::FETCH_ASSOC);
+            
+            $this->idGenre  = $genre['idGenre'];
+            $this->nomGenre = $genre['nomGenre'];
+            $this->imgGenre = $genre['imgGenre'];
+        }
     }
 
-    public function getTousGenres()
-    {
-        $requete = $this->getBdd()->prepare("SELECT * FROM genres");
-        $requete->execute();
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    public function selectToutGenres($idTypeGenre){
+         $requete = $this->getBdd()->prepare("SELECT * FROM bibliotheque WHERE idtypeGenre = ?");
+         $requete->execute([$idTypeGenre]);
+         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
     
     public function gettypeGenre()
@@ -41,9 +44,33 @@ class Genre extends Modele{
         $requete->execute([$libelle, $idGenre]);
     }
 
-    public function getlivreGenre()
+    public function getIdGenre()
     {
-        return $this->Genre;
         return $this->idGenre;
+    }
+
+    public function setIDGenre($idGenre)
+    {
+        $this->idGenre = $idGenre;
+    }
+
+    public function getNomGenre()
+    {
+        return $this->nomGenre;
+    }
+
+    public function setNomGenre($nomGenre)
+    {
+        $this->nomGenre = $nomGenre;
+    }
+
+    public function getImgGenre()
+    {
+        return $this->imgGenre;
+    }
+
+    public function setImgGenre($imgGenre)
+    {
+        $this->nomGenre = $imgGenre;
     }
 }

@@ -40,7 +40,7 @@ require_once 'entete.php';
         }
         ?>
         <div class=" d-inline-block rounded-circle text-center mx-4" style="width: 120px;height:120px;margin:auto;text-decoration:none; color:black;background-color:white;background-image:url('<?=$genre["imgGenre"]?>');background-size:cover;">
-            <a href="selectionGenre.php?idGenre=<?=$genre['idGenre'];?>" style='text-decoration:none'>
+            <a href="selectionGenre.php?idTypeGenre=<?=$genre['idtypeGenre'];?>" style='text-decoration:none'>
                     <div class='my-4'>
                         <p class = 'stext ' style='color:white'><?=$genre["libelle"];?></p>
                     </div>
