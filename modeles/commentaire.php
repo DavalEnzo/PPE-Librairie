@@ -2,6 +2,17 @@
 class Commentaire extends Modele
 {   
     private $com;
+
+    private $idCom;
+
+    private $entete;
+
+    private $contenu;
+
+    private $idUser;
+
+    private $dateHeure;
+
     function __construct($idLivre = null)
     {
         if($idLivre != null)

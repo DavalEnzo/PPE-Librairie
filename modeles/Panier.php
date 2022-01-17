@@ -11,7 +11,7 @@ class Panier extends Modele{
             $requete = $this->getBdd()->prepare('CALL select_panier(?,?)');
             $requete->execute([$idpanier,$idutilisateur]);
 
-            $panier = $requete->fetchAll(PDO::FETCH_ASSOC);
+            $panier = $requete->fetch(PDO::FETCH_ASSOC);
 
             $this->panier = $panier;          
         }

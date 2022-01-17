@@ -13,28 +13,36 @@ class Genre extends Modele{
     
     public function __construct($idGenre=null)
     {
+
+
         if($idGenre!=null){
-        $requete=$this->getBdd()->prepare('CALL select_genre_with_livre_and_auteur(?)');
-        $requete->execute([$idGenre]);  
-        $genre= $requete->fetchAll(PDO::FETCH_ASSOC);
+        // $requete=$this->getBdd()->prepare('CALL select_genre_with_livre_and_auteur(?)');
+        // $requete->execute([$idGenre]);  
+        // $genre= $requete->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->idGenre=$idGenre;
+        // $this->idGenre=$idGenre;
 
-        $this->Genre=$genre;
-        
-    }
+        // $this->Genre=$genre;
+            $requete=$this->getBdd()->prepare("SELECT * FROM genres WHERE idGenre = ?");
+            $requete->execute([$idGenre]);  
+            $genre= $requete->fetch(PDO::FETCH_ASSOC);
+            
+            $this->idGenre  = $genre['idGenre'];
+            $this->nomGenre = $genre['nomGenre'];
+            $this->imgGenre = $genre['imgGenre'];
+        }
     
-    $requete = $this->getBdd()->prepare("SELECT * FROM genres");
-    $requete->execute();
-    $toutGenres= $requete->fetchAll(PDO::FETCH_ASSOC);
-
-    $this->toutGenres=$toutGenres;
-    
-    $requete = $this->getBdd()->prepare("SELECT * FROM genres LEFT JOIN typegenre USING (idGenre)");
+        $requete = $this->getBdd()->prepare("SELECT * FROM genres");
         $requete->execute();
-        $selecttypeGenre= $requete->fetchAll(PDO::FETCH_ASSOC);
+        $toutGenres= $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->toutGenres=$toutGenres;
         
-        $this->selecttypeGenre=$selecttypeGenre;
+        $requete = $this->getBdd()->prepare("SELECT * FROM genres LEFT JOIN typegenre USING (idGenre)");
+            $requete->execute();
+            $selecttypeGenre= $requete->fetchAll(PDO::FETCH_ASSOC);
+            
+            $this->selecttypeGenre=$selecttypeGenre;
     }
         
     public function insertGenre($libelle){
