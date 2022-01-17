@@ -42,8 +42,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         <div class="container  d-flex justify-content-center my-2" >
             <div class="card mb-3" >
                 <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="<?=$livres["Photo"]?>" >
+                    <div class="col-md-3">
+                        <img style="max-width: 300px;" src="<?=$livres["Photo"]?>" >
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -85,22 +85,130 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
             <?php
         }else{
             ?>
-            <div style="margin-left: 25%;" class="alert alert-danger w-50 text-center">Vous devez être connecté pour pouvoir commenter un livre</div>
+            <div style="margin-left: 15.5%; width:69%" class="alert alert-danger text-center">Vous devez être connecté pour pouvoir commenter un livre</div>
             <?php
         }
     
-    $com = new Commentaire($idLivre);
-    $commentaires = $com->getCom();
+    $com = new Commentaire();
+    $commentaires = $com->getAllComs($idLivre);
+
     foreach($commentaires as $commentaire){
-    ?>
-    <div class="container">
-        <table>
-            <tr>
-                <td><p><?=$commentaire["contenu"]?></p></td>
-            </tr>
-        </table>
-    </div>
-    <?php
-}; 
+
+        $date = $commentaire['date_heure'];
+        $dateFormatee = date('d-m-Y H:i:s', strtotime($date));
+
+        $dateSeulement = substr($dateFormatee, 0, -9);
+        $heureSeulement = substr($dateFormatee, -8);
+        ?>
+
+        <div class="container roundedBorders my-3">
+            <div class="row">
+                    <div class="col-md-3 text-center">
+                        <div class="col-md-12"style="max-width:150px;margin:auto">
+                            <img style="width:100%;" src="<?=$commentaire["photoProfile"]?>" alt="Photo de Profil">
+                        </div>
+                            <h4><?=$commentaire["nom"]." ".$commentaire["prenom"]?></h4>
+                    </div>
+                    <div class="col-md-1 bSn"></div>
+                    <div class="col-md-8 row" style="width:75%"> 
+                    
+                    <?php
+                    if(!empty($commentaire['entete']))
+                    {
+                      ?>
+                         <div class="col-md-12"  >
+                            <h3><?=$commentaire['entete']?></h3>
+                        </div>
+                      <?php  
+                    }
+    
+                    if(!empty($commentaire['grade']))
+                    {
+                       
+                        
+                        if(strlen($commentaire['grade']) > 1)
+                        {
+                            $grade = explode(".",$commentaire['grade']);
+                        }else{
+    
+                            $grade = $commentaire['grade'];
+                            
+                        }
+                    ?>
+                   
+                        <div class="col-md-6" >
+                            <span>Note : </span>
+                            <?php
+                            if(is_array($grade)){
+                                $n = 5;
+                                if($grade[0] == 0)
+                                {
+                                    if($grade[1] == 5){
+                                       ?>
+                                        <span class="far fa-star starYell"></span>
+                                        <?php
+                                        $n =0;
+                                    }else{
+                                        $n = 0;
+                                    }
+                                }
+                                if($n==0){
+    
+                                }else{
+    
+                                     $emptyStar = $n-$grade[0] ;
+                                    for($i=0,$n=sizeof($grade);$i<$n;$i++)
+                                    {
+                                        if($i >= ($n-$emptyStar))
+                                        { 
+                                            
+                                            ?>
+                                            <span class="far fa-star starYell"></span>
+                                        <?php
+                                        }
+                                    }
+                                }
+                               
+                            }else{
+                                $n = 5;
+                                $emptyStar = $n-$grade ;
+                               
+                                for($i=0;$i<$n;$i++)
+                                { 
+                                    if($i >= ($n-$emptyStar))
+                                    { 
+                                        ?>
+                                        <span class="far fa-star starYell"></span>
+                                    <?php
+                                    }else{
+                                    ?>
+                                    <span class="fas fa-star starYell"></span>
+                                    <?php
+                                    }
+    
+                                }
+                            }
+                            ?>
+                        </div>
+                        <div class="col-md-6" style="text-align: right;" >
+                            <span>Publié le : <?=$dateSeulement;?> à <?=$heureSeulement;?></span>
+                        </div>
+                         <?php    
+                    }else{
+                        ?>
+                        <div class="col-md-12" style="text-align: right;" >
+                            <p>Publié le : <?=$dateSeulement;?> à <?=$heureSeulement;?></p>
+                        </div>
+                        <?php
+                        }
+                        ?>
+                        <div class="col-md-12">
+                            <p><?=$commentaire["contenu"]?></p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <?php
+        }; 
 require_once("pied.php");
 ?>

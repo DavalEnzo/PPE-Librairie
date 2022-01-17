@@ -7,7 +7,7 @@ $E = new Editeur();
 ?>
 <?php
 try {
-    $genres = $G->getGenre();
+    $genres = $G->getTousGenres();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">
@@ -16,7 +16,7 @@ try {
     <?php
 }
 try {
-    $editeurs = $E->getSEditeur();
+    $editeurs = $E->getTousEditeurs();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">
@@ -25,7 +25,7 @@ try {
     <?php
 }
 try {
-     $auteurs =  $aut->getAuteur();
+     $auteurs =  $aut->getTousAuteurs();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">

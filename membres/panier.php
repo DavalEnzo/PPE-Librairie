@@ -2,6 +2,7 @@
 
 require_once 'entete.php';
 
+
 if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     ?>
       <div class="alert alert-success mt-3">Le produit a bien été supprimé</div>
@@ -40,9 +41,13 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
               <h5 class="card-title"><?=$panier['Titre'];?></h5>
               <h5 class="card-subtitle text-muted"><?=$panier['nomEditeur'];?></h5>
               <p class="card-text">Prix : <?=$panier['Prix'];?>€</p>
-              <p class="card-text">Quantité : <?=$panier['quantite'];?></p>
+              <form method="POST" action="../traitement/modifQuantite?idLivre=<?=$panier['idLivre'];?>&idStockage=<?=$panier['idStockage']?>">
+                <button type="submit" class="btn btn-danger btn-sm" style="display: inline-block; min-width:28px; max-height: 31px;" name="moins" value="0">-</button>
+                <p class="card-text" style="display: inline-block;">Quantité : <?=$panier['quantite'];?></p>
+                <button type="submit" style="display: inline-block;" class="btn btn-success btn-sm" name="plus" value="1">+</button>
+            </form>
               <p class="card-text">Prix avec quantité : <?=$panier['quantite'] * $panier['Prix'];?> €</p>
-              <a type="submit" href="../traitement/suppressionArticlePanier.php?idStockage=<?=$panier['idStockage']?>" style="margin-left: 85%;" class="btn btn-danger">Supprimer l'article</a>
+              <a type="submit" href="../traitement/suppressionArticlePanier.php?idStockage=<?=$panier['idStockage']?>" style="margin-left: 85%; margin-bottom:500px" class="btn btn-danger">Supprimer l'article</a>
             </div>
           </div>
         </div>
@@ -51,7 +56,10 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
     <?php
   }
   ?>
-  <div class="roundedBorders" style="width: 10%; padding:0.8%; margin-left:72%; margin-top:auto">Prix Total : <?=$total;?>€</div>
+  <div class="roundedBorders" style="width: 12%; padding:0.8%; margin-left:74.5%; margin-top:auto">Prix Total : <?=$total;?>€
+    <br><button type="button" class="btn btn-success my-2">Passer la commande</button>
+  </div>
+
   <?php
      }else{
          ?>        

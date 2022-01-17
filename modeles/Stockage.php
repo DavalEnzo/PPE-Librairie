@@ -7,8 +7,6 @@ class Stockage extends Modele{
         $requete->execute([$idPanier,$idLivre, $quantite]);
     }
 
-    
-
     public function recupPanier($idPanier)
     {
         $requete=$this->getBdd()->prepare("SELECT * FROM stockage LEFT JOIN paniers USING(idPanier) WHERE idPanier = ?");
@@ -40,6 +38,18 @@ class Stockage extends Modele{
         $requete=$this->getBdd()->prepare('SELECT count(*) as nbLivres FROM stockage WHERE idPanier = ?');
         $requete->execute([$idPanier]);
         return $requete->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function quantiteMoins($idPanier, $idLivre)
+    {
+        $requete=$this->getBdd()->prepare('UPDATE stockage SET quantite = quantite-1 WHERE idPanier = ? AND idLivre = ?');
+        $requete->execute([$idPanier, $idLivre]);
+    }
+
+    public function quantitePlus($idPanier, $idLivre)
+    {
+        $requete=$this->getBdd()->prepare('UPDATE stockage SET quantite = quantite+1 WHERE idPanier = ? AND idLivre = ?');
+        $requete->execute([$idPanier, $idLivre]);
     }
 }
 

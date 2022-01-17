@@ -60,7 +60,7 @@ isset($_POST['genre']) && !empty($_POST['genre']))
 
         // si une erreur php est généré, alors on rentre dans notre catch
         } catch(Exception $e){
-            echo $e->getMessage();exit;
+            echo $e->getMessage();
             header("location:../membres/ajoutLivre.php?success=0");
              }
         }
@@ -72,7 +72,7 @@ isset($_POST['genre']) && !empty($_POST['genre']))
         
             // si une erreur php est généré, alors on rentre dans notre catch
             } catch(Exception $e){
-                echo $e->getMessage();exit;
+                echo $e->getMessage();
                 header("location:../membres/ajoutLivre.php?success=0");
         
             }

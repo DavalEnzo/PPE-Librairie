@@ -1,7 +1,7 @@
 <?php
 require_once 'entete.php';
 $e=new Editeur();
-$editeurs=$e->getSEditeur();
+$editeurs=$e->getTousEditeurs();
 ?>
 <div class="alert alert-secondary text-center">
   <h1>Page de sélection des livres selon l'éditeur</h1>

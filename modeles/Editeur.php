@@ -2,7 +2,6 @@
 class Editeur extends Modele
 {
     private $recupLEditeur;
-    private $SelectEditeur;
     
     public function __construct($idEditeur = null)
     {
@@ -15,17 +14,15 @@ class Editeur extends Modele
             $this->recupLEditeur = $recupLEditeur;
         }
 
+    }
+    
+    public function getTousEditeurs()
+    {
         $requete= $this->getBdd()->prepare('SELECT * FROM editeurs');
         $requete->execute();
-        $SelectEditeur =  $requete->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->SelectEditeur = $SelectEditeur;
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getSEditeur()
-    {
-        return $this->SelectEditeur;
-    }
     public function getLEditeur()
     {
         return $this->recupLEditeur;

@@ -5,12 +5,6 @@ class Genre extends Modele{
 
     private $Genre;
 
-    private $toutGenres;
-
-    private $selecttypeGenre;
-
-
-    
     public function __construct($idGenre=null)
     {
         if($idGenre!=null){
@@ -21,22 +15,23 @@ class Genre extends Modele{
         $this->idGenre=$idGenre;
 
         $this->Genre=$genre;
-        
+        }  
     }
-    
-    $requete = $this->getBdd()->prepare("SELECT * FROM genres");
-    $requete->execute();
-    $toutGenres= $requete->fetchAll(PDO::FETCH_ASSOC);
 
-    $this->toutGenres=$toutGenres;
-    
-    $requete = $this->getBdd()->prepare("SELECT * FROM genres LEFT JOIN typegenre USING (idGenre)");
+    public function getTousGenres()
+    {
+        $requete = $this->getBdd()->prepare("SELECT * FROM genres");
         $requete->execute();
-        $selecttypeGenre= $requete->fetchAll(PDO::FETCH_ASSOC);
-        
-        $this->selecttypeGenre=$selecttypeGenre;
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
-        
+    
+    public function gettypeGenre()
+    {  
+        $requete = $this->getBdd()->prepare("SELECT * FROM genres LEFT JOIN typegenre USING (idGenre)");
+        $requete->execute();
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
     public function insertGenre($libelle){
            $requete = $this->getBdd()->prepare("INSERT INTO genres (nomGenre) VALUES(?)");
            $requete->execute([$libelle]);
@@ -50,13 +45,5 @@ class Genre extends Modele{
     {
         return $this->Genre;
         return $this->idGenre;
-    }
-    public function getGenre()
-    {
-        return $this->toutGenres;
-    }
-    public function gettypeGenre()
-    {
-        return $this->selecttypeGenre;
     }
 }

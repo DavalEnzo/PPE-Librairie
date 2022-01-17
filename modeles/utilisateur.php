@@ -21,7 +21,7 @@ class Utilisateur extends Modele{
         return $requete;
     }
 
-    public  function userPanier($idUser)
+    public function userPanier($idUser)
     {
         $requete = $this->getBdd()->prepare("SELECT * FROM paniers WHERE idUtilisateur = ?");
         $requete->execute([$idUser]);

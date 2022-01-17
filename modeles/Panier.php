@@ -2,6 +2,8 @@
 
 class Panier extends Modele{
 
+    private $idPanier;
+
     private $panier;
 
     public function __construct($idpanier = null, $idutilisateur = null)
@@ -12,6 +14,8 @@ class Panier extends Modele{
             $requete->execute([$idpanier,$idutilisateur]);
 
             $panier = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+            $this->idPanier = $idpanier; 
 
             $this->panier = $panier;          
         }
@@ -30,15 +34,19 @@ class Panier extends Modele{
 
         $requete->fetch(PDO::FETCH_ASSOC);
     }
+    
+        public function supprimerPanier($idPanier)
+        {
+            $requete = $this->getBdd()->prepare('DELETE FROM paniers WHERE idPanier = ?');
+            $requete->execute([$idPanier]);
+        }
+
+    public function getIdPanier(){
+        return $this->idPanier;
+    }
 
     public function getPanier(){
         return $this->panier;
-    }
-
-    public function supprimerPanier($idPanier)
-    {
-        $requete = $this->getBdd()->prepare('DELETE FROM paniers WHERE idPanier = ?');
-        $requete->execute([$idPanier]);
     }
     
 }
