@@ -1,0 +1,5 @@
+# ----------------- 
+#   Config
+# --------------
+
+Redirect 301 /PPE-WEB/modeles/ http://localhost/PPE-WEB/membres/index.php
