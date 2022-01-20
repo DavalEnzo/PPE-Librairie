@@ -45,11 +45,10 @@ if(isset($_SESSION["idUtilisateur"]) && !empty ($_SESSION['idUtilisateur'])){
 }else{
     ?>        
     <div class="alert alert-danger container text-center" style="margin-top: 15%;">Vous devez vous connecter et/ou être inscrit afin de pouvoir lire des livres numériques</div>
-    <div style="margin-top: 15.74%;">
         <?php
     require_once 'pied.php';
     ?>
-    </div>
+ 
 
     <?php
 }

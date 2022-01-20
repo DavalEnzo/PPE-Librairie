@@ -3,8 +3,11 @@
 class Stockage extends Modele{
 
     private $idStockage;
+
     private $idPanier;
+
     private $idLivre;
+    
     private $quantite;
 
     public function __construct($idStockage = null)
@@ -18,7 +21,7 @@ class Stockage extends Modele{
         $this->idPanier = $stockage['idPanier'];
         $this->idLivre = $stockage['idLivre'];
         $this->quantite = $stockage['quantite'];
-
+// instancier objets  pour propriétés
        }
     }
     public function insertStockage($idPanier, $idLivre, $quantite){

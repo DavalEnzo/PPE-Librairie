@@ -21,7 +21,7 @@ require_once '../modeles/modele.php';
 </head>
 <body class="body">
 
-
+<div class="">
 <?php
   if(isset($_POST["accepté"])){
     setcookie("consentement", 1);
@@ -39,7 +39,8 @@ require_once '../modeles/modele.php';
     
   }
 ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary"> -->
+<nav class="navbar navbar-expand-lg navbar-dark BackGround">
   <div class="container-fluid">
   <a class="navbar-brand" href="#">
       <img src="https://img2.freepng.fr/20180623/zv/kisspng-used-book-online-book-printing-publishing-book-publishing-5b2e15ab53d0f7.7402729415297468593433.jpg" alt="" width="45" height="30">
@@ -137,32 +138,33 @@ require_once '../modeles/modele.php';
     ?>
     </div>
 </nav>
-
 <?php 
   if(!isset($_COOKIE['consentement'])) {
     ?>
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="margin-top: 10%;">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Autorisation des cookies</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Notre site est susceptible de collecter des cookies afin d'améliorer votre expérience utilisateur.
-                              Néanmoins, vous êtes en droit de refuser cette collecte.
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                          <form method="POST">
-                            <button type="submit" name="refusé" id="refusé" class="btn btn-secondary" data-bs-dismiss="modal">Je n'autorise pas la collecte</button>
-                            <button type="submit" name="accepté" id="accepté" class="btn btn-primary"  data-bs-dismiss="modal">J'accepte la collecte de cookie</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Autorisation des cookies</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Notre site est susceptible de collecter des cookies afin d'améliorer votre expérience utilisateur.
+                Néanmoins, vous êtes en droit de refuser cette collecte.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <form method="POST">
+                <button type="submit" name="refusé" id="refusé" class="btn btn-secondary" data-bs-dismiss="modal">Je n'autorise pas la collecte</button>
+                <button type="submit" name="accepté" id="accepté" class="btn btn-primary"  data-bs-dismiss="modal">J'accepte la collecte de cookie</button>
+              </form>
+            </div>
+          </div>
         </div>
-<?php
+      </div>
+      <?php
 }
+?>
+<div class="container white">    
     
   

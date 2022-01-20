@@ -1,15 +1,34 @@
- .hide{
+footer{
+    margin-top: auto;
+}
+.MomentBG{
+    font-size:50px;
+    margin-left:5%;
+    font-family:Brush Script MT;
+    border-radius: 30px;
+}
+ .textColor{
+   color: #FFFFFF; 
+ }
+body{
+     background-image: url(https://images6.alphacoders.com/872/thumb-1920-872784.jpg);
+     background-repeat: no-repeat;
+     background-size: cover;
+     background-attachment: fixed;
+ }
+.roundBorderTitle{
+    border-radius: 30px;
+    text-align: center;
+}
+ .BackGround{
+    background-color: #8A5F42;
+ }
+  .hide{
     opacity: 0;
     border: none;
     transition:all 1s ease-in-out;
 }
 
-.body{
-    background-image:url(https://images6.alphacoders.com/872/thumb-1920-872784.jpg) ;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-}
 .toutnoir{
     background-color:rgba(0,0,0,0.6);
 }
@@ -29,17 +48,17 @@
 
 #slick .arrow_prev{
     position:absolute;
-    right: 105%;
+    right: 102.2%;
     bottom: 50%;
-    background-color: red;
+    background-color: #8A5F42;
     width: 60px;
     border-radius: 50px;
 }
 #slick .arrow_next{
     position:absolute;
-    left: 105%;
+    left: 102.2%;
     bottom: 50%;
-    background-color: red;
+    background-color: #8A5F42;
     width: 60px;
     border-radius: 50px;
 }
@@ -147,3 +166,16 @@
       padding: 1%;
       box-shadow: 2px 8px 10px black;
   }
+/* .white{
+    background-color:#FFE9D6;
+} */
+.bSn
+{
+    border: 1px solid black;
+    width: 0px;
+    height: 200px;
+    --bs-gutter-x:none;
+}
+.starYell{
+    color: #FFD700;
+}

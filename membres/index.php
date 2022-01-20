@@ -4,23 +4,20 @@ $Bibli=new Bibliotheque();
 
 $livres = $Bibli->getBibli();
 ?>
-<div class="body">
-  <div class="toutnoir">
-      <div style="background-image:url('Books-banner.jpg');">
-          <div style="background-color:rgba(0,0,0,0.5)">
+      <div >
+         
               <div class="container text-center"
               data-aos="fade-down"
               data-aos-duration="3000"
               >
-                <h1 class="display-4" style="font-size:50px; margin-left:5%; font-family:Brush Script MT; color:yellow;text-shadow: black 0.4em 0.1em 0.4em;">Des livres a n'importe quel moment où que vous soyez</h1>
+                <h1 class="display-4  textColor MomentBG" >Des livres a n'importe quel moment où que vous soyez</h1>
               </div>
-          </div>
       </div>
-      <div class="container" style="max-width: 1280px">
-        <div style="border-radius: 30px;" class="p-1 mb-2 bg-info text-center"
+    
+        <div style="border-radius: 30px;" class="p-1 mb-2 text-center BackGround"
                 data-aos="fade-right"
                 data-aos-duration="3000">
-          <h2 class='fw-bold' style="text-decoration:underline; text-shadow: black 0.2em 0.1em 0.3em;">Les livres à la une</h2>
+          <h2 class='textColor' style="text-decoration:underline; text-shadow: black 0.2em 0.1em 0.3em;">Les livres à la une</h2>
         </div>
         
           <section id="slick"
@@ -61,14 +58,15 @@ $livres = $Bibli->getBibli();
                 </div>
           </section>
 
-      <div
-                data-aos="fade-left"
-                data-aos-duration="3000">
-        <h1 class="text-center my-3 stext"
-        
-              style="color:white;" 
-        >Les Nouveautés :</h1>
-      </div>
+          <div     style="border-radius:30px"
+                    class="BackGround pb-1"
+                    data-aos="fade-left"
+                    data-aos-duration="3000">
+            <h1 class="text-center my-3 stext"
+            
+                  style="color:white;" 
+            >Les Nouveautés :</h1>
+          </div>
         <div class="card-group" style='margin:1rem;'
                 data-aos="fade-down"
                 data-aos-duration="3000" >
@@ -107,8 +105,6 @@ $livres = $Bibli->getBibli();
           }
           ?>
       </div>
-  </div>
-</div>
-</div>    
+ 
 <?php
 require_once 'pied.php';

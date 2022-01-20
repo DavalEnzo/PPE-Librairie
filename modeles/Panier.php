@@ -3,8 +3,8 @@
 class Panier extends Modele{
 
     private $idPanier;
-
-    private $panier;
+    
+    private $lesStockages=[];
 
     public function __construct($idpanier = null, $idutilisateur = null)
     {
