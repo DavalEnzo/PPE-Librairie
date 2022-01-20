@@ -2,7 +2,7 @@
 session_start();
 class Modele{
 protected function getBdd(){
-    return new PDO('mysql:host=localhost;dbname=livres;charset=utf8', 'root', '',[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); //LOCAL
+    return new PDO('mysql:host=localhost;dbname=bibliotheque;charset=utf8', 'root', '',[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); //LOCAL
     //return new PDO('mysql:host=ipssisqunlivrepr.mysql.db;dbname=ipssisqunlivrepr;charset=utf8', 'ipssisqunlivrepr', 'Ipssi2022unlivrepresdechezvous',[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); PROD
 }
 }

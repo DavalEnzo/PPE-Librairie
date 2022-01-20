@@ -2,7 +2,7 @@
 require_once 'entete.php';
 $Bibli=new Bibliotheque();
 
-$livres = $Bibli->getBibli();
+$livres = $Bibli->getToutLivres();
 ?>
 <div class="body">
   <div class="toutnoir">
@@ -73,7 +73,7 @@ $livres = $Bibli->getBibli();
                 data-aos="fade-down"
                 data-aos-duration="3000" >
           <?php
-          $newLivres = $Bibli->getBibliNew();
+          $newLivres = $Bibli->getNewLivres();
           foreach($newLivres as $newLivre){  
             ?>
           <div  class="card mx-3 my-5 cardlivre"

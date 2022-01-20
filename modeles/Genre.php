@@ -23,7 +23,7 @@ class Genre extends Modele{
     }
 
     public function selectToutGenres($idTypeGenre){
-         $requete = $this->getBdd()->prepare("SELECT * FROM bibliotheque WHERE idtypeGenre = ?");
+         $requete = $this->getBdd()->prepare("SELECT * FROM livres WHERE idtypeGenre = ?");
          $requete->execute([$idTypeGenre]);
          return $requete->fetchAll(PDO::FETCH_ASSOC);
     }

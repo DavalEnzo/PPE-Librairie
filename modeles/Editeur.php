@@ -21,7 +21,7 @@ class Editeur extends Modele
 
     public function getEditeurLivre($idEditeur)
     {
-        $requete=$this->getBdd()->prepare('SELECT * FROM editeurs INNER JOIN bibliotheque USING (idEditeur) WHERE idEditeur = ?');
+        $requete=$this->getBdd()->prepare('SELECT * FROM editeurs INNER JOIN livres USING (idEditeur) WHERE idEditeur = ?');
         $requete->execute([$idEditeur]);
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
