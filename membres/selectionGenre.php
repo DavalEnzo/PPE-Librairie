@@ -7,7 +7,7 @@ if(isset($_GET['idTypeGenre']) && !empty($_GET['idTypeGenre'])){
 
 $genre=new Genre();
 
-$livresGenre = $genre->selectToutGenres($idTypeGenre)
+$livresGenre = $genre->selectToutTypeGenres($idTypeGenre)
 
 ?>
 <div class="alert alert-info">

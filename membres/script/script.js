@@ -129,6 +129,17 @@ $(window).on('load', function () {
         }
     });
 
+    $(window).scroll(function(e){ 
+        var $el = $('#scroll'); 
+        var isPositionFixed = ($el.css('position') == 'fixed');
+        if ($(this).scrollTop() > 200 && !isPositionFixed){ 
+          $el.css({'position': 'fixed', 'top': '0'}); 
+        }
+        if ($(this).scrollTop() < 200 && isPositionFixed){
+          $el.css({'position': 'absolute', 'top': '18%'}); 
+        } 
+      });
+
 //   function isNumerique(){
 //   if(document.getElementById("prixAjout").value == 0){
 //       console.log(document.getElementById("prixAjout").value);

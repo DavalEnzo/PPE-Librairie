@@ -1,11 +1,18 @@
 <?php require_once 'entete.php'
 ;?>
 
-  <div class="alert alert-dark">
-    <h2 class="text-center">Processus de commande</h2>
-  </div>
+<?php
+    $idPanier = $_SESSION['idPanier'];
+    $Panier = new Panier($idPanier, $_SESSION['idUtilisateur']);
+    $recupPanier = $Panier->getPanier();
+?>
 
-  <div class="container rounded" style="background-color:white; box-shadow: 1px 1px 15px black;">
+  <div class="alert alert-dark">
+    <h2 class="text-center underline"><u>Processus de commande</u></h2>
+  </div>
+  
+  <div class="container rounded" style="background-color:white; box-shadow: 1px 1px 15px black; padding-top:1%; margin-left:13%; padding-bottom:0.1%">
+    <h1 class="text-center mb-4">Vos informations</h1>
   <div class="card">
   <div class="card-body">
     <h3>Coordonnées</h3>
@@ -157,10 +164,75 @@
         </div>
       </div>
     </div>
-        </form>
+    </div>
+    <h2 class="text-center" style="margin-bottom: 2%;"><u>Résumé de la commande</u></h2>
+    <h2 style="color: skyblue; font-weight:bold">Date de livraison estimée : <?=date('d/M/y', strtotime('10 days'));?></h2>
+    <?php
+    foreach($recupPanier as $panier){
+      ?>
+      <div class="card mb-3 my-3 container" style="max-width: 1400px; height: 230px;">
+        <div class="row g-0">
+          <div class="col-md-1">
+            <img src="<?=$panier['Photo'];?>" style="max-height: 228px;" class="rounded-start" alt="...">
+          </div>
+          <div class="col-md-10" style="margin-left: 2%;">
+            <div class="card-body" style="margin-left: 5%;">
+              <h5 class="card-title"><?=$panier['Titre'];?></h5>
+              <h5 class="card-subtitle text-muted mb-4"><?=$panier['nomEditeur'];?></h5>
+              <p style="font-size: 20px;" class="card-subtitle">Quantité: <?=$panier['quantite'];?></p>
+              <p class="card-text">Prix total: <?=$panier['Prix'] * $panier['quantite'];?>€</p>
+              
+            </div>
+          </div>
+        </div>
+    </div>
+    <?php
+}
+?>
+</div>
+  </div>
+
+  <div class="card container" style="margin-left:13%; margin-bottom:1%; margin-top:1%">
+    <div class="card-body">
+      <?php
+        $total = 0;
+          foreach($recupPanier as $detailCommande){
+        $total += $detailCommande['Prix']*$detailCommande['quantite'];
+      }
+      ?>
+
+    <h4 style="color: #50C878; margin-bottom:0">Total à payer: <?=$total;?>€</h4><br>
+    <button type="submit" class="btn btn-success">Compléter la commande et payer</button>
     </div>
   </div>
   </div>
+
+
+  <div class="card" id="scroll" style="margin-left: 83%;">
+    <div class="card-body">
+      <h5 class="card-title text-center">Paiement</h5>
+      <div style="border: 1px solid black;"></div>
+      <h4 class="card-text text-center my-2">Détails de commande</h4>
+      <h5 style="margin-left: 3%;">Livres:</h5>
+      <?php
+        $total = 0;
+          foreach($recupPanier as $detailCommande){
+        ?>
+        <p style="font-size: 15px;">x<?=$detailCommande['quantite'];?> <?=$detailCommande['Titre'];?>: <?=$detailCommande['Prix']*$detailCommande['quantite'];?>€</p>
+        <?php
+        $total += $detailCommande['Prix']*$detailCommande['quantite'];
+      }
+      ?>
+      <div style="border: 1px solid black; margin-bottom:5%"></div>
+
+      <h4 style="color: #50C878;">Total à payer: <?=$total;?>€</h4>
+      <button type="submit" class="btn btn-success">Compléter la commande et payer</button>
+    </div>
+  </div>
+  </form>
+</div>
+
+
 <?php
 
 require_once 'pied.php';

@@ -34,7 +34,7 @@ try {
     <?php
 }
 try {
-    $bilio = $Bibli->getBibli();
+    $bilio = $Bibli->getToutLivres();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">

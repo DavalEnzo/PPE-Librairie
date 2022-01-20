@@ -179,3 +179,9 @@ body{
 .starYell{
     color: #FFD700;
 }
+
+#scroll{
+    position: absolute;
+    top: 18%;
+    width: 16%;
+}

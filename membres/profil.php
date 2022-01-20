@@ -53,7 +53,7 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
 ?>
 <div class="container my-5">
     <div class="rounded" style="background-color: white; padding: 1% 2% 2% 2%;box-shadow: 1px 1px 5px black;">
-        <h1 class="text-center my-3">Profile de <?=$_SESSION['nom'];?></h1>
+        <h1 class="text-center my-3">Profil de <?=$_SESSION['nom'];?></h1>
         <div>
             <div style="max-width:220px;display:inline-block;">
                 <div style="max-height:240px; width:auto">
@@ -81,11 +81,11 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
                     <input type="email" class ="form-control" style="border-radius: 20px;" name="email" id="email" value="<?=$_SESSION['email'];?>"/>
                 </div>
                 <div class="form-group mb-3 my-3">
-                    <label for="photoProfile">Photo de profile</label>
+                    <label for="photoProfile">Photo de profil</label>
                     <input type="file" class="form-control" id="inputGroupFile01" name="photoProfile">
                 </div>
                 <div class="form-group text-center my-2">
-                    <button type="submit" class="btn-balayage" style="border-radius: 20px;margin-top:2%;" name="envoi" value="1">Modifier le profile</button>
+                    <button type="submit" class="btn-balayage" style="border-radius: 20px;margin-top:2%;" name="envoi" value="1">Modifier le profil</button>
                 </div>
             </form>
         </div>

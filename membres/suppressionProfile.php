@@ -9,7 +9,7 @@
 
         <a href="../traitement/supprimerProfile.php" type="button" class="btn btn-danger" style="width: 20%;">Supprimer</a>
         
-        <a href="profile.php?id=<?=$_SESSION['idUtilisateur'];?>" type="button" class="btn btn-success" style="width: 20%;">Annuler</a>
+        <a href="profil.php?id=<?=$_SESSION['idUtilisateur'];?>" type="button" class="btn btn-success" style="width: 20%;">Annuler</a>
     
     </div>
 </div>

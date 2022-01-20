@@ -32,19 +32,19 @@ if(isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["prenom"])
                                         $_SESSION['photoProfile'] = $fichier;
                                     }else{
                                         $erreur = 1;
-                                        header("location:../membres/profile?success=2&erreur=".$erreur);
+                                        header("location:../membres/profil?success=2&erreur=".$erreur);
                                     }
                                 }else{
                                     $erreur = 2;
-                                    header("location:../membres/profile?success=2&erreur=".$erreur);
+                                    header("location:../membres/profil?success=2&erreur=".$erreur);
                                 }
                             }else{
                                 $erreur = 3;
-                                header("location:../membres/profile?success=2&erreur=".$erreur);
+                                header("location:../membres/profil?success=2&erreur=".$erreur);
                             }               
                     }else{
                        $erreur = 4;
-                       header("location:../membres/profile?success=2&erreur=".$erreur);exit;
+                       header("location:../membres/profil?success=2&erreur=".$erreur);exit;
                     }
                 }
 
@@ -52,7 +52,7 @@ if(isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["prenom"])
 
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $erreur = 6;
-                    header("location:../membres/profile?success=2&erreur=".$erreur);exit;
+                    header("location:../membres/profil?success=2&erreur=".$erreur);exit;
                   }
 
                 $utilisateur->modifProfile($nom, $prenom, $email, $_SESSION['idUtilisateur']);
@@ -61,9 +61,9 @@ if(isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["prenom"])
                 $_SESSION['prenom'] = $prenom; 
                 $_SESSION['email'] = $email; 
 
-                header("location:../membres/profile?id=".$_SESSION['idUtilisateur']."&success=1");
+                header("location:../membres/profil?id=".$_SESSION['idUtilisateur']."&success=1");
 
 }else{
     $erreur = "Un champ n'a pas été rempli, veuillez vérifier votre saisie.";
-    header("location:../membres/profile?success=3&erreur=".$erreur);
+    header("location:../membres/profil?success=3&erreur=".$erreur);
 }

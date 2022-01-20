@@ -19,6 +19,7 @@
         <div class="row">
                 <div class="col-md-3 text-center">
                         <h4><?=$commentaire["nom"]." ".$commentaire["prenom"]?></h4>
+                        <img style="width: 60%;" src="<?=$_SESSION['photoProfile'];?>">
                 </div>
                 <div class="col-md-1 bSn"></div>
                 <div class="col-md-8 row" style="width:70%">
@@ -78,7 +79,7 @@
                     <?php
                     }
                     ?>
-                    <div class="col-md-12 form-control" style="border-radius: 20px solid black; margin-left:20%;">
+                    <div class="col-md-12 form-control" style="border-radius: 20px solid black; margin-left:5%">
                         <p style="word-wrap: break-word"><?=$commentaire["contenu"]?></p>
                     </div>
                 </div>
@@ -96,3 +97,4 @@
         </div>
         <?php
     }
+    require_once 'pied.php';
