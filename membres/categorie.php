@@ -1,10 +1,10 @@
 <?php
 require_once 'entete.php';
 ?>
-    <div class="p-3 mb-2 bg-info text-dark"
+    <div class="m-1 text-dark text-center MomentBG"
     data-aos = 'fade-down'
     data-aos-duration="3000">
-        <h2>Vous trouverez ici tout les genres de livres que nous possédons.</h2>
+        <h1 class="textColor MomentBG" >Vous trouverez ici tout les genres de livres que nous possédons.</h1>
     </div>
 <div class = 'container'
    data-aos = 'fade-left'
@@ -33,8 +33,8 @@ require_once 'entete.php';
         if($genretemp != $genre['idGenre']){
         ?> 
         
-        <div class="card text-center stext " style='background-color:#191970;color:white;'>
-            <h4>Genre : <?=$genre['nomGenre']?></h6>
+        <div class="card text-center stext textColor BackGround">
+            <h4><?=$genre['nomGenre']?></h6>
         </div>
         <?php
         }

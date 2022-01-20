@@ -1,11 +1,22 @@
+.hShadow{
+    text-shadow: black 0.2em 0.1em 0.3em;
+}
+.decoNone{
+    text-decoration: none;
+    color: black;
+}
 footer{
     margin-top: auto;
 }
 .MomentBG{
-    font-size:50px;
+    background-color: #2c2c2c;
+    /* font-size:40px; */
+    font-size: calc(1.475rem + 2.7vw);
+    font-weight: 300;
+    line-height: 1.2;
     margin-left:5%;
     font-family:Brush Script MT;
-    border-radius: 30px;
+    border-radius: 12px;
 }
  .textColor{
    color: #FFFFFF; 
@@ -32,10 +43,13 @@ body{
 .toutnoir{
     background-color:rgba(0,0,0,0.6);
 }
-
+.imgCard{
+    border-radius: 12px !important;
+}
 .cardlivre{
-    color: black;
-    box-shadow: black;
+    color: black !important;
+    box-shadow: black !important;
+    border-radius: 12px !important;
 }
 
 .stext{
