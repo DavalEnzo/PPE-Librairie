@@ -4,21 +4,17 @@ $Bibli=new Bibliotheque();
 
 $livres = $Bibli->getToutLivres();
 ?>
-<div class="container white">   
-      <div >
-         
-              <div class="container text-center"
+              <div class="m-1 text-dark text-center MomentBG"
               data-aos="fade-down"
               data-aos-duration="3000"
               >
-                <h1 class="display-4  textColor MomentBG" >Des livres a n'importe quel moment où que vous soyez</h1>
+                <h1 class="textColor MomentBG" >Des livres a n'importe quel moment où que vous soyez</h1>
               </div>
-      </div>
-    
+    <div class="container white">  
         <div style="border-radius: 30px;" class="p-1 mb-2 text-center BackGround"
                 data-aos="fade-right"
                 data-aos-duration="3000">
-          <h2 class='textColor' style="text-decoration:underline; text-shadow: black 0.2em 0.1em 0.3em;">Les livres à la une</h2>
+          <h2 class="textColor hShadow">Livres à la une</h2>
         </div>
         
           <section id="slick"
@@ -75,11 +71,12 @@ $livres = $Bibli->getToutLivres();
           $newLivres = $Bibli->getNewLivres();
           foreach($newLivres as $newLivre){  
             ?>
+        <a class="decoNone" href="pageProduit.php?idLivre=<?=$newLivre["idLivre"]?>">
           <div  class="card mx-3 my-5 cardlivre"
                
                 style="max-height:450px;max-width:17rem;min-width:17rem;min-height:450px;border:none;" >
 
-                <img  class="card-img-top" style="max-height:340px;" src="<?=$newLivre["Photo"]?>">
+                <img  class="card-img-top imgCard" style="max-height:340px;" src="<?=$newLivre["Photo"]?>">
 
                 <div class="card-body" style="min-height:105px;" id="card" >
                     <h8 class="card-title"><?=$newLivre["Titre"]?></h8>
@@ -96,10 +93,7 @@ $livres = $Bibli->getToutLivres();
                   }
                 ?>
                 </div>
-
-              <div class="card-footer hide mx-5">
-                <a href="pageProduit.php?idLivre=<?=$newLivre["idLivre"]?>"> <button  class="btn btn-success">Voir le produit</button></a> 
-              </div>
+        </a>         
 
           </div>
           <?php
