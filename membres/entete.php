@@ -165,6 +165,6 @@ require_once '../modeles/modele.php';
       <?php
 }
 ?>
-<div class="container white">    
+ 
     
   

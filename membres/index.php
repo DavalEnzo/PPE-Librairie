@@ -4,6 +4,7 @@ $Bibli=new Bibliotheque();
 
 $livres = $Bibli->getToutLivres();
 ?>
+<div class="container white">   
       <div >
          
               <div class="container text-center"
@@ -105,6 +106,6 @@ $livres = $Bibli->getToutLivres();
           }
           ?>
       </div>
- 
+</div>   
 <?php
 require_once 'pied.php';
