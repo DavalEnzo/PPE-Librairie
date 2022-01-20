@@ -2,7 +2,7 @@
 require_once "entete.php";
 $BibliNum=new Bibliotheque();
 
-$livrenums = $BibliNum->getBibliNum();
+$livrenums = $BibliNum->getLivresGratuits();
 
 if(isset($_SESSION["idUtilisateur"]) && !empty ($_SESSION['idUtilisateur'])){
 ?>
@@ -48,7 +48,5 @@ if(isset($_SESSION["idUtilisateur"]) && !empty ($_SESSION['idUtilisateur'])){
         <?php
     require_once 'pied.php';
     ?>
- 
-
     <?php
 }

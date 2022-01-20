@@ -106,6 +106,29 @@ $(window).on('load', function () {
     }
     });
 
+    $('#enregistrerCoordonnees').on('click', function() {
+        $('#coordonees').show();
+        $('#noAdresse').text('');
+        $('#nomPrenom').val( 'Nom et prénom: ' + $('#nomComplet').val() );
+        $('#coordonneeValues').val('Adresse: ' + $('#adresse').val() + ', ' + $('#codePostal').val() + ', ' + $('#ville').val() + ', ' + $('#pays').val());
+      });
+
+    $('#numeroCb').on('keyup', function () {
+        if (isNaN($('#numeroCb').val())) {
+                $('#msg').html('Le code de carte de crédit ne doit contenir que des chiffres').css('color', 'red');
+        }else{
+            $('#msg').html('')
+        }
+    });
+
+    $('#cvc').on('keyup', function () {
+        if (isNaN($('#cvc').val())) {
+                $('#msgCvc').html('Le CVC ne doit contenir que des chiffres').css('color', 'red');
+        }else{
+            $('#msgCvc').html('')
+        }
+    });
+
 //   function isNumerique(){
 //   if(document.getElementById("prixAjout").value == 0){
 //       console.log(document.getElementById("prixAjout").value);
