@@ -1,4 +1,4 @@
-<?php require_once 'entete.php'
+<?php require_once 'entete.php';
 ;?>
 
 <?php
@@ -49,7 +49,7 @@
 
     <div class="form-group mt-1">
         <label for="telephone">Téléphone</label>
-        <input type="text" class="form-control" id="telephone" name="telephone" value="<?=(isset($_POST["telephone"]) ? $_POST["telephone"] : "");?>" placeholder="Saisissez votre numéro de téléphone">
+        <input type="text" class="form-control" id="telephone" name="telephone" maxlength="10" value="<?=(isset($_POST["telephone"]) ? $_POST["telephone"] : "");?>" placeholder="Saisissez votre numéro de téléphone">
     </div>
     <div class="form-group mt-1">
         <label for="adresse">Adresse</label>
@@ -166,14 +166,15 @@
     </div>
     </div>
     <h2 class="text-center" style="margin-bottom: 2%;"><u>Résumé de la commande</u></h2>
-    <h2 style="color: skyblue; font-weight:bold">Date de livraison estimée : <?=date('d/M/y', strtotime('10 days'));?></h2>
+    <h2 style="color: green; font-weight:bold; text-decoration:underline;">Date de livraison estimée : <?=date('d/m/y', strtotime('10 days'));?></h2>
     <?php
     foreach($recupPanier as $panier){
       ?>
-      <div class="card mb-3 my-3 container" style="max-width: 1400px; height: 230px;">
+      <input style="display: none;" type="text" value="<?=$panier['idLivre'];?>">
+      <div class="card mb-3 my-3 container cardlivre" style="max-width: 1400px; height: 230px;">
         <div class="row g-0">
           <div class="col-md-1">
-            <img src="<?=$panier['Photo'];?>" style="max-height: 228px;" class="rounded-start" alt="...">
+            <img class="imgCard" src="<?=$panier['Photo'];?>" style="max-height: 228px; width:182px" class="rounded-start" alt="...">
           </div>
           <div class="col-md-10" style="margin-left: 2%;">
             <div class="card-body" style="margin-left: 5%;">

@@ -17,7 +17,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                         Erreur: <?= $_GET['erreurs'];?>
             </div>
       <?php
-  }else{
+  }
+  
     require_once 'entete.php';
     ?>
     <div class="container my-3">
@@ -66,6 +67,4 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     </div>
     </div>
     <?php
-
     require_once 'pied.php';
-  }

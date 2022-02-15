@@ -1,5 +1,4 @@
 var cards = document.querySelectorAll('.cardlivre');
-console.log(cards);
 cards.forEach(function(card){
     card.addEventListener('mouseover',function(){
         card.querySelector('.hide').style.opacity = '1'
@@ -74,18 +73,7 @@ $(window).on('load', function () {
   $(window).resize(function(){
       $window.refresh();
   });
-
-  $('#mdp, #confirmMdp').on('keyup', function () {
-      if ($('#mdp').val() != $('#confirmMdp').val() && $('#confirmMdp').val().length > 0) {
-          $('#message').html('Les mots de passe ne sont pas identiques').css('color', 'red');
-          $('#envoi').attr("disabled", true);
-        }else{
-            $('#envoi').attr("disabled", false);
-            $('#message').html("").css('color', 'red');
-
-    }
-    });
-
+  
     $('#souvenir, #avertissement, #exclamation').on('click', function () {
         if($('#souvenir').is(':checked')) {
             $('#exclamation').show();
@@ -114,6 +102,29 @@ $(window).on('load', function () {
       });
 
     $('#numeroCb').on('keyup', function () {
+
+        if($('#numeroCb').val().indexOf('4',0) == 0){
+            $('#numeroCb').css("background-image", "url(https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/visa-512.png)");
+
+            $('#numeroCb').css("padding-left", "40px");
+
+        }else if($('#numeroCb').val().indexOf('5',0) == 0){
+            $('#numeroCb').css("background-image", "url(https://img2.freepng.fr/20180824/jbf/kisspng-mastercard-logo-credit-card-visa-brand-mastercard-logo-icon-paypal-icon-logo-png-and-v-5b8036c0e7dcf3.7313769415351292809497.jpg)");
+
+            $('#numeroCb').css("padding-left", "40px");
+
+        }else if($('#numeroCb').val().charAt(0) !== 4 && $('#numeroCb').val().charAt(0) !== 5 && $('#numeroCb').val().length > 0){
+
+            $('#numeroCb').css("background-image", "url(https://static.thenounproject.com/png/1878932-200.png)");
+
+            $('#numeroCb').css("padding-left", "40px");
+
+        }else{
+            $('#numeroCb').css("background-image", "");
+            
+            $('#numeroCb').css("padding", "6px 12px");
+        }
+
         if (isNaN($('#numeroCb').val())) {
                 $('#msg').html('Le code de carte de crédit ne doit contenir que des chiffres').css('color', 'red');
         }else{

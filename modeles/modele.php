@@ -7,14 +7,14 @@ protected function getBdd(){
 }
 }
 
-require_once 'utilisateur.php';
 require_once 'Auteur.php';
 require_once 'Bibliotheque.php';
 require_once 'Ecrit.php';
-require_once 'commentaire.php';
+require_once 'Commentaire.php';
 require_once 'Genre.php';
 require_once 'Editeur.php';
-require_once 'lectures.php';
+require_once 'Lectures.php';
 require_once '../modeles/Panier.php';
 require_once 'Stockage.php';
-require_once 'utilisateur.php';
+require_once 'Utilisateur.php';
+require_once 'Commande.php';

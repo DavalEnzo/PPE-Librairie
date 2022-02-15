@@ -37,10 +37,23 @@
                 ?>        
                 <div class="alert alert-danger">L'email entré n'est pas valide, veuillez vérifier qu'il contient un '@' et un domaine (.com, .fr...).</div>
                 <?php
-            }
-        }else if($_GET['success'] == 3 ){
+            }else if($_GET['e']){
+                ?>        
+                <div class="alert alert-danger">La modification n'a pas été effectuée, veuillez contacter l'administrateur et lui communiquer cetter erreur:<br>
+                <b><?=$_GET['e'];?></b>
+                </div>
+                <?php
+            }else if($_GET['success'] == 3 ){
             ?>
             <div class="alert alert-danger"><?=$_GET['erreur'];?><br>
+            </div>
+            <?php
+            }
+
+        }
+        if(isset($_GET['erreurs']) && $_GET['success'] == 4){
+            ?>
+            <div class="alert alert-danger"><?=$_GET['erreurs'];?><br>
             </div>
             <?php
         }

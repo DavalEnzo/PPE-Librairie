@@ -199,3 +199,8 @@ body{
     top: 18%;
     width: 16%;
 }
+
+#numeroCb{
+background-size: contain;
+background-repeat: no-repeat;
+}
