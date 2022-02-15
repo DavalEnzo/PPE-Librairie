@@ -33,6 +33,10 @@ $utilisateur = $u->verifUtilisateur();
                 }elseif(empty($_POST['mdp']) || empty($_POST['email'])){
 
                     $erreurs[] = "au moins un champ n'a pas été saisi";
+
+                }elseif(!preg_match('/^[A-Za-z]+$/', $_POST['prenom']) || !preg_match('/^[A-Za-z]+$/',$_POST['nom'])){
+
+                    $erreurs[] = "Caractère incorrect entré pour le nom ou le prénom";
                 }
             }
 

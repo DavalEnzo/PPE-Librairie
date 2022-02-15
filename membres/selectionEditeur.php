@@ -38,7 +38,7 @@ foreach($editeurs as $e){}
     <div class="card mx-3 my-5 cardlivre"
                 style="max-height:450px;max-width:17rem;min-width:17rem;min-height:450px;border:none">
 
-                <img  class="card-img-top" style="max-height:340px;" src="<?=$editeur["Photo"]?>">
+                <img  class="card-img-top imgCard" style="max-height:340px;" src="<?=$editeur["Photo"]?>">
 
             <div class="card-body" style="min-height:105px" id="card">
                 <h8 class="card-title"><?=$editeur["Titre"]?></h8>

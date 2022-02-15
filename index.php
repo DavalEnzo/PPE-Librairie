@@ -1,3 +1,3 @@
 <?php
-header('location:membres/index.php');
+header('location:../membres/index.php');
 ?>

@@ -47,17 +47,19 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
                 <button type="submit" style="display: inline-block;" class="btn btn-success btn-sm" name="plus" value="1">+</button>
             </form>
               <p class="card-text">Prix avec quantité : <?=$panier['quantite'] * $panier['Prix'];?> €</p>
-              <a type="submit" href="../traitement/suppressionArticlePanier.php?idStockage=<?=$panier['idStockage']?>" style="margin-left: 85%; margin-bottom:500px" class="btn btn-danger">Supprimer l'article</a>
+              <a type="submit" href="../traitement/suppressionArticlePanier.php?idStockage=<?=$panier['idStockage']?>" style="margin-left: 85%;" class="btn btn-danger">Supprimer l'article</a>
             </div>
           </div>
         </div>
-    </div>
-
-    <?php
+      </div>
+      
+      <?php
   }
   ?>
+  </div>
+  </div>
   <div class="roundedBorders" style="width: 12%; padding:0.8%; margin-left:74.5%; margin-top:auto">Prix Total : <?=$total;?>€
-    <br><button type="button" class="btn btn-success my-2">Passer la commande</button>
+  <a type="button" href="processusCommande.php" class="btn btn-success my-2">Passer la commande</a>
   </div>
 
   <?php

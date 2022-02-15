@@ -1,6 +1,9 @@
 <?php include_once 'entete.php';?>
 
+
 <?php
+if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur']))
+{
     if(isset($_GET['success']) && !empty($_GET['success'])){
         if($_GET['success'] == 2){
             ?>
@@ -36,7 +39,12 @@
     <input class ="form-control" style="border-radius: 20px; width:30%; margin-top:1%; margin-bottom:4%; margin-left:35%" name="confirmNewMdp" type="password" placeholder="Confirmez votre nouveau mdp">
 
     <div class="form-group text-center my-2">
-        <button type="submit" class="btn btn-success" style="border-radius: 20px; width:35%" name="envoi">Modifier le profil</button>
+        <button type="submit" class="btn btn-success" style="border-radius: 20px; width:35%" name="envoi">Modifier le mot de passe</button>
     </div>
 </form>
 </div>
+
+<?php
+}else{
+    header('location:index.php');
+}

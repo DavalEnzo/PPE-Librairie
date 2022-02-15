@@ -24,9 +24,9 @@ require_once '../modeles/modele.php';
 
 <?php
   if(isset($_POST["accepté"])){
-    setcookie("consentement", 1);
+    setcookie("consentement", 1, time() + (365 * 24 * 60 * 60), "/", "", false, true);
   }elseif(isset($_POST["refusé"])){
-    setcookie("consentement", 0);
+    setcookie("consentement", 0, time() + (365 * 24 * 60 * 60), "/", "", false, true);
   }
 
   if(isset($_COOKIE['souvenir']) && !empty($_COOKIE['souvenir'] && !isset($_SESSION['idUtilisateur']))){
@@ -139,14 +139,13 @@ require_once '../modeles/modele.php';
     </div>
 </nav>
 <?php 
-  if(!isset($_COOKIE['consentement'])) {
+  if((!isset($_POST['accepté']) && empty($_POST['accepté']) && !isset($_POST['refusé']) && empty($_POST['refusé']) && !isset($_COOKIE['consentement']))) {
     ?>
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="margin-top: 10%;">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">Autorisation des cookies</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <p>Notre site est susceptible de collecter des cookies afin d'améliorer votre expérience utilisateur.

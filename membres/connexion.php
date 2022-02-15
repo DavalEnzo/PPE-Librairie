@@ -10,10 +10,10 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     }else if(isset($_GET["success"])&& $_GET['success'] == 0 ){
         require_once 'entete.php';
         ?>        
-        <div class="alert alert-danger">La connexion n'a pas pu être finalisée, veuillez contacter un administrateur<br>
+        <div class="alert alert-danger">La connexion n'a pas pu être finalisée<br>
         Erreur: <?= $_GET['erreurs'];?></div>
         <?php
-    }else{
+    }
         require_once 'entete.php';
       ?>
       
@@ -49,5 +49,4 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     ?>
     </div>
     <?php
-}
 

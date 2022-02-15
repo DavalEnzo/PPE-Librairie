@@ -27,9 +27,14 @@ if(isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["prenom"])
                                 if($_FILES['photoProfile']['type'] == "image/png" || $_FILES['photoProfile']['type'] == "image/jpeg"){
                                     // On enregistre le fichier et on test si ça a fonctionné
                                     if(move_uploaded_file($_FILES['photoProfile']['tmp_name'], $fichier)){
-                                        
+
+                                        try{                                        
                                         $requete = $utilisateur->modifPhotoProfile($_SESSION['idUtilisateur'], $fichier);
                                         $_SESSION['photoProfile'] = $fichier;
+                                        }catch(Exception $e){
+                                            echo $erreur = $e->getMessage();
+                                            header("location:../membres/profil?success=2&e=".$erreur);
+                                        }
                                     }else{
                                         $erreur = 1;
                                         header("location:../membres/profil?success=2&erreur=".$erreur);
