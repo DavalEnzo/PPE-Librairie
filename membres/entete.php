@@ -21,7 +21,7 @@ require_once '../modeles/modele.php';
 </head>
 <body class="body">
 
-<div class="">
+
 <?php
   if(isset($_POST["accepté"])){
     setcookie("consentement", 1);

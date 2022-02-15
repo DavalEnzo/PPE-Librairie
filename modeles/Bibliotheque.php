@@ -2,32 +2,87 @@
 class Bibliotheque extends Modele 
 {
 
-private $infoId;
+// private $infoId;
 
-    public function __construct($idLivre = null)
+
+private $Livres = []; //Contient les livres 
+
+private $Auteurs = [];
+
+    public function __construct()
     {
-        if($idLivre != null) 
-            {
-                $requete = $this->getBdd()-> prepare ("SELECT * FROM livres WHERE idLivre = ? ");
-                $requete -> execute([$idLivre]);
-                $infoId = $requete->fetch(PDO::FETCH_ASSOC);
-
-                $this->infoId = $infoId ;
-            }
-        }
+                $requete = $this->getBdd()-> prepare ("SELECT * FROM livres ORDER BY date_heure DESC ");
+                $requete -> execute();
+                $Livres = $requete->fetchAll(PDO::FETCH_ASSOC);
+                $this->InitializeLivreBibli($Livres);
+               
+    }
         
+    public function InitializeLivreBibli($Bibli)
+    {
+        foreach($Bibli as $L){
+            $Livre = new Livre($L['idLivre']);
+            $this->Livres[]=$Livre;
+        }
+    }
+
+    //GETTERS
+    public function getLivres()
+    {
+        return $this->Livres;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public function insertBibli($titre, $date, $prix, $photo, $genres, $check, $droit){
             $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre, date_sortie, Prix, Photo, idGenre, date_heure, audio, droit)
             VALUES(?, ?, ?, ?, ?, NOW(), ?, ?)");
         $requete->execute([$titre, $date, $prix, $photo, $genres, $check, $droit]);
         
         $this->titre = $titre;
+
         $this->droit = $droit;
+
         $this->check = $check;
+
         $this->genres = $genres;
+
         $this->photo = $photo;
+
         $this->prix = $prix;
+
         $this->date = $date;
+
+
+
     }
     
     public function rechercherLivre($recherche){

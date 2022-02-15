@@ -3,21 +3,13 @@
 class Utilisateur extends Modele{
   
     private $idUtilisateur;
-
     private $nom;
-
     private $prenom;
-
     private $email;
-
     private $mdp;
-
     private $photoProfile;
-
     private $idPermission;
-
     private $token;
-
     private $dateMentionAccepte;
 
     public function __construct($idUtilisateur = null)
@@ -26,7 +18,7 @@ class Utilisateur extends Modele{
         if($idUtilisateur != null)
         {
             
-            $requete=$this->getBdd()->prepare('SELECT * FROM utilisateur WHERE idUtilisateur = ?');
+            $requete=$this->getBdd()->prepare('SELECT * FROM utilisateurs WHERE idUtilisateur = ?');
             $requete->execute([$idUtilisateur]);    
             $User= $requete->fetch(PDO::FETCH_ASSOC);
 
@@ -46,10 +38,16 @@ class Utilisateur extends Modele{
             
             $this->token = $User['token'];
 
-            $this->dateMentionAccepte = $User['sateMentionAcceptée'];
+            $this->dateMentionAccepte = $User['dateMentionAcceptée'];
         
         }
 
+    }
+    public function initialize($idUtilisateur=null,$nom=null,$prenom=null,$email=null,$mdp=null,$photoProfile=null,$idPermission=null,$token=null,$dateMentionAccepte=null)
+    {
+       $this->nom = $nom;
+       $this->prenom = $prenom;
+       $this->photoProfile = $photoProfile;
     }
     public function verifUtilisateur()
     {
@@ -113,6 +111,7 @@ class Utilisateur extends Modele{
         $requete = $this->getBdd()->prepare("UPDATE utilisateurs SET token = ? WHERE idUtilisateur = ?");
         $requete->execute([$token, $idUser]);
     }
+    
 //////SETTERS
     public function setName($var = null)
     {

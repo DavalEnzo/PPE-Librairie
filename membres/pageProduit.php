@@ -1,26 +1,37 @@
 <?php
+
 require_once("entete.php");
 
 if(isset($_GET["idLivre"]) &&!empty($_GET['idLivre'])){
         $idLivre = $_GET["idLivre"];
-        $Bibli = new Bibliotheque($idLivre);
-        $livres = $Bibli->getInfoId();
+        $Livre = new Livre($idLivre);
     }else{
         header("index.php");
     }
 
 if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
         $contenu = $_POST["contenu"];
-        
         $idUtilisateur =  $_SESSION["idUtilisateur"];
+    if(isset($_POST['selectGrade'])&& !empty($_POST['Entete'])){
+        $selectGrade  = $_POST['selectGrade'];
+    }else{
+        $selectGrade  = NULL;
+    }
+    if(isset($_POST['Entete'])&&!empty($_POST['Entete']))
+    {
+        $Entete  = $_POST['Entete'];
+    }    else{
+        $Entete  = NULL;
+    }
     
     try{
-        $com = new Commentaire($idLivre);
-        $com->insertCom($contenu,$idLivre,$idUtilisateur);
+        $com = new Commentaire();
+        $com->initializeCom(NULL,$contenu,$idUtilisateur,$idLivre,$selectGrade,$Entete,NULL);
+        $com->insertCom();
         ?>
         <div class="alert alert-success mt-3">Le commentaire a bien été enregistré</div>
         <?php
-
+        header("location:../membres/pageProduit.php?idLivre=".$idLivre);
         }catch(Exception $e){
             echo "Il y a une erreur";
             echo $e->getMessage();
@@ -29,7 +40,7 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
 
 if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     ?>
-      <div class="alert alert-success mt-3">Le livre <strong>"<?=$livres["Titre"]?>"</strong> a bien été ajouté dans votre panier, vous pouvez le consulter <a href="panier.php"><strong>ici</strong></a></div>
+      <div class="alert alert-success mt-3">Le livre <strong>"<?=$Livre->getTitre()?>"</strong> a bien été ajouté dans votre panier, vous pouvez le consulter <a href="panier.php"><strong>ici</strong></a></div>
       <?php 
   }else if(isset($_GET["success"])&& $_GET['success'] == 0 ){
       ?>
@@ -43,14 +54,14 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
             <div class="card mb-3" >
                 <div class="row g-0">
                     <div class="col-md-3">
-                        <img style="max-width: 300px;" src="<?=$livres["Photo"]?>" >
+                        <img style="max-width: 300px;" src="<?=$Livre->getPhoto()?>" >
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title"><?=$livres["Titre"]?></h5>
+                            <h5 class="card-title"><?=$Livre->getTitre()?></h5>
                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 <?php       
-    if($livres["droit"] == 1 ){
+    if($Livre->getdroit() == 1 ){
         ?>
                             <a href="lecture.php?id=<?=$idLivre?>" class="btn btn-primary">Lecture libre de droit</a>
                             <?php
@@ -70,16 +81,30 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         
         if(isset($_SESSION) && !empty($_SESSION)){
             ?>
-            <div class="container">
+            <div class="container BackGround roundBorder py-1">
                 <form method="post">
-                    
                     <div class="form-group">
-                        <label for="contenu">Commenter le produit</label>
-                        <textarea class ="form-control" name="contenu" id="contenu" placeholder="Saisisser le contenu de votre post" rows="3"></textarea>
+                        <label class="mr-sm-2 textColor" for="selectGrade">Note du produit :</label>
+                        <select class="custom-select mr-sm-2" name="selectGrade" id="selectGrade">
+                            <option selected>Note...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
                     </div>    
-                <div class="form-group text-center my-3">
-                    <button type="submit" class="btn btn-primary">Ajouter le Commentaire</button>
-                </div>
+                    <div class="form-group my-1">
+                        <!-- <label for="contenu" class=" textColor ">Titre du commentaire:</label> -->
+                        <input type="text" class ="form-control" name="Entete" id="Entete" placeholder="Saisisser votre titre ici !"></input>
+                    </div>    
+                    <div class="form-group">
+                        <!-- <label for="contenu" class=" textColor ">Contenu du Commentaire :</label> -->
+                        <textarea class ="form-control" name="contenu" id="contenu" placeholder="Saisisser votre commentaire ici !" rows="3"></textarea>
+                    </div>    
+                    <div class="form-group text-center py-3">
+                        <button type="submit" class="btn btn-primary">Ajouter le Commentaire</button>
+                    </div>
                 </form>
             </div>
             <?php
@@ -89,49 +114,48 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
             <?php
         }
     
-    $com = new Commentaire();
-    $commentaires = $com->getAllComs($idLivre);
+        $commentaires = $Livre->getCommentaires();
 
     foreach($commentaires as $commentaire){
 
-        $date = $commentaire['date_heure'];
+        $user = $commentaire->getUtilisateur();
+        $date = $commentaire->getDateHeure();
         $dateFormatee = date('d-m-Y H:i:s', strtotime($date));
 
         $dateSeulement = substr($dateFormatee, 0, -9);
         $heureSeulement = substr($dateFormatee, -8);
         ?>
-
         <div class="container roundedBorders my-3">
             <div class="row">
                     <div class="col-md-3 text-center">
                         <div class="col-md-12"style="max-width:150px;margin:auto">
-                            <img style="width:100%;" src="<?=$commentaire["photoProfile"]?>" alt="Photo de Profil">
+                            <img style="width:100%;" src="<?=$user->getPhotoProfile()?>" alt="Photo de Profil">
                         </div>
-                            <h4><?=$commentaire["nom"]." ".$commentaire["prenom"]?></h4>
+                            <h4><?=$user->getNom()." ".$user->getPrenom()?></h4>
                     </div>
                     <div class="col-md-1 bSn"></div>
                     <div class="col-md-8 row" style="width:75%"> 
                     
                     <?php
-                    if(!empty($commentaire['entete']))
+                    if(!empty($commentaire->getEntete()))
                     {
                       ?>
                          <div class="col-md-12"  >
-                            <h3><?=$commentaire['entete']?></h3>
+                            <h3><?=$commentaire->getEntete()?></h3>
                         </div>
                       <?php  
                     }
     
-                    if(!empty($commentaire['grade']))
+                    if(!empty($commentaire->getGrade()))
                     {
                        
                         
-                        if(strlen($commentaire['grade']) > 1)
+                        if(strlen($commentaire->getGrade()) > 1)
                         {
-                            $grade = explode(".",$commentaire['grade']);
+                            $grade = explode(".",$commentaire->getGrade());
                         }else{
     
-                            $grade = $commentaire['grade'];
+                            $grade = $commentaire->getGrade();
                             
                         }
                     ?>
@@ -203,7 +227,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                         }
                         ?>
                         <div class="col-md-12">
-                            <p><?=$commentaire["contenu"]?></p>
+                            <p><?=$commentaire->getContenu()?></p>
                         </div>
                     </div>
             </div>

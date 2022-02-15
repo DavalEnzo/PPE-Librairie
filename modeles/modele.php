@@ -10,6 +10,7 @@ protected function getBdd(){
 require_once 'utilisateur.php';
 require_once 'Auteur.php';
 require_once 'Bibliotheque.php';
+require_once 'Livre.php';
 require_once 'Ecrit.php';
 require_once 'commentaire.php';
 require_once 'Genre.php';

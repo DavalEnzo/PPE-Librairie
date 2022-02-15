@@ -2,20 +2,16 @@
 class Commentaire extends Modele
 {   
     private $idCom;
-
     private $entete;
-
     private $contenu;
-
     private $idUtilisateur;
-
     private $idLivre;
-
     private $grade;
-
     private $dateHeure;
 
-    function __construct($idCom = null)
+    private $utilisateur;
+
+    public function __construct($idCom = null)
     {
         if($idCom != null)
         {
@@ -37,36 +33,50 @@ class Commentaire extends Modele
 
             $this->dateHeure = $com['date_heure'];
 
+            $this->utilisateur = new Utilisateur($this->idUtilisateur);
         }
     }
 
-    public function getAllComs($idLivre){
-        $requete = $this->getBdd() -> prepare ('CALL select_commentaires_by_user_and_livre(?)');
-        $requete ->execute([$idLivre]);
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    public function initializeCom($idCom=null,$contenu,$idUtilisateur,$idLivre,$grade = null,$entete = null,$dateHeure = null)
+    {
+        $this->idCom = $idCom;
 
+        $this->entete = $entete;
+
+        $this->contenu = $contenu;
+
+        $this->idUtilisateur = $idUtilisateur;
+
+        $this->idLivre = $idLivre;
+
+        $this->grade = $grade;
+
+        $this->dateHeure = $dateHeure;
+
+        $this->utilisateur  = new Utilisateur($this->idUtilisateur);
+        
     }
 
-    function insertCom($contenu,$idLivre,$idUtilisateur,$entete = null,$grade = null){
-        if($entete == null && $grade == null )
+    public function insertCom(){
+        if($this->entete == null && $this->grade == null )
         {
             $sql = $this->getBdd() -> prepare ("INSERT INTO commentaires (contenu, idLivre, idUtilisateur,date_heure) VALUES (?,?,?,NOW())");
-            $sql -> execute([$contenu,$idLivre,$idUtilisateur]);
+            $sql -> execute([$this->contenu,$this->idLivre,$this->idUtilisateur]);
         }
-        if ($entete != null && $grade == null)
+        if ($this->entete != null && $this->grade == null)
         {
-            $sql = $this->getBdd() -> prepare ("INSERT INTO commentaires (contenu, idLivre, idUtilisateur,entete,date_heure) VALUES (?,?,?,NOW())");
-            $sql -> execute([$contenu,$idLivre,$idUtilisateur,$entete]);
+            $sql = $this->getBdd() -> prepare ("INSERT INTO commentaires (contenu, idLivre, idUtilisateur,entete,date_heure) VALUES (?,?,?,?,NOW())");
+            $sql -> execute([$this->contenu,$this->idLivre,$this->idUtilisateur,$this->entete]);
         }
-         if($entete == null && $grade != null )
+         if($this->entete == null && $this->grade != null )
         {
-            $sql = $this->getBdd() -> prepare ("INSERT INTO commentaires (contenu, idLivre, idUtilisateur,grade,date_heure) VALUES (?,?,?,NOW())");
-            $sql -> execute([$contenu,$idLivre,$idUtilisateur,$grade]);
+            $sql = $this->getBdd() -> prepare ("INSERT INTO commentaires (contenu, idLivre, idUtilisateur,grade,date_heure) VALUES (?,?,?,?,NOW())");
+            $sql -> execute([$this->contenu,$this->idLivre,$this->idUtilisateur,$this->grade]);
         }
-        if($entete != null && $grade != null)
+        if($this->entete != null && $this->grade != null)
         {
-            $sql = $this->getBdd() -> prepare ("INSERT INTO commentaires (contenu, idLivre, idUtilisateur,entete,grade,date_heure) VALUES (?,?,?,NOW())");
-            $sql -> execute([$contenu,$idLivre,$idUtilisateur,$entete,$grade]);
+            $sql = $this->getBdd() -> prepare ("INSERT INTO commentaires (contenu, idLivre, idUtilisateur,entete,grade,date_heure) VALUES (?,?,?,?,?,NOW())");
+            $sql -> execute([$this->contenu,$this->idLivre,$this->idUtilisateur,$this->entete,$this->grade]);
         }
     }
 
@@ -110,6 +120,11 @@ class Commentaire extends Modele
     {
         return $this->dateHeure;
     }
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
+    }
+
 
 
     public function setIdCom($idCom)

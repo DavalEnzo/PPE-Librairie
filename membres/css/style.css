@@ -31,6 +31,9 @@ body{
     border-radius: 30px;
     text-align: center;
 }
+.roundBorder{
+    border-radius: 30px;
+}
  .BackGround{
     background-color: #8A5F42;
  }
