@@ -18,7 +18,13 @@ class Editeur extends Modele
         }
 
     }
+    public function initialize($idEditeur,$nom)
+    {
+        $this->idEditeur = $idEditeur;
+        $this->nom=$nom;
+    }
 
+    
     public function getEditeurLivre($idEditeur)
     {
         $requete=$this->getBdd()->prepare('SELECT * FROM editeurs INNER JOIN livres USING (idEditeur) WHERE idEditeur = ?');

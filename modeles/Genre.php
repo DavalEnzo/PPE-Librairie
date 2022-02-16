@@ -22,6 +22,28 @@ class Genre extends Modele{
         }
     }
 
+    public function initialize($idGenre,$nomGenre,$imgGenre)
+    {
+        $this->idGenre      =   $idGenre;
+        $this->nomGenre     =   $nomGenre;
+        $this->imgGenre     =   $imgGenre;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function selectToutTypeGenres($idTypeGenre){
          $requete = $this->getBdd()->prepare("SELECT * FROM livres WHERE idtypeGenre = ?");
          $requete->execute([$idTypeGenre]);

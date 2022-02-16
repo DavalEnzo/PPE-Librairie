@@ -39,6 +39,13 @@ class Commande extends Modele{
 
         }
     }
+    /**
+     * initialise l'objet courant
+     */
+    public function initializeCommande()
+    {
+        # code...
+    }
 
     public function getAllCommandesUser($idUtilisateur){
         $requete = $this->getBdd() -> prepare ('SELECT * FROM commandes WHERE idUtilisateur = ?');

@@ -13,6 +13,7 @@ private $date_heure;
 private $droit;
 
 private $commentaires = [];
+private $lecture;
 
 private $Auteur;
     public function __construct($idLivre = null)
@@ -36,6 +37,7 @@ private $Auteur;
 
 
                 $this->initializeComLivre($this->idLivre);
+                $this->lecture = new Lecture($this->idLivre);
             }
         }
 
@@ -52,6 +54,29 @@ private $Auteur;
                 $this->commentaires[]=$commentaire;
             }
         }
+        public function initialize($idLivre = null,$Titre ,$date_sortie,$Prix,$Photo,$idGenre,$idTypeGenre,$idEditeur,$date_heure,$droit)
+        {
+
+                $this->Titre        = $Titre ;
+                $this->date_sortie  = $date_sortie;
+                $this->Prix         = $Prix;
+                $this->Photo        = $Photo;
+                $this->idGenre      = $idGenre;
+                $this->idTypeGenre  = $idTypeGenre;
+                $this->idEditeur    = $idEditeur;
+                $this->date_heure   = $date_heure;
+                $this->droit        = $droit;
+
+                $this->initializeComLivre($this->idLivre);
+                $this->lecture = new Lecture($this->idLivre);
+        }
+        public function insertLivre()
+        {
+            $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idTypeGenre,idEditeur,date_heure,droit)
+            VALUES(?,?,?,?,?,?,?,NOW(),?)");
+            $requete->execute([$this->Titre ,$this->date_sortie,$this->Prix ,$this->Photo,$this->idGenre,$this->idTypeGenr,$this->idEditeur,$this->date_heure,$this->droit]);
+        }
+    
 
         //GETTERS
 

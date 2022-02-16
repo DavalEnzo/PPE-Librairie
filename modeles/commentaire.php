@@ -37,7 +37,7 @@ class Commentaire extends Modele
         }
     }
 
-    public function initializeCom($idCom=null,$contenu,$idUtilisateur,$idLivre,$grade = null,$entete = null,$dateHeure = null)
+    public function initializeCom($idCom=null,$contenu,$idUtilisateur,$idLivre,$grade = null,$entete = null,$dateHeure = null,$option = null)
     {
         $this->idCom = $idCom;
 
@@ -52,8 +52,10 @@ class Commentaire extends Modele
         $this->grade = $grade;
 
         $this->dateHeure = $dateHeure;
-
-        $this->utilisateur  = new Utilisateur($this->idUtilisateur);
+        
+        if($option != null){
+            $this->utilisateur  = new Utilisateur($this->idUtilisateur);
+        }
         
     }
 

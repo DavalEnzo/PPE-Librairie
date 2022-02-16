@@ -20,6 +20,11 @@ class Auteur extends Modele
        }
     }
 
+    public function initialize($idAuteur,$nom)
+    {
+        $this->idAuteur = $idAuteur;
+        $this->nom = $nom;
+    }
     public function getTousAuteurs()
     {
         $requete = $this->getBdd()->prepare("SELECT * FROM auteurs ORDER BY nom ASC");

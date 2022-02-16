@@ -12,6 +12,12 @@ class Utilisateur extends Modele{
     private $token;
     private $dateMentionAccepte;
 
+    private $commentaires = [];
+
+    private $panier = [];
+
+    private $commandes = [];
+
     public function __construct($idUtilisateur = null)
     {
 
@@ -43,12 +49,105 @@ class Utilisateur extends Modele{
         }
 
     }
+    /**
+     * Initialise l'objet utilisateur sans passer par la requête (setters de masse)
+     * @param   int     $idUtilisateur
+     * @param   string  $nom
+     * @param   string  $prenom
+     * @param   email   $email
+     * @param   string  $mdp
+     * @param   string  $photoProfile
+     * @param   int     $idPermission
+     * @param   string  $token
+     * @param   date    $dateMentionAccepte
+     * 
+     * @return  void
+     */
     public function initialize($idUtilisateur=null,$nom=null,$prenom=null,$email=null,$mdp=null,$photoProfile=null,$idPermission=null,$token=null,$dateMentionAccepte=null)
     {
-       $this->nom = $nom;
-       $this->prenom = $prenom;
-       $this->photoProfile = $photoProfile;
+        $this->idUtilisateur = $idUtilisateur;
+        $this->nom = $nom;
+        $this->prenom = $prenom;
+        $this->email = $email;
+        $this->mdp   =   $mdp;
+        $this->photoProfile = $photoProfile;
+        $this->idPermission = $idPermission;
+        $this->token = $token;
+        $this->dateMentionAccepte = $dateMentionAccepte;
+
+        $this->initComUtilisateur($this->idUtilisateur);
+        $this->initPanierUtilisateur($this->idUtilisateur);
+        $this->initCommandesUtilisateur($this->idUtilisateur);
+
     }
+     /**
+      * Initialise l'objet commentaire par l'idUtilisateur
+     * @param   int idUtlisateur
+     * 
+     * @return void
+     */
+    public function initComUtilisateur($idUtilisateur)
+    {
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM commentaires WHERE idUtilisateur = ?  ORDER BY date_heure ASC ");
+        $requete -> execute([$idUtilisateur]);
+        $com = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($com as $c)
+        {
+            $commentaire = new Commentaire();
+            $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'],1);
+            $this->commentaires[]=$commentaire;
+        }
+    }
+    /**
+     * initialise l'objet panier par l'idUtilisateur
+     * @param   int idUtlisateur
+     * 
+     * @return void
+     */
+    public function initPanierUtilisateur($idUtilisateur)
+    {
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM paniers WHERE idUtilisateur = ?");
+        $requete -> execute([$idUtilisateur]);
+        $panier = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($panier as $p)
+        {
+            $panier = new Panier();
+            $panier->initializePanier($p['idPanier'],$p['idUtilisateur']);
+            $this->panier=$panier;
+        }
+    }
+    /**
+     * initialise l'objet commande par l'idUtilisateur
+     * @param   int idUtlisateur
+     * 
+     * @return void
+     */
+    public function initCommandesUtilisateur($idUtilisateur)
+    {
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM paniers WHERE idUtilisateur = ?");
+        $requete -> execute([$idUtilisateur]);
+        $commandes = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($commandes as $c)
+        {
+            $commande = new Commande();
+            $commande->initializeCommande($c['idCommande'],$c['idPanier'],$c['idUtilisateur'],$c['prixTotal'],$c['idAdresse'],$c['dateCommande'],$c['statut']);
+            $this->commandes[]=$commande;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
     public function verifUtilisateur()
     {
         $requete = $this->getBdd()->prepare("SELECT email FROM utilisateurs WHERE email = ?");

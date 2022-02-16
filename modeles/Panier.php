@@ -3,23 +3,57 @@
 class Panier extends Modele{
 
     private $idPanier;
-    
-    private $lesStockages=[];
+    private $idUtilisateur;
 
-    public function __construct($idpanier = null, $idutilisateur = null)
+    private $Stockages=[];
+
+    public function __construct($idPanier = null, $idUtilisateur = null)
     {
     
-        if($idpanier != null && $idutilisateur != null){
+        if($idPanier != null && $idUtilisateur != null){
             $requete = $this->getBdd()->prepare('CALL select_panier(?,?)');
-            $requete->execute([$idpanier,$idutilisateur]);
+            $requete->execute([$idPanier,$idUtilisateur]);
 
             $panier = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-            $this->idPanier = $idpanier; 
+            $this->idPanier = $idPanier; 
+            $this->idUtilisateur =$idUtilisateur;
 
             $this->panier = $panier;          
         }
     }
+    /**
+     * @param   int     idPanier
+     * @param   int     idUtilisateur
+     * 
+     * @return  void
+     */
+    public function initializePanier($idPanier = null,$idUtilisateur = null)
+    {
+        $this->idPanier = $idPanier; 
+        $this->idUtilisateur =$idUtilisateur;
+
+        $this->initPanierStockage($this->idPanier);
+    }
+
+    public function initPanierStockage($idPanier)
+    {
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM stockage WHERE idPanier = ?");
+        $requete -> execute([$idPanier]);
+        $stock = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($stock as $s)
+        {
+            $stockages = new Stockage();
+            $stockages->initializeStockage();
+            $this->Stockages[]=$stockages;
+        }
+    }
+
+
+
+
+
 
     public function ajouterPanierVide($idutilisateur){
                 
