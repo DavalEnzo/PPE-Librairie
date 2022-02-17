@@ -1,7 +1,7 @@
 <?php
 require_once 'entete.php';
-$e=new Editeur();
-$editeurs=$e->getTousEditeurs();
+$e=new Bibliotheque();
+$editeurs=$e->getEditeurs();
 ?>
 <div class="alert alert-secondary text-center">
   <h1>Page de sélection des livres selon l'éditeur</h1>
@@ -15,7 +15,7 @@ $editeurs=$e->getTousEditeurs();
 foreach($editeurs as $editeur){
     ?>
   <ul class="list-group rounded-pill text-center my-2">
-    <a href="selectionEditeur.php?idEditeur=<?=$editeur['idEditeur'];?>" class="list-group-item btn-grad" style="text-decoration:none; color:black; width:20%;margin:auto;"><?=$editeur['nom'];?></a>
+    <a href="selectionEditeur.php?idEditeur=<?=$editeur->getIdEditeur();?>" class="list-group-item btn-grad" style="text-decoration:none; color:black; width:20%;margin:auto;"><?=$editeur->getNomEditeur();?></a>
     </ul>
 <?php
 }

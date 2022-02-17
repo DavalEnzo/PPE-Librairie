@@ -1,5 +1,6 @@
 <?php
 
+
 require_once("entete.php");
 
 if(isset($_GET["idLivre"]) &&!empty($_GET['idLivre'])){
@@ -26,12 +27,12 @@ if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
     
     try{
         $com = new Commentaire();
-        $com->initializeCom(NULL,$contenu,$idUtilisateur,$idLivre,$selectGrade,$Entete,NULL);
+        $com->initializeCom(NULL,$contenu,$idUtilisateur,$idLivre,$selectGrade,$Entete,NULL,true);
         $com->insertCom();
         ?>
         <div class="alert alert-success mt-3">Le commentaire a bien été enregistré</div>
         <?php
-        header("location:../membres/pageProduit.php?idLivre=".$idLivre);
+            header("location:../membres/pageProduit.php?idLivre=".$idLivre);
         }catch(Exception $e){
             echo "Il y a une erreur";
             echo $e->getMessage();

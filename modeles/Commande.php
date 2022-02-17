@@ -2,17 +2,11 @@
 class Commande extends Modele{
 
     private $idCommande;
-
     private $idPanier;
-
     private $idUtilisateur;
-    
     private $prixTotal;
-
     private $idAdresse;
-
     private $dateCommande;
-
     private $statut;
 
     public function __construct($idCommande = null)
@@ -41,10 +35,25 @@ class Commande extends Modele{
     }
     /**
      * initialise l'objet courant
+     * @param   int     idCommande
+     * @param   int     idPanier
+     * @param   int     idUtilisateur
+     * @param   float   prixTotal 
+     * @param   int     idAdresse
+     * @param   date    dateCommande
+     * @param   int     statut
+     * 
+     * @return  void
      */
-    public function initializeCommande()
+    public function initializeCommande($idCommande=null,$idPanier=null,$idUtilisateur=null,$prixTotal=null,$idAdresse=null,$dateCommande=null,$statut=null)
     {
-        # code...
+        $this->idCommande       =   $idCommande;
+        $this->idPanier         =   $idPanier;
+        $this->idUtilisateur    =   $idUtilisateur;
+        $this->prixTotal        =   $prixTotal;
+        $this->idAdresse        =   $idAdresse;
+        $this->dateCommande     =   $dateCommande;
+        $this->statut           =   $statut;
     }
 
     public function getAllCommandesUser($idUtilisateur){
