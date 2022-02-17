@@ -166,7 +166,7 @@
     </div>
     </div>
     <h2 class="text-center" style="margin-bottom: 2%;"><u>Résumé de la commande</u></h2>
-    <h2 style="color: green; font-weight:bold; text-decoration:underline;">Date de livraison estimée : <?=date('d/m/y', strtotime('10 days'));?></h2>
+    <h2 style="color: green; font-weight:bold; text-decoration:underline;">Date de livraison estimée : <?=date('d/m/Y', strtotime('10 days'));?></h2>
     <?php
     foreach($recupPanier as $panier){
       ?>
