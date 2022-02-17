@@ -14,27 +14,31 @@ class Auteur extends Modele
         $auteur= $requete->fetch(PDO::FETCH_ASSOC);
 
         $this->idAuteur=$idAuteur;
-
         $this->nom=$auteur['nom'];
         
        }
     }
 
-    public function initialize($idAuteur,$nom)
+    public function initialize($idAuteur = null,$nom=null)
     {
         $this->idAuteur = $idAuteur;
         $this->nom = $nom;
     }
-    public function getTousAuteurs()
-    {
-        $requete = $this->getBdd()->prepare("SELECT * FROM auteurs ORDER BY nom ASC");
-        $requete->execute();
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
+
+    public function insertEcrit($idAuteur = null){
+            if($idAuteur == null)
+            {
+                $requete=$this->getBdd()->prepare("INSERT INTO ecrit (idAuteur, idLivre) VALUES ((SELECT max(idAuteur) FROM auteurs),(SELECT max(idLivre) FROM livres))"); 
+                $requete->execute();
+            }else{
+                $requete= $this->getBdd()->prepare("INSERT INTO ecrit (idAuteur, idLivre) VALUES (?, (SELECT max(idLivre) FROM livres))");
+                $requete->execute([$idAuteur]);
+            }
     }
 
-   public function insertAuteur($auteur){
+   public function insertAuteur(){
         $requete= $this->getBdd()->prepare("INSERT INTO auteurs (nom) VALUES (?)");
-        $requete->execute([$auteur]);
+        $requete->execute([$this->nom]);
     }
 
    public function insertAuteur2($a){

@@ -1,13 +1,11 @@
 <?php
 require_once "entete.php";
-$aut = new Auteur();
 $Bibli = new Bibliotheque();
-$G = new Genre();
-$E = new Editeur();
+
 ?>
 <?php
 try {
-    $genres = $G->getTousGenres();
+    $genres = $Bibli->getGenres();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">
@@ -16,7 +14,7 @@ try {
     <?php
 }
 try {
-    $editeurs = $E->getTousEditeurs();
+    $editeurs = $Bibli->getEditeurs();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">
@@ -25,7 +23,7 @@ try {
     <?php
 }
 try {
-     $auteurs =  $aut->getTousAuteurs();
+     $auteurs =  $Bibli->getAuteurs();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">
@@ -34,7 +32,7 @@ try {
     <?php
 }
 try {
-    $bilio = $Bibli->getToutLivres();
+    $Livres = $Bibli->getLivres();
 } catch (Exception $e) {
     ?>
     <div class="alert alert-danger">
@@ -54,15 +52,33 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         Le formulaire n'a pas pu être enregistré !<br>
         </div>
       <?php
-  }
+  }else if(isset($_GET["success"])&& $_GET['success'] == 21 ){
+    ?>
+        <div class="alert alert-danger mt-3">
+            La photo doit être au format JPG ou PNG<br>
+        </div>
+    <?php
+    }else if(isset($_GET["success"])&& $_GET['success'] == 22 ){
+        ?>
+            <div class="alert alert-danger mt-3">
+               La photo ne doit pas faire plus de 5 mb<br>
+            </div>
+        <?php
+    }else if(isset($_GET["success"])&& $_GET['success'] == 23 ){
+        ?>
+            <div class="alert alert-danger mt-3">
+               La dimension de la photo est impossible à récupérer<br>
+            </div>
+        <?php
+    }
 ?>
 <div class="container rounded my-5" style="background-color:white; box-shadow: 1px 1px 15px black;">
 <h1 class="text-center" style="padding-top: 2%;">Ajout d'un nouveau produit</h1>
-<form method="post" class="form" action="../traitement/ajoutLivres.php"> 
+<form method="post" class="form" enctype="multipart/form-data" action="../traitement/ajoutLivres.php"> 
 
     <div class="form-group mt-1">
-        <label for="photo">Photo</label>
-        <input type="text" class="form-control w-100" name="photo" id="photo" placeholder="Entrez le lien de l'image">
+        <label for="photo">Couverture du livre</label>
+        <input type="file" class="form-control w-100" name="photo" id="photo" >
     </div>
 
     <div class="form-group mt-1">
@@ -100,8 +116,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     foreach ($auteurs as $a) {
         ?>
                             <option
-                            value="<?=$a["idAuteur"];?>">
-                            <?=$a["nom"];?>
+                            value="<?=$a->getIdAuteur();?>">
+                            <?=$a->getNomAuteur();?>
                         </option>
                         <?php
     }
@@ -118,8 +134,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     foreach ($editeurs as $editeur) {
         ?>
                             <option
-                            value="<?=$editeur["idEditeur"];?>">
-                            <?=$editeur["nom"];?>
+                            value="<?=$editeur->getIdEditeur();?>">
+                            <?=$editeur->getNomEditeur();?>
                         </option>
                         <?php
     }
@@ -133,8 +149,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     foreach ($genres as $genre) {
         ?>
                             <option
-                            value="<?=$genre["idGenre"];?>">
-                            <?=$genre["nomGenre"];?>
+                            value="<?=$genre->getIdGenre();?>">
+                            <?=$genre->getNomGenre();?>
                         </option>
                         <?php
     }

@@ -32,7 +32,6 @@ class Panier extends Modele{
     {
         $this->idPanier = $idPanier; 
         $this->idUtilisateur =$idUtilisateur;
-
         $this->initPanierStockage($this->idPanier);
     }
 

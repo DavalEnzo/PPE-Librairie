@@ -18,28 +18,34 @@ class Editeur extends Modele
         }
 
     }
+
     public function initialize($idEditeur,$nom)
     {
         $this->idEditeur = $idEditeur;
         $this->nom=$nom;
     }
 
-    
+    public function insertEditeur($editeur)
+    {
+        $requete=$this->getBdd()->prepare('INSERT INTO editeurs (nom) VALUES (?)');
+        $requete->execute([$editeur]);
+
+        $requete=$this->getBdd()->prepare("SELECT max(idEditeur) as idEditeur FROM editeurs");
+        $requete->execute();
+        $E = $requete->fetch(PDO::FETCH_ASSOC);
+
+        $this->idEditeur = $E['idEditeur'];
+    }
+  
+
+
+    // GETTERS  
     public function getEditeurLivre($idEditeur)
     {
         $requete=$this->getBdd()->prepare('SELECT * FROM editeurs INNER JOIN livres USING (idEditeur) WHERE idEditeur = ?');
         $requete->execute([$idEditeur]);
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    public function getTousEditeurs()
-    {
-        $requete= $this->getBdd()->prepare('SELECT * FROM editeurs');
-        $requete->execute();
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // GETTERS
     public function getIdEditeur()
     {
         return $this->idEditeur;

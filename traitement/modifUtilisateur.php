@@ -10,13 +10,11 @@ if(isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["prenom"])
     if(isset($_FILES['photoProfile']['error']) && empty($_FILES['photoProfile']["error"])){
 
         $nom = "profilePicture";
-        $dossier = "../membres/photoProfile/";
+        $dossier = "../membres/img/photoProfile/";
         $fichier = null;
         $extension = strtolower(pathinfo($_FILES['photoProfile']['name'], PATHINFO_EXTENSION));
 
         $fichier = $dossier . $nom . "-" ."idUser=" . $_SESSION['idUtilisateur'] . "." . $extension;
-
-
                         // Vérifier si on peut récupérer les dimensions de l'image
                         if(getimagesize($_FILES['photoProfile']['tmp_name'])){
 

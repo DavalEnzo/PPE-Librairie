@@ -53,7 +53,7 @@ class Commentaire extends Modele
 
         $this->dateHeure = $dateHeure;
         
-        if($option != null){
+        if($option == true){
             $this->utilisateur  = new Utilisateur($this->idUtilisateur);
         }
         

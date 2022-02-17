@@ -4,13 +4,13 @@ class Bibliotheque extends Modele
 
 // private $infoId;
 
-private $Auteurs = [];//LIste des Auteurs 
+private $Auteurs    =   [];//LIste des Auteurs 
 
-private $Editeurs = [];// liste des Editeurs
+private $Editeurs   =   [];// liste des Editeurs
 
-private $Genres = [];//LIste des Genres 
+private $Genres     =   [];//LIste des Genres 
 
-private $Livres = []; //LIste des livres 
+private $Livres     =   [];//LIste des livres 
 
 
     public function __construct()
@@ -33,11 +33,11 @@ private $Livres = []; //LIste des livres
 
                 $this->InitializeLivresBibli($Livres);
 
-                $this-> InitializeGenresBibli($Genres);     
+                $this->InitializeGenresBibli($Genres);     
 
-                $this-> InitializeAuteursBibli($Auteurs);
+                $this->InitializeAuteursBibli($Auteurs);
 
-                $this-> InitializeEditeursBibli($Editeurs);               
+                $this->InitializeEditeursBibli($Editeurs);               
     }
         
     public function InitializeLivresBibli($Bibli)
@@ -45,7 +45,7 @@ private $Livres = []; //LIste des livres
         foreach($Bibli as $L){
             $Livre = new Livre();
             $Livre->initialize($L['idLivre'],$L['Titre'],$L['date_sortie'],$L['Prix'],$L['Photo'],$L['idGenre'],$L['idtypeGenre'],$L['idEditeur'],$L['date_heure'],$L['droit']);
-            $this->Livres[]=$Livre;
+            $this->Livres[] =   $Livre;
         }
     }
 
@@ -54,7 +54,7 @@ private $Livres = []; //LIste des livres
         foreach($Bibli as $L){
             $Genres = new Genre();
             $Genres->initialize($L["idGenre"],$L['nomGenre'],$L['imgGenre']);
-            $this->Genres[]= $Genres;
+            $this->Genres[] =   $Genres;
         }
     }
     public function InitializeAuteursBibli($Bibli)
@@ -62,7 +62,7 @@ private $Livres = []; //LIste des livres
         foreach($Bibli as $L){
             $Auteurs = new Auteur();
             $Auteurs->initialize($L['idAuteur'],$L['nom']);
-            $this->Auteurs[]= $Auteurs;
+            $this->Auteurs[]    =   $Auteurs;
         }
     }
 
@@ -71,7 +71,7 @@ private $Livres = []; //LIste des livres
         foreach($Bibli as $L){
             $Editeurs = new Editeur();
             $Editeurs->initialize($L['idEditeur'],$L['nom']);
-            $this->Editeurs[]= $Editeurs;
+            $this->Editeurs[]   =   $Editeurs;
         }
     }
 
@@ -85,6 +85,16 @@ private $Livres = []; //LIste des livres
     public function getGenres()
     {
         return $this->Genres;
+    }
+    
+    public function getAuteurs()
+    {
+        return $this->Auteurs;
+    }
+
+    public function getEditeurs()
+    {
+        return $this->Editeurs;
     }
 
 

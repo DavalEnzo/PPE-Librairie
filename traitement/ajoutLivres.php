@@ -1,83 +1,126 @@
 <?php
 require_once '../modeles/modele.php';
 
-$bibli =new Bibliotheque();
+$Livre = new Livre();
 $aut = new Auteur();
-$Ecrit = new Ecrit();
-
-if (isset($_POST["photo"]) && !empty($_POST["photo"]) &&
+$Editeur = new Editeur();
+// var_dump($_POST);
+if (isset($_FILES["photo"]) && !empty($_FILES["photo"]) &&
 isset($_POST["titre"]) && !empty($_POST["titre"]) &&
 isset($_POST["prix"]) && !empty($_POST["prix"]) &&
-isset($_POST["editeur"]) && !empty($_POST["editeur"]) &&
 isset($_POST["date"]) && !empty($_POST["date"]) &&
-isset($_POST['genre']) && !empty($_POST['genre']))
+isset($_POST['genre']) && !empty($_POST['genre']) )
 {
-// initialisation de la connexion à la base de données
-// $bdd = new PDO('mysql:host=localhost;dbname=maboutique', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    if(isset($_POST['auteur']) && !empty($_POST['auteur'])){
+        $auteur = $_POST['auteur'];   $a = $_POST['auteurs'];
+    }else if(isset($_POST['auteurs']) && !empty($_POST['auteurs']))
+    {
+        $a = $_POST['auteurs'];
+    }
+    if(isset($_POST['editeur']) && !empty($_POST['editeur'])){
+        $editeur = $_POST['editeur'];
+        $Editeur->insertEditeur($editeur);
+        $editeur = $Editeur->getIdEditeur();
+    }else if(isset($_POST['editeurs']) && !empty($_POST['editeurs'])){
+        $editeur = $_POST['editeurs'];
+    }
+ 
 
-// récupération des données du formulaire dans des variables plus simples
 
         $titre = $_POST['titre'];
-        $auteur = $_POST['auteur'];
-
-        if(isset($_POST['editeur']) && !empty($_POST['editeur'])){
-            $editeur = $_POST['editeur'];
-        }else{
-            $editeur = $_POST['editeurs'];
-        }
-
-        $editeur = $_POST['editeur'];
+        
         $date = $_POST['date'];
         $prix = $_POST['prix'];
         $photo = $_POST['photo'];
         $genres = $_POST['genre'];
-        $a = $_POST['auteurs'];
-        $check = $_POST['audio'];
+      
         $droit = 1;
-
-        if($check === null){
-            $check = 0;
-        }
 
         if($prix == 0){
             $droit = 0;
         }
 
+    if(isset($_FILES['photo']['error']) && empty($_FILES['photo']["error"])){
+
+        $nom = "photoLivre";
+        $dossier = "../membres/img/photoLivre/";
+        $fichier = null;
+        $extension = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION));
+
+        $fichier = $dossier . $nom . "-" . $titre . "." . $extension;
+
+
+                        // Vérifier si on peut récupérer les dimensions de l'image
+                        if(getimagesize($_FILES['photo']['tmp_name'])){
+
+                            // Vérifier si la taille de l'image ne dépasse pas 5 mégas
+                            if($_FILES['photo']['size']<= 5000000){
+
+                                // Vérifier le vrai type du ficher
+                                if($_FILES['photo']['type'] == "image/png" || $_FILES['photo']['type'] == "image/jpeg"){
+                                      // On enregistre le fichier et on test si ça a fonctionné
+                                      if(move_uploaded_file($_FILES['photo']['tmp_name'], $fichier)){
+                                       
+                                      }else{
+                                        header("location:../membres/ajoutLivre.php?success=21");
+                                      }
+                                }else{
+                               
+                                    header("location:../membres/ajoutLivre.php?success=21");
+                                }
+                            }else{
+                               
+                                header("location:../membres/ajoutLivre.php?success=22");
+                            }               
+                    }else{
+                    
+                       header("location:../membres/ajoutLivre.php?success=23");
+                    }
+                }
+
+// récupération des données du formulaire dans des variables plus simples
+
+    
+
+    
 
 // insertion des données
 // on essaye ce qui est dans le try
         if(isset($_POST['auteur']) && !empty($_POST['auteur']) && $a ==0){
 
             try {
-                $bibli->insertBibli($titre, $date, $prix, $photo, $genres, $check, $droit);
-                $aut->insertAuteur($auteur);
-                $Ecrit->insertEcrit();   
+                $Livre->initialize(null,$titre, $date, $prix, $fichier, $genres,null,$editeur, null,$droit,null);
+                $Livre->insertLivre();
+                $aut->initialize(null,$auteur);
+                $aut->insertAuteur();
+                $aut->insertEcrit();   
                 ?>
-
-      
         <?php
         header("location:../membres/ajoutLivre.php?success=1");
 
         // si une erreur php est généré, alors on rentre dans notre catch
         } catch(Exception $e){
             echo $e->getMessage();
-            header("location:../membres/ajoutLivre.php?success=0");
+             header("location:../membres/ajoutLivre.php?success=0");
              }
         }
         if(isset($_POST['auteurs']) && !empty($_POST['auteurs']) && $a>0 && empty($_POST["auteur"])){
             try {
-                $bibli->insertBibli($titre, $date, $prix, $photo, $genres, $check, $droit);
-                $aut->insertAuteur2($a);
+                $Livre->initialize(null,$titre, $date, $prix, $fichier, $genres,null,$editeur, null,$droit,null);
+                $Livre->insertLivre();
+                $aut->insertEcrit($a);
                 header("location:../membres/ajoutLivre.php?success=1");
         
             // si une erreur php est généré, alors on rentre dans notre catch
             } catch(Exception $e){
                 echo $e->getMessage();
-                header("location:../membres/ajoutLivre.php?success=0");
+                 header("location:../membres/ajoutLivre.php?success=0");
         
             }
         }
         
             
+    }else{
+        header("location:../membres/ajoutLivre.php?success=0");
     }
     

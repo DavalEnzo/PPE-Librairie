@@ -16,6 +16,7 @@ private $commentaires = [];
 private $lecture;
 
 private $Auteur;
+
     public function __construct($idLivre = null)
     {
         if($idLivre != null) 
@@ -50,13 +51,13 @@ private $Auteur;
             foreach($com as $c)
             {
                 $commentaire = new Commentaire();
-                $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure']);
+                $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'],TRUE);
                 $this->commentaires[]=$commentaire;
             }
         }
-        public function initialize($idLivre = null,$Titre ,$date_sortie,$Prix,$Photo,$idGenre,$idTypeGenre,$idEditeur,$date_heure,$droit)
+        public function initialize($idLivre = null,$Titre=null ,$date_sortie=null,$Prix=null,$Photo=null,$idGenre=null,$idTypeGenre=null,$idEditeur=null,$date_heure=null,$droit=null,$option=null)
         {
-
+                $this->idLivre      = $idLivre;
                 $this->Titre        = $Titre ;
                 $this->date_sortie  = $date_sortie;
                 $this->Prix         = $Prix;
@@ -67,14 +68,16 @@ private $Auteur;
                 $this->date_heure   = $date_heure;
                 $this->droit        = $droit;
 
+            if($option != null){
                 $this->initializeComLivre($this->idLivre);
                 $this->lecture = new Lecture($this->idLivre);
+            }
         }
         public function insertLivre()
         {
-            $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idTypeGenre,idEditeur,date_heure,droit)
-            VALUES(?,?,?,?,?,?,?,NOW(),?)");
-            $requete->execute([$this->Titre ,$this->date_sortie,$this->Prix ,$this->Photo,$this->idGenre,$this->idTypeGenr,$this->idEditeur,$this->date_heure,$this->droit]);
+            $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idEditeur,date_heure,droit)
+            VALUES(?,?,?,?,?,?,NOW(),?)");
+            $requete->execute([$this->Titre ,$this->date_sortie,$this->Prix ,$this->Photo,$this->idGenre,$this->idEditeur,$this->droit]);
         }
     
 
