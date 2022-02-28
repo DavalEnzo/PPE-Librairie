@@ -13,6 +13,9 @@ private $date_heure;
 private $droit;
 
 private $commentaires = [];
+
+private $editeur;
+
 private $lecture;
 
 private $Auteur;
@@ -39,6 +42,9 @@ private $Auteur;
 
                 $this->initializeComLivre($this->idLivre);
                 $this->lecture = new Lecture($this->idLivre);
+                $this->initializeAuteurLivre($this->idLivre);
+                $this->initializeEditeurLivre($this->idLivre);
+                
             }
         }
 
@@ -55,6 +61,37 @@ private $Auteur;
                 $this->commentaires[]=$commentaire;
             }
         }
+
+        private function initializeAuteurLivre($idLivre)
+        {
+            $requete = $this->getBdd()-> prepare("SELECT a.idAuteur, a.nom FROM auteurs as a LEFT JOIN ecrit USING(idAuteur) WHERE idLivre = ?");
+            $requete -> execute([$idLivre]);
+            $auteur = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach($auteur as $a)
+            {
+                $Auteur = new Auteur();
+                $Auteur->initialize( $a['idAuteur'],$a['nom']);
+                $this->Auteur[]=$Auteur;
+
+            }
+        }
+
+        private function initializeEditeurLivre($idLivre)
+        {
+            $requete = $this->getBdd()-> prepare("SELECT e.idEditeur, e.nom FROM editeurs as e LEFT JOIN livres USING(idEditeur) WHERE idLivre = ?");
+            $requete -> execute([$idLivre]);
+            $editeur = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+
+            foreach($editeur as $e){
+            $Editeur = new Editeur();
+            $Editeur->initialize($e["idEditeur"], $e['nom']);
+            $this->editeur[] = $Editeur;
+            }
+        }
+
+
         public function initialize($idLivre = null,$Titre=null ,$date_sortie=null,$Prix=null,$Photo=null,$idGenre=null,$idTypeGenre=null,$idEditeur=null,$date_heure=null,$droit=null,$option=null)
         {
                 $this->idLivre      = $idLivre;
@@ -68,11 +105,14 @@ private $Auteur;
                 $this->date_heure   = $date_heure;
                 $this->droit        = $droit;
 
-            if($option != null){
-                $this->initializeComLivre($this->idLivre);
-                $this->lecture = new Lecture($this->idLivre);
+                $this->initializeAuteurLivre($this->idLivre);
+                
+                if($option != null){
+                    $this->initializeComLivre($this->idLivre);
+                    $this->lecture = new Lecture($this->idLivre);
+                    $this->initializeEditeurLivre($this->idLivre);
+                }
             }
-        }
         public function insertLivre()
         {
             $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idEditeur,date_heure,droit)
@@ -126,5 +166,13 @@ private $Auteur;
         public function getCommentaires()
         {
             return $this->commentaires;
+        }
+        public function getAuteur()
+        {
+            return $this->Auteur;
+        }
+        public function getEditeur()
+        {
+            return $this->editeur;
         }
 }

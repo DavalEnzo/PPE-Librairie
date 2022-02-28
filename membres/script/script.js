@@ -1,12 +1,3 @@
-var cards = document.querySelectorAll('.cardlivre');
-cards.forEach(function(card){
-    card.addEventListener('mouseover',function(){
-        card.querySelector('.hide').style.opacity = '1'
-    });
-    card.addEventListener("mouseout",function(){
-        card.querySelector('.hide').style.opacity = '0'
-    });
-});
   var arrowNext = document.querySelectorAll(".arrow_next");
   console.log(arrowNext);
 $(function (){
