@@ -14,8 +14,11 @@ public function __construct($idLivre=null){
         $livre = $sql-> fetch(PDO::FETCH_ASSOC);
 
         $this->idLivre          = $idLivre;
-        $this->contenu          = $livre['contenu'];
-        $this->idLecture        = $livre['idLecture'];
+        
+        if(isset($livre['contenu']) && !empty($livre['contenu'])){
+            $this->contenu          = $livre['contenu'];
+            $this->idLecture        = $livre['idLecture'];
+        }
     }
 }
 

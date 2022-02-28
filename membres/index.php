@@ -4,6 +4,19 @@ $Bibli  = new Bibliotheque();
 
 $livres = $Bibli->getLivres();
 ?>
+
+<?php
+    if(isset($_GET['success']) && !empty($_GET['success'])){
+        require_once 'entete.php';
+        if($_GET['success'] == 1){
+            ?>
+            <div class="alert alert-success">Votre commande a bien été enregistrée !
+        </div>
+            <?php        
+        }
+      }
+?>
+
 <div class="m-1 text-dark text-center MomentBG" data-aos="fade-down" data-aos-duration="3000">
     <h1 class="textColor MomentBG">Des livres a n'importe quel moment où que vous soyez</h1>
 </div>
