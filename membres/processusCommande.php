@@ -2,6 +2,18 @@
 ;?>
 
 <?php
+    if(isset($_GET['success']) && !empty($_GET['success'])){
+        require_once 'entete.php';
+        if($_GET['success'] == 1){
+            ?>
+            <div class="alert alert-success">Votre commande a bien été enregistrée !
+        </div>
+            <?php        
+        }
+      }
+?>
+
+<?php
     $idPanier = $_SESSION['idPanier'];
     $Panier = new Panier($idPanier, $_SESSION['idUtilisateur']);
     $recupPanier = $Panier->getPanier();
@@ -28,7 +40,7 @@
     <button type="button" name="modifCoordonnees" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#coordonnees" style="text-decoration: blue;">Modifier</button>
   </div>
 
-  <form method="POST" action="../traitement/enregisterInformationsCommande.php">
+  <form method="POST" action="../traitement/ajoutCommande.php">
   <div class="modal fade" id="coordonnees" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -39,7 +51,7 @@
         <div class="modal-body">
       <div class="form-group mt-1">
         <label for="pays">Pays</label>
-        <input type="text" class="form-control w-100" readonly name="pays" value="France">
+        <input type="text" class="form-control w-100" readonly id="pays" name="pays" value="France">
     </div>
 
     <div class="form-group mt-1">
@@ -170,7 +182,8 @@
     <?php
     foreach($recupPanier as $panier){
       ?>
-      <input style="display: none;" type="text" value="<?=$panier['idLivre'];?>">
+      <input style="display: none;" name="idLivre[]" type="text" value="<?=$panier['idLivre'];?>">
+      <input style="display: none;" name="quantite[]" type="text" value="<?=$panier['quantite'];?>">
       <div class="card mb-3 my-3 container cardlivre" style="max-width: 1400px; height: 230px;">
         <div class="row g-0">
           <div class="col-md-1">
@@ -182,6 +195,7 @@
               <h5 class="card-subtitle text-muted mb-4"><?=$panier['nomEditeur'];?></h5>
               <p style="font-size: 20px;" class="card-subtitle">Quantité: <?=$panier['quantite'];?></p>
               <p class="card-text">Prix total: <?=$panier['Prix'] * $panier['quantite'];?>€</p>
+              <input type="text" style="display: none;" name="prixTotal" value="<?=$panier['Prix'] * $panier['quantite'];?>"></input>
               
             </div>
           </div>

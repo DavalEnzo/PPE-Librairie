@@ -3,6 +3,10 @@ require_once '../modeles/modele.php';
 
 $commande = new Commande();
 
+$idPanier = $_SESSION['idPanier'];
+$Panier = new Panier($idPanier, $_SESSION['idUtilisateur']);
+$recupPanier = $Panier->getPanier();
+
 if( isset($_POST['pays']) && !empty($_POST['pays']) &&
     isset($_POST['nomComplet']) && !empty($_POST['nomComplet']) &&
     isset($_POST['telephone']) && !empty($_POST['telephone']) &&
@@ -13,18 +17,47 @@ if( isset($_POST['pays']) && !empty($_POST['pays']) &&
     isset($_POST['cb']) && !empty($_POST['cb']) &&
     isset($_POST['mois']) && !empty($_POST['mois']) &&
     isset($_POST['annee']) && !empty($_POST['annee']) &&
-    isset($_POST['cvc']) && !empty($_POST['cvc']))
+    isset($_POST['cvc']) && !empty($_POST['cvc']) &&
+    isset($_POST['prixTotal']) && !empty($_POST['prixTotal']))
 {
     if(strlen($_POST['telephone']) == 10){
-        if(preg_match('[A-Za-z]', $_POST['nomComplet'])){
-            if(preg_match('[0-9]', $_POST['telephone'])){
-                if(preg_match('[\.a-zA-Z0-9,])', $_POST['adresse'])){
-                    # code...
-                }
+            if(is_numeric($_POST['telephone'])){
+                    if(strlen($_POST['codePostal']) == 5 && is_numeric($_POST['codePostal'])){
+                        if(preg_match('/^[a-zA-Z]+$/', $_POST['ville'])){
+                            if(is_numeric($_POST['cb']) && strlen($_POST['cb']) == 16){
+                                if(is_numeric($_POST['cvc']) && strlen($_POST['cvc']) == 3){
+                                    try{
+                                        $commande->ajouterCommande($_SESSION['idPanier'], $_SESSION['idUtilisateur'], $_POST['prixTotal'], $_POST['adresse']);
 
+                                        foreach($recupPanier as $panier){
+                                            $commande->ajouterDetailsCommande($panier['idLivre'], $panier['quantite']);            
+                                        }
+
+                                        $Panier->supprimerPanier($_SESSION['idPanier']);
+
+                                        $_SESSION['idPanier'] = null;
+
+                                        header('location:../membres/index.php?success=1');
+                                    }catch (Exception $e){
+                                        header('location:../membres/processusCommande.php?success=0');
+                                    }
+                                }else{
+                                    header('location:../membres/processusCommande.php?success=2');
+                                }
+                            }else{
+                                header('location:../membres/processusCommande.php?success=3');
+                            }
+                        }else{
+                            header('location:../membres/processusCommande.php?success=4');
+                        }
+
+                    }else{
+                        header('location:../membres/processusCommande.php?success=5');
+                    }
+            }else{
+                header('location:../membres/processusCommande.php?success=7');
             }
-
-            header('location:../membres/processusCommande.php');
-        }
+    }else{
+        header('location:../membres/processusCommande.php?success=9');
     }
 }
