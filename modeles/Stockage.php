@@ -7,7 +7,7 @@ class Stockage extends Modele{
     private $idLivre;
     private $quantite;
 
-    private $Livre;
+    private $Livre =[];
     public function __construct($idStockage = null)
     {
        if($idStockage!=null)
@@ -53,7 +53,26 @@ class Stockage extends Modele{
         $this->Livre        =   new Livre($this->idLivre);
     }
 
-
+    public function getIdStockage()
+    {
+        return $this->idStockage;
+    }
+    public function getIdPanier()
+    {
+        return $this->idPanier;
+    }
+    public function getIdLivre()
+    {
+        return $this->idLivre;
+    }
+    public function getQuantite()
+    {
+        return $this->quantite;
+    }
+    public function getLivre()
+    {
+        return $this->Livre;
+    }
 
 
 

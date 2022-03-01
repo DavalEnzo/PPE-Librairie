@@ -7,21 +7,35 @@ class Panier extends Modele{
 
     private $Stockages=[];
 
-    public function __construct($idPanier = null, $idUtilisateur = null)
+    public function __construct($idPanier = null)
     {
     
-        if($idPanier != null && $idUtilisateur != null){
-            $requete = $this->getBdd()->prepare('CALL select_panier(?,?)');
-            $requete->execute([$idPanier,$idUtilisateur]);
+        if($idPanier != null){
+            $requete = $this->getBdd()->prepare('SELECT * FROM  paniers');
+            $requete->execute([$idPanier]);
+            $panier = $requete->fetch(PDO::FETCH_ASSOC);
 
-            $panier = $requete->fetchAll(PDO::FETCH_ASSOC);
-
-            $this->idPanier = $idPanier; 
-            $this->idUtilisateur =$idUtilisateur;
-
-            $this->panier = $panier;          
+            $this->idPanier = $panier['idPanier']; 
+            $this->idUtilisateur =$panier['idUtilisateur'];
+            $this->initPanierStockage($this->idPanier);
+         
         }
     }
+    // public function __construct($idPanier = null, $idUtilisateur = null)
+    // {
+    
+    //     if($idPanier != null && $idUtilisateur != null){
+    //         $requete = $this->getBdd()->prepare('CALL select_panier(?,?)');
+    //         $requete->execute([$idPanier,$idUtilisateur]);
+
+    //         $panier = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+    //         $this->idPanier = $idPanier; 
+    //         $this->idUtilisateur =$idUtilisateur;
+
+    //         $this->panier = $panier;          
+    //     }
+    // }
     /**
      * @param   int     idPanier
      * @param   int     idUtilisateur
@@ -44,7 +58,7 @@ class Panier extends Modele{
         foreach($stock as $s)
         {
             $stockages = new Stockage();
-            $stockages->initializeStockage();
+            $stockages->initializeStockage($s['idStockage'],$s['idPanier'],$s['idLivre'],$s['quantite']);
             $this->Stockages[]=$stockages;
         }
     }
@@ -76,6 +90,12 @@ class Panier extends Modele{
 
     public function getIdPanier(){
         return $this->idPanier;
+    }
+    public function getIdUtilisateur(){
+        return $this->idUtilisateur;
+    }
+    public function getStockages(){
+        return $this->Stockages;
     }
 
     public function getPanier(){

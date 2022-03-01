@@ -82,14 +82,11 @@ private $Auteurs = [];
         {
             $requete = $this->getBdd()-> prepare("SELECT e.idEditeur, e.nom FROM editeurs as e LEFT JOIN livres USING(idEditeur) WHERE idLivre = ?");
             $requete -> execute([$idLivre]);
-            $editeur = $requete->fetchAll(PDO::FETCH_ASSOC);
+            $editeur = $requete->fetch(PDO::FETCH_ASSOC);
 
-
-            foreach($editeur as $e){
             $Editeur = new Editeur();
-            $Editeur->initialize($e["idEditeur"], $e['nom']);
-            $this->editeur[] = $Editeur;
-            }
+            $Editeur->initialize($editeur["idEditeur"], $editeur['nom']);
+            $this->editeur = $Editeur;
         }
 
 
