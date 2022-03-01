@@ -32,6 +32,8 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
             if (!password_verify($mdp, $utilisateur["mdp"])) {
                 // le mot de passe ne correspond pas
                 $erreurs[] = "Le mot de passe saisi est incorrect";
+            }else if($utilisateur['actif'] == 0){
+                $erreurs[] = "Votre compte a été banni.";
             }
         } else {
             // l'email n'existe pas

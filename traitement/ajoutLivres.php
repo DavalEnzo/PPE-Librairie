@@ -4,7 +4,7 @@ require_once '../modeles/modele.php';
 $Livre = new Livre();
 $aut = new Auteur();
 $Editeur = new Editeur();
-// var_dump($_POST);
+
 if (
     isset($_FILES["photo"]) && !empty($_FILES["photo"]) &&
     isset($_POST["titre"]) && !empty($_POST["titre"]) &&

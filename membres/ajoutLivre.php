@@ -82,17 +82,28 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     </div>
 
     <div class="form-group mt-1">
-        <label for="auteur">Auteur (ne rien écrire si le/les auteur(s) est/sont déjà dans la base de données)</label>
-        <input type="text" class="form-control" name="auteur" placeholder="Saisissez l'auteur du livre">
-    </div>
-
-    <div class="form-group mt-1">
         <label for="titre">Titre</label>
         <input type="text" class="form-control" name="titre" placeholder="Saisissez le titre du livre">
     </div>
-    <div class="form-group mt-1">
+    
+    <div class="form-group mt-1" id="nouvAuteur" style="display: none;">
+        <label for="auteur">Auteur</label>
+        <input type="text" class="form-control" name="auteur" id="inputAuteur" disabled placeholder="Saisissez l'auteur du livre">
+    </div>
+
+    <div class="form-check form-switch my-3">
+  <input class="form-check-input" type="checkbox" id="auteurEnregistré">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Auteur déjà enregistré ?</label>
+    </div>
+
+    <div class="form-group mt-1" id="nouvEditeur" style="display: none;">
         <label for="editeur">Editeur (ne rien écrire si le/les editeur(s) est/sont déjà dans la base de données)</label>
-        <input type="text" class="form-control" name="editeur" placeholder="Saisissez l'éditeur du livre">
+        <input type="text" class="form-control" id="inputEditeur" name="editeur" disabled placeholder="Saisissez l'éditeur du livre">
+    </div>
+
+    <div class="form-check form-switch my-3">
+  <input class="form-check-input" type="checkbox" id="editeurEnregistré">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Editeur déjà enregistré ?</label>
     </div>
 
     <div class="row mt-1">
@@ -107,7 +118,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         <input type="number" class="form-control" id="prixAjout" name="prix" oninput="isNumerique()" min="0.00" placeholder="Saisissez le prix du livre" step="0.01" value="0.00">
     </div>    
 
-    <div class="form-group mt-1">
+    <div class="form-group mt-1" id="auteur">
         <label for="auteurs">Si le ou les auteur(s) est/sont déjà dans la base de données</label>
         <select name="auteurs" id="auteurs" class="form-control">
                     ?>
@@ -125,7 +136,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                 </select>
             </div>
             
-            <div class="form-group mt-1">
+            <div class="form-group mt-1" id="editeur">
                 <label for="auteurs">Si l'éditeur est déjà dans la base de données</label>
                 <select name="editeurs" id="editeurs" class="form-control">
                     ?>
