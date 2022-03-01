@@ -18,7 +18,7 @@ private $editeur;
 
 private $lecture;
 
-private $Auteur;
+private $Auteurs = [];
 
     public function __construct($idLivre = null)
     {
@@ -41,6 +41,7 @@ private $Auteur;
 
 
                 $this->initializeComLivre($this->idLivre);
+                $this->initializeAuteurLivre($this->idLivre);
                 $this->lecture = new Lecture($this->idLivre);
                 $this->initializeAuteurLivre($this->idLivre);
                 $this->initializeEditeurLivre($this->idLivre);
@@ -64,7 +65,7 @@ private $Auteur;
 
         private function initializeAuteurLivre($idLivre)
         {
-            $requete = $this->getBdd()-> prepare("SELECT a.idAuteur, a.nom FROM auteurs as a LEFT JOIN ecrit USING(idAuteur) WHERE idLivre = ?");
+            $requete = $this->getBdd()-> prepare ("SELECT a.idAuteur,a.nom FROM auteurs as a LEFT JOIN ecrit as e using(idAuteur) WHERE idLivre = ?  ");
             $requete -> execute([$idLivre]);
             $auteur = $requete->fetchAll(PDO::FETCH_ASSOC);
 

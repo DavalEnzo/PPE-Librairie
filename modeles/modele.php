@@ -13,6 +13,7 @@ require_once 'Livre.php';
 require_once 'Ecrit.php';
 require_once 'Commentaire.php';
 require_once 'Genre.php';
+require_once 'TypeGenre.php';
 require_once 'Editeur.php';
 require_once 'Lectures.php';
 require_once '../modeles/Panier.php';
