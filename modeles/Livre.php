@@ -15,7 +15,7 @@ private $droit;
 private $commentaires = [];
 private $lecture;
 
-private $Auteur;
+private $Auteurs = [];
 
     public function __construct($idLivre = null)
     {
@@ -38,6 +38,7 @@ private $Auteur;
 
 
                 $this->initializeComLivre($this->idLivre);
+                $this->initializeAuteurLivre($this->idLivre);
                 $this->lecture = new Lecture($this->idLivre);
             }
         }
@@ -55,6 +56,21 @@ private $Auteur;
                 $this->commentaires[]=$commentaire;
             }
         }
+
+        private function initializeAuteurLivre($idLivre)
+        {
+            $requete = $this->getBdd()-> prepare ("SELECT a.idAuteur,a.nom FROM auteurs as a LEFT JOIN ecrit as e using(idAuteur) WHERE idLivre = ?  ");
+            $requete -> execute([$idLivre]);
+            $auteur = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach($auteur as $a)
+            {
+                $Auteur = new Auteur();
+                $Auteur->initialize( $a['idAuteur'],$a['nom']);
+                $this->Auteurs[]=$Auteur;
+            }
+        }
+
         public function initialize($idLivre = null,$Titre=null ,$date_sortie=null,$Prix=null,$Photo=null,$idGenre=null,$idTypeGenre=null,$idEditeur=null,$date_heure=null,$droit=null,$option=null)
         {
                 $this->idLivre      = $idLivre;
@@ -68,11 +84,14 @@ private $Auteur;
                 $this->date_heure   = $date_heure;
                 $this->droit        = $droit;
 
+                $this->initializeAuteurLivre($this->idLivre);
+
             if($option != null){
                 $this->initializeComLivre($this->idLivre);
                 $this->lecture = new Lecture($this->idLivre);
             }
         }
+
         public function insertLivre()
         {
             $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idEditeur,date_heure,droit)
@@ -126,5 +145,9 @@ private $Auteur;
         public function getCommentaires()
         {
             return $this->commentaires;
+        }
+        public function getAuteurs()
+        {
+            return $this->Auteurs;
         }
 }

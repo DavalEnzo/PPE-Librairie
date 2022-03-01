@@ -2,10 +2,10 @@
 class Genre extends Modele{
 
     private $idGenre;
-
     private $nomGenre;
-
     private $imgGenre;
+
+    private $TypeGenre = [];
 
     public function __construct($idGenre=null)
     {
@@ -19,6 +19,8 @@ class Genre extends Modele{
             $this->idGenre  = $genre['idGenre'];
             $this->nomGenre = $genre['nomGenre'];
             $this->imgGenre = $genre['imgGenre'];
+
+            $this->initTypeGenre($this->idGenre);
         }
     }
 
@@ -27,10 +29,26 @@ class Genre extends Modele{
         $this->idGenre      =   $idGenre;
         $this->nomGenre     =   $nomGenre;
         $this->imgGenre     =   $imgGenre;
+        
+        $this->initTypeGenre($this->idGenre);
     }
 
 
+    public function initTypeGenre($idGenre)
+    {
+        
+        $requete=$this->getBdd()->prepare("SELECT * FROM typegenre where idGenre = ?");
+        $requete->execute([$idGenre]);  
+        $tGenre= $requete->fetchAll(PDO::FETCH_ASSOC);
 
+        foreach($tGenre as $tg)
+        {
+            $TypeGenre = new TypeGenre();
+            $TypeGenre->initialize($tg['idtypeGenre'],$tg['libelle'],$tg['imgTypeGenre'],$tg['idGenre']);
+            $this->TypeGenre[] = $TypeGenre;
+        }
+
+    }
 
 
 
@@ -57,12 +75,12 @@ class Genre extends Modele{
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function gettypeGenre()
-    {  
-        $requete = $this->getBdd()->prepare("SELECT * FROM genres LEFT JOIN typegenre USING (idGenre)");
-        $requete->execute();
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
-    }
+    // public function gettypeGenre()
+    // {  
+    //     $requete = $this->getBdd()->prepare("SELECT * FROM genres LEFT JOIN typegenre USING (idGenre)");
+    //     $requete->execute();
+    //     return $requete->fetchAll(PDO::FETCH_ASSOC);
+    // }
     
     public function insertGenre($libelle){
            $requete = $this->getBdd()->prepare("INSERT INTO genres (nomGenre) VALUES(?)");
@@ -87,6 +105,10 @@ class Genre extends Modele{
     public function getImgGenre()
     {
         return $this->imgGenre;
+    }
+    public function getTypeGenre()
+    {
+        return $this->TypeGenre;
     }
 
     // SETTERS
