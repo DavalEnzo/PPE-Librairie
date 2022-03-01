@@ -108,8 +108,7 @@ require_once '../modeles/modele.php';
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="profil.php">Profil</a></li>
           <li><a class="dropdown-item" href="mesCommentaires.php">Commentaires</a></li>
-          <li><a class="dropdown-item" href="#">Commandes</a></li>
-          <li><a class="dropdown-item" href="#">Gestion du compte</a></li>
+          <li><a class="dropdown-item" href="mesCommandes.php">Commandes</a></li>
           <li><form class="mx-4 my-2" method="POST" action="../traitement/deconnexion.php?email=<?=$_SESSION['email']?>">
           <button type="submit" name="deco" class="btn btn-danger" value="1">Déconnexion</button>
         </form></li>

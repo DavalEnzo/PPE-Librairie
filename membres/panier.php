@@ -41,7 +41,7 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
               <h5 class="card-title"><?=$panier['Titre'];?></h5>
               <h5 class="card-subtitle text-muted"><?=$panier['nomEditeur'];?></h5>
               <p class="card-text">Prix : <?=$panier['Prix'];?>€</p>
-              <form method="POST" action="../traitement/modifQuantite?idLivre=<?=$panier['idLivre'];?>&idStockage=<?=$panier['idStockage']?>">
+              <form method="POST" action="../traitement/modifQuantite.php?idLivre=<?=$panier['idLivre'];?>&idStockage=<?=$panier['idStockage']?>">
                 <button type="submit" class="btn btn-danger btn-sm" style="display: inline-block; min-width:28px; max-height: 31px;" name="moins" value="0">-</button>
                 <p class="card-text" style="display: inline-block;">Quantité : <?=$panier['quantite'];?></p>
                 <button type="submit" style="display: inline-block;" class="btn btn-success btn-sm" name="plus" value="1">+</button>

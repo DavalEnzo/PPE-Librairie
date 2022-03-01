@@ -85,11 +85,17 @@ $(window).on('load', function () {
     }
     });
 
+    
+
     $('#enregistrerCoordonnees').on('click', function() {
         $('#coordonees').show();
         $('#noAdresse').text('');
         $('#nomPrenom').val( 'Nom et prénom: ' + $('#nomComplet').val() );
         $('#coordonneeValues').val('Adresse: ' + $('#adresse').val() + ', ' + $('#codePostal').val() + ', ' + $('#ville').val() + ', ' + $('#pays').val());
+      });
+
+    $('#enregistrerCb').on('click', function() {
+        $('#insertionMoyenPaiement').text('Moyen de paiement enregistré')
       });
 
     $('#numeroCb').on('keyup', function () {
@@ -121,6 +127,28 @@ $(window).on('load', function () {
         }else{
             $('#msg').html('')
         }
+    });
+
+    $('#auteurEnregistré').click(function() {
+        $("#nouvAuteur").toggle(this.checked);
+        if($('#inputAuteur').is(':visible'))
+        {
+            $('#inputAuteur').attr("disabled", false);
+        }else{
+            $('#inputAuteur').attr("disabled", true);
+        }
+        $("#auteur").toggle(this.unchecked);
+    });
+
+    $('#editeurEnregistré').click(function() {
+        $("#nouvEditeur").toggle(this.checked);
+        if($('#inputEditeur').is(':visible'))
+        {
+            $('#inputEditeur').attr("disabled", false);
+        }else{
+            $('#inputEditeur').attr("disabled", true);
+        }
+        $("#editeur").toggle(this.unchecked);
     });
 
     $('#cvc').on('keyup', function () {

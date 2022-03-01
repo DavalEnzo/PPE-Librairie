@@ -9,8 +9,36 @@
             <div class="alert alert-success">Votre commande a bien été enregistrée !
         </div>
             <?php        
-        }
-      }
+      }else if($_GET['success'] == 0 ){
+        ?>        
+        <div class="alert alert-danger">La commande n'a pas pu être enregistrée, veuillez contacter un administrateur.<br></div>
+        <?php
+      }else if($_GET['success'] == 2 ){
+        ?>        
+        <div class="alert alert-danger">Format du code CVC incorrect. Il doit être uniquement composé de chiffres et ne doit pas faire plus de 3 chiffres</div>
+        <?php
+      }else if($_GET['success'] == 3 ){
+        ?>        
+        <div class="alert alert-danger">Format du code de carte bancaire incorrect. Il doit être uniquement composé de chiffres et ne doit pas faire plus de 16 chiffres</div>
+        <?php
+      }else if($_GET['success'] == 4 ){
+        ?>        
+        <div class="alert alert-danger">Le nom de ville doit être composé de caractères alphanumériques (ex: A) seulement</div>
+        <?php
+      }else if($_GET['success'] == 5 ){
+        ?>        
+        <div class="alert alert-danger">Format du code postal incorrect. Il doit être uniquement composé de chiffres et il ne doit pas faire plus de 5 chiffres</div>
+        <?php
+      }else if($_GET['success'] == 6 ){
+        ?>        
+        <div class="alert alert-danger">Format du numéro de téléphone incorrect. Il doit être uniquement composé de chiffres et ne doit pas faire plus de 10 chiffres</div>
+        <?php
+      }else if($_GET['success'] == 7 ){
+        ?>        
+        <div class="alert alert-danger">Un des champs n'a pas été rempli</div>
+        <?php
+    }
+  }
 ?>
 
 <?php
@@ -106,7 +134,7 @@
     <?php
     }else{
       ?>
-      <p>Aucun moyen de paiement inséré</p>
+      <span id="insertionMoyenPaiement">Aucun moyen de paiment inséré</span><br>
       <?php
     }
     ?>
@@ -170,8 +198,8 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+        <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" id="enregistrerCb" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
       </div>
         </div>
       </div>
