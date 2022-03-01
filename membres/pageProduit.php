@@ -48,7 +48,6 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
       <div class="alert alert-danger">Le livre n'a pas pu être ajouté à votre panier</div>
       <?php
   }
-
 ?>
 
         <div class="container  d-flex justify-content-center my-2" >
@@ -59,9 +58,23 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title"><?=$Livre->getTitre()?></h5>
+                            <h3 class="card-title"><?=$Livre->getTitre()?></h3>
+                            <?php
+                            foreach($Livre->getAuteur() as $auteur){
+                                ?>
+                                <h5 >de <?=$auteur->getNomAuteur();?></h5>
+                                <?php
+                            }
+                        
+                            foreach($Livre->getEditeur() as $editeur)
+                            {
+                                ?>
+                                <p class="card-subtitle mb-2 text-muted"><?=$editeur->getNomEditeur();?></p>
+                                <?php
+                            }
+                            ?>
                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-<?php       
+                            <?php
     if($Livre->getdroit() == 1 ){
         ?>
                             <a href="lecture.php?id=<?=$idLivre?>" class="btn btn-primary">Lecture libre de droit</a>

@@ -95,9 +95,11 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         <input type="text" class="form-control" name="editeur" placeholder="Saisissez l'éditeur du livre">
     </div>
 
-    <div class="form-group mt-1">
+    <div class="row mt-1">
+        <div class="col-2">
         <label for="date">Date de parution</label>
-        <input type="text" class="form-control" name="date" placeholder="Saisissez la date de sortie du livre (jj-mm-aaaa)">
+        <input type="date" class="form-control" name="date" placeholder="Saisissez la date de sortie du livre">
+        </div>
     </div>
 
     <div class="form-group mt-1">

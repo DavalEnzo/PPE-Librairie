@@ -56,6 +56,18 @@ class Commande extends Modele{
         $this->statut           =   $statut;
     }
 
+    public function ajouterCommande($idPanier, $idUtilisateur, $prixTotal, $adresse){
+        $requete = $this->getBdd()->prepare("INSERT INTO commandes( idPanier ,idUtilisateur,prixTotal,adresse,dateCommande,dateLivraison)
+        VALUES(?,?,?,?,NOW(),NOW() + INTERVAL 10 DAY)");
+        $requete->execute([$idPanier, $idUtilisateur, $prixTotal, $adresse]);
+    }
+
+    public function ajouterDetailsCommande($idLivre, $quantite){
+        $requete = $this->getBdd()->prepare("INSERT INTO detailcommandes(idCommande, idLivre, quantite)
+        VALUES((SELECT max(idCommande) FROM commandes),?,?)");
+        $requete->execute([$idLivre, $quantite]);
+    }
+
     public function getAllCommandesUser($idUtilisateur){
         $requete = $this->getBdd() -> prepare ('SELECT * FROM commandes WHERE idUtilisateur = ?');
         $requete -> execute([$idUtilisateur]);
