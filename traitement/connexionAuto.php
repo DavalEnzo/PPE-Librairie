@@ -1,30 +1,27 @@
 <?php 
 require_once '../modeles/modele.php';
 
-$u = New Utilisateur();
 
 if(isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['token']) && !empty($_GET['token'])){
-    
-    $utilisateur = $u->fetchToken($_GET['id']);
+    $u = New Utilisateur($_GET['id']);
 
-    $token = $utilisateur['token'];
+    $token = $u->getToken();
 
     if($token == $_GET['token']){
 
         
-        $_SESSION["idUtilisateur"] = $utilisateur["idUtilisateur"];
-        $_SESSION["email"] = $utilisateur["email"];
-        $_SESSION["idPermission"] = $utilisateur["idPermission"];
-        $_SESSION["photoProfile"] = $utilisateur["photoProfile"];
-        $_SESSION['nom'] = $utilisateur['prenom'].' '.$utilisateur['nom'];
-        $_SESSION['nomSimple'] = $utilisateur['nom'];
-        $_SESSION['prenom'] = $utilisateur['prenom'];
+        $_SESSION["idUtilisateur"] = $u->getIdUtilisateur();
+        $_SESSION["email"] = $u->getEmail();
+        $_SESSION["idPermission"] = $u->getIdPermission();
+        $_SESSION["photoProfile"] = $u->getPhotoProfile();
+        $_SESSION['nom'] = $u->getPrenom().' '.$u->getNom();
+        $_SESSION['nomSimple'] = $u->getNom();
+        $_SESSION['prenom'] = $u->getPrenom();
 
-        $recupPanier=$u->userPanier($utilisateur['idUtilisateur']);
+        $recupPanier=$u->getPanier();
 
-        if($recupPanier->rowCount() != 0){
-        $panier = $recupPanier->fetch(PDO::FETCH_ASSOC);
-        $_SESSION["idPanier"] = $panier['idPanier'];
+        if(!empty($recupPanier)){
+        $_SESSION["idPanier"] = $panier->getIdPanier;
     }
 
     header('location:../membres/index.php');

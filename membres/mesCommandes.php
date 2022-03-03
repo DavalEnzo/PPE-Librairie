@@ -2,8 +2,9 @@
 
 <?php
 
-    $com = new Commande();
-    $commandes = $com->getAllCommandesUser($_SESSION['idUtilisateur']);
+    $com = new Utilisateur($_SESSION['idUtilisateur']);
+    $commandes = $com->getCommandes();
+
 ?>
 
 <?php
@@ -14,8 +15,8 @@
         <div class="row g-0">
           <div class="col-md-3">
             <div class="card-body">
-              <h5 class="card-title">Commande créée le <?=$commande['dateCommande'];?></h5>
-              <p class="card-text">Prix total: <?=$commande['prixTotal'];?>€</p>              
+              <h5 class="card-title">Commande créée le <?=$commande->getDateCommande();?></h5>
+              <p class="card-text">Prix total: <?=$commande->getPrixTotal();?>€</p>              
             </div>
           </div>
         </div>

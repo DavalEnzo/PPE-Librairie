@@ -20,7 +20,6 @@ class Utilisateur extends Modele{
 
     public function __construct($idUtilisateur = null)
     {
-
         if($idUtilisateur != null)
         {
             
@@ -47,8 +46,8 @@ class Utilisateur extends Modele{
             $this->dateMentionAccepte = $User['dateMentionAcceptée'];
         
         }
-
     }
+
     /**
      * Initialise l'objet utilisateur sans passer par la requête (setters de masse)
      * @param   int     $idUtilisateur
@@ -76,10 +75,11 @@ class Utilisateur extends Modele{
         $this->dateMentionAccepte = $dateMentionAccepte;
 
         $this->initComUtilisateur($this->idUtilisateur);
-        $this->initPanierUtilisateur($this->idUtilisateur);
         $this->initCommandesUtilisateur($this->idUtilisateur);
+        $this->initPanierUtilisateur($this->idUtilisateur);
 
     }
+
      /**
       * Initialise l'objet commentaire par l'idUtilisateur
      * @param   int idUtlisateur
@@ -95,10 +95,11 @@ class Utilisateur extends Modele{
         foreach($com as $c)
         {
             $commentaire = new Commentaire();
-            $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'],1);
+            $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'],false);
             $this->commentaires[]=$commentaire;
         }
     }
+
     /**
      * initialise l'objet panier par l'idUtilisateur
      * @param   int idUtlisateur
@@ -118,6 +119,7 @@ class Utilisateur extends Modele{
             $this->panier=$panier;
         }
     }
+
     /**
      * initialise l'objet commande par l'idUtilisateur
      * @param   int idUtlisateur
@@ -137,15 +139,6 @@ class Utilisateur extends Modele{
             $this->commandes[]=$commande;
         }
     }
-
-
-
-
-
-
-
-
-
 
 
     public function verifUtilisateur()
@@ -198,12 +191,6 @@ class Utilisateur extends Modele{
         $requete->execute([$idUser]);
     }
     
-    public function fetchToken($idUser)
-    {
-        $requete = $this->getBdd()->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
-        $requete->execute([$idUser]);
-        return $requete->fetch(PDO::FETCH_ASSOC);
-    }
 
     public function addToken($token, $idUser)
     {
@@ -280,6 +267,18 @@ class Utilisateur extends Modele{
     public function getdateMentionAccepte()
     {
         return  $this->dateMentionAccepte;
+    }
+    public function getPanier()
+    {
+        return  $this->panier;
+    }
+    public function getCommandes()
+    {
+        return  $this->commandes;
+    }
+    public function getCommentaire()
+    {
+        return  $this->commentaires;
     }
 
 }

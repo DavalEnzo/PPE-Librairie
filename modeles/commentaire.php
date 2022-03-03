@@ -10,6 +10,7 @@ class Commentaire extends Modele
     private $dateHeure;
 
     private $utilisateur;
+    private $Livre;
 
     public function __construct($idCom = null)
     {
@@ -37,7 +38,7 @@ class Commentaire extends Modele
         }
     }
 
-    public function initializeCom($idCom=null,$contenu,$idUtilisateur,$idLivre,$grade = null,$entete = null,$dateHeure = null,$option = null)
+    public function initializeCom($idCom=null,$contenu,$idUtilisateur,$idLivre,$grade = null,$entete = null,$dateHeure = null,$option = false)
     {
         $this->idCom = $idCom;
 
@@ -52,12 +53,15 @@ class Commentaire extends Modele
         $this->grade = $grade;
 
         $this->dateHeure = $dateHeure;
+
+        $this->initLivreCom($this->idLivre);
         
         if($option == true){
             $this->utilisateur  = new Utilisateur($this->idUtilisateur);
         }
         
     }
+
 
     public function insertCom(){
         if($this->entete == null && $this->grade == null )
@@ -82,10 +86,14 @@ class Commentaire extends Modele
         }
     }
 
-    public function getAllUserComs($idUtilisateur){
-        $requete = $this->getBdd() -> prepare ('CALL select_allComs_user(?)');
-        $requete ->execute([$idUtilisateur]);
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    public function initLivreCom($idLivre)
+    {
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM livres WHERE idLivre = ? ");
+        $requete -> execute([$idLivre]);
+        $livres = $requete->fetch(PDO::FETCH_ASSOC);
+            $Livre = new Livre();
+            $Livre->initialize($livres['idLivre'],$livres['Titre'] ,$livres['date_sortie'],$livres['Prix'],$livres['Photo'],$livres['idGenre'],$livres['idtypeGenre'],$livres['idEditeur'],$livres['date_heure'],$livres['droit']);
+            $this->Livre=$Livre;
     }
 
     public function getIdCom()
@@ -125,6 +133,10 @@ class Commentaire extends Modele
     public function getUtilisateur()
     {
         return $this->utilisateur;
+    }
+    public function getLivre()
+    {
+        return $this->Livre;
     }
 
 

@@ -75,7 +75,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                             ?>
                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                             <?php
-    if($Livre->getdroit() == 1 ){
+                        if($Livre->getdroit() == 1 ){
         ?>
                             <a href="lecture.php?id=<?=$idLivre?>" class="btn btn-primary">Lecture libre de droit</a>
                             <?php
