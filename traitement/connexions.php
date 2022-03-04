@@ -1,7 +1,8 @@
 <?php
 require_once '../modeles/modele.php';
 
-$u = New Utilisateur;
+$u = New Utilisateur();
+
 
 extract($_POST);
 
@@ -14,25 +15,20 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
     ) {
         $erreurs[] = "L'un des champs est vide";
     }
-
-
-  
   
     // Si on a pas d'erreurs à ce stade, on va commencer les vérification dans la bdd
     if (count($erreurs) == 0) {
-        $requete=$connexion = $u->connexion([$email]);
-        
+        $u->verifUtilisateur([$email]);
+      
         // Vérification si l'email n'existe pas en regardant le nombre de lignes retournées par la requête
-        if ($requete->rowCount() > 0) {
+        if (!empty($u)) {
             // l'email existe
-            $utilisateur =$requete->fetch(PDO::FETCH_ASSOC);
-            
             
             // Vérifier si les mots de passe ne correspondent pas
-            if (!password_verify($mdp, $utilisateur["mdp"])) {
+            if (!password_verify($mdp, $u->getMdp())) {
                 // le mot de passe ne correspond pas
                 $erreurs[] = "Le mot de passe saisi est incorrect";
-            }else if($utilisateur['actif'] == 0){
+            }else if($u->getIdPermission() == 0){
                 $erreurs[] = "Votre compte a été banni.";
             }
         } else {
@@ -44,13 +40,13 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
     // Si après les vérification dans la bdd je n'ai toujours pas d'erreurs
     if (count($erreurs) == 0) {
         // on connecte l'utilisateur
-        $_SESSION["idUtilisateur"] = $utilisateur["idUtilisateur"];
-        $_SESSION["email"] = $utilisateur["email"];
-        $_SESSION["idPermission"] = $utilisateur["idPermission"];
-        $_SESSION["photoProfile"] = $utilisateur["photoProfile"];
-        $_SESSION['nom'] = $utilisateur['prenom'].' '.$utilisateur['nom'];
-        $_SESSION['nomSimple'] = $utilisateur['nom'];
-        $_SESSION['prenom'] = $utilisateur['prenom'];
+        $_SESSION["idUtilisateur"] = $u->getIdUtilisateur();
+        $_SESSION["email"] = $u->getEmail();
+        $_SESSION["idPermission"] = $u->getIdPermission();
+        $_SESSION["photoProfile"] = $u->getPhotoProfile();
+        $_SESSION['nom'] = $u->getPrenom().' '.$u->getNom();
+        $_SESSION['nomSimple'] = $u->getNom();
+        $_SESSION['prenom'] = $u->getPrenom();
 
         if(isset($souvenir) && ($souvenir) == 1 )
         {
@@ -59,11 +55,12 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
             setcookie('souvenir',$utilisateur['idUtilisateur']."-".$token,time() + (10 * 365 * 24 * 60 * 60), "/", "", false, true);
         }
 
-        $recupPanier=$u->userPanier($utilisateur['idUtilisateur']);
+        $panier = $u->getPanier();
+        $recupPanier = $panier->getStockages();
+        $arrObj = new ArrayObject($recupPanier);
 
-        if($recupPanier->rowCount() != 0){
-        $panier = $recupPanier->fetch(PDO::FETCH_ASSOC);
-        $_SESSION["idPanier"] = $panier['idPanier'];
+        if($arrObj->Count() != 0){
+        $_SESSION["idPanier"] = $panier->getIdPanier();
         }
 
         header('location:../membres/connexion.php?success=1');

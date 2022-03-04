@@ -1,20 +1,21 @@
 <?php
 require_once '../modeles/modele.php';
 
-$u = New Utilisateur;
+$u = New Utilisateur();
 
-$utilisateur = $u->verifUtilisateur();
 
-    if(isset($_POST["envoi"]) && !empty($_POST["envoi"])
-    && $_POST["envoi"] == 1){
-        $erreurs = [];
-        if(isset($_POST["email"]) && !empty($_POST["email"])
-            && isset($_POST["mdp"]) && !empty($_POST["mdp"]) 
-            ){
+if(isset($_POST["envoi"]) && !empty($_POST["envoi"])
+&& $_POST["envoi"] == 1){
+    $erreurs = [];
+    if(isset($_POST["email"]) && !empty($_POST["email"])
+    && isset($_POST["mdp"]) && !empty($_POST["mdp"]) 
+    ){
+                $utilisateur = $u->verifUtilisateur();
+                $arrObjet = new ArrayObject($u);
                 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                     $erreurs[]= "L'adresse mail est invalide, veuillez vérifier qu'il contient un '@' et un domaine (.com, .fr...).";
 
-                }elseif($utilisateur->rowcount() > 0){
+                }elseif($arrObjet->count() > 0){
 
                     $erreurs[]= "L'adresse mail saisie existe déjà";
 
@@ -49,7 +50,8 @@ $utilisateur = $u->verifUtilisateur();
                             //on hash le mdp
                             $mdp = password_hash($mdp, PASSWORD_BCRYPT);
                             //insertion dans la base de donnée
-                            $u->inscriptionUtilisateur($nom,$prenom,$email,$mdp);
+                            $u->initialize(null,$nom,$prenom,$email,$mdp);
+                            $u->inscriptionUtilisateur();
                             header("location:../membres/inscription.php?success=1&nom=".$nom);
                         }catch(Exception $e){
                             //un problème s'est produit lors de l'insertion en bdd
