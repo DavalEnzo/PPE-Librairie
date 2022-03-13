@@ -10,15 +10,15 @@
 
     foreach($commandes as $commande){
 ?>
-        <div class="card mb-3 my-3 container cardlivre" style="max-width: 1400px; height: 230px;">
-        <div class="row g-0">
-          <div class="col-md-3">
+<div class="card mb-3 my-3 container cardlivre" style="max-width: 1400px; height: 230px;">
+    <div class="row g-0">
+        <div class="col-md-3">
             <div class="card-body">
-              <h5 class="card-title">Commande créée le <?=$commande['dateCommande'];?></h5>
-              <p class="card-text">Prix total: <?=$commande['prixTotal'];?>€</p>              
+                <h5 class="card-title">Commande créée le <?=date('d-m-Y', strtotime($commande['dateCommande']));;?></h5>
+                <p class="card-text">Prix total: <?=$commande['prixTotal'];?>€</p>
             </div>
-          </div>
         </div>
-        </div>
-                            <?php
+    </div>
+</div>
+<?php
     }

@@ -85,7 +85,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         <label for="titre">Titre</label>
         <input type="text" class="form-control" name="titre" placeholder="Saisissez le titre du livre">
     </div>
-    
+
     <div class="form-group mt-1" id="nouvAuteur" style="display: none;">
         <label for="auteur">Auteur</label>
         <input type="text" class="form-control" name="auteur" id="inputAuteur" disabled placeholder="Saisissez l'auteur du livre">
@@ -97,7 +97,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     </div>
 
     <div class="form-group mt-1" id="nouvEditeur" style="display: none;">
-        <label for="editeur">Editeur (ne rien écrire si le/les editeur(s) est/sont déjà dans la base de données)</label>
+        <label for="editeur">Editeur</label>
         <input type="text" class="form-control" id="inputEditeur" name="editeur" disabled placeholder="Saisissez l'éditeur du livre">
     </div>
 
@@ -107,7 +107,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     </div>
 
     <div class="row mt-1">
-        <div class="col-2">
+        <div class="col-4">
         <label for="date">Date de parution</label>
         <input type="date" class="form-control" name="date" placeholder="Saisissez la date de sortie du livre">
         </div>
@@ -170,7 +170,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
 
                 <div class="form-group" id="numerique">
                                 <label for="numerique">Entrez le pdf du livre numérique</label>
-                                <input type="file" class="form-control" id="inputGroupFile01" onchange="isNumerique()" name="numerique">
+                                <input type="file" class="form-control" id="inputGroupFile01" name="numerique">
                             </div>  
                 
                 <div class="form-group mt-1 text-center">

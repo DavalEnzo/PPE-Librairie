@@ -76,12 +76,16 @@ $(window).on('load', function () {
         }
     });
 
+    $( document ).ready(function () {
+            $('#numerique').hide();
+      });
+
 
   $('#prixAjout ,#numerique').on('keyup', function () {
       if ($('#prixAjout').val() == 0) {
-          $('#numerique').attr("disabled", false);
+          $('#numerique').hide();
         }else{
-            $('#numerique').attr("disabled", true);
+            $('#numerique').show();
     }
     });
 
