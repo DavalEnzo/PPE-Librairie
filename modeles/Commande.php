@@ -9,6 +9,8 @@ class Commande extends Modele{
     private $dateCommande;
     private $statut;
 
+    private $panier;
+
     public function __construct($idCommande = null)
     {
         if($idCommande != null)
@@ -31,8 +33,11 @@ class Commande extends Modele{
 
             $this->statut = $com['statut'];
 
+            $this->panier = new Panier($this->idPanier);
+
         }
     }
+
     /**
      * initialise l'objet courant
      * @param   int     idCommande
@@ -54,6 +59,8 @@ class Commande extends Modele{
         $this->idAdresse        =   $idAdresse;
         $this->dateCommande     =   $dateCommande;
         $this->statut           =   $statut;
+
+        $this->panier = new Panier($this->idPanier);
     }
 
     public function ajouterCommande($idPanier, $idUtilisateur, $prixTotal, $adresse){
@@ -66,12 +73,6 @@ class Commande extends Modele{
         $requete = $this->getBdd()->prepare("INSERT INTO detailcommandes(idCommande, idLivre, quantite)
         VALUES((SELECT max(idCommande) FROM commandes),?,?)");
         $requete->execute([$idLivre, $quantite]);
-    }
-
-    public function getAllCommandesUser($idUtilisateur){
-        $requete = $this->getBdd() -> prepare ('SELECT * FROM commandes WHERE idUtilisateur = ?');
-        $requete -> execute([$idUtilisateur]);
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getIdCommande(){
@@ -100,5 +101,9 @@ class Commande extends Modele{
 
     public function getStatut(){
         return $this->statut;
+    }
+    public function getPanier()
+    {
+        return $this->panier;
     }
 }

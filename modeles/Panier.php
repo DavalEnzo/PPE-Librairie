@@ -11,7 +11,7 @@ class Panier extends Modele{
     {
     
         if($idPanier != null){
-            $requete = $this->getBdd()->prepare('SELECT * FROM  paniers');
+            $requete = $this->getBdd()->prepare('SELECT * FROM  paniers  where idPanier = ?');
             $requete->execute([$idPanier]);
             $panier = $requete->fetch(PDO::FETCH_ASSOC);
 

@@ -43,8 +43,8 @@
 
 <?php
     $idPanier = $_SESSION['idPanier'];
-    $Panier = new Panier($idPanier, $_SESSION['idUtilisateur']);
-    $recupPanier = $Panier->getPanier();
+    $Panier = new Panier($idPanier);
+    $stockage = $Panier->getStockages();
 ?>
 
   <div class="alert alert-dark">
@@ -208,22 +208,24 @@
     <h2 class="text-center" style="margin-bottom: 2%;"><u>Résumé de la commande</u></h2>
     <h2 style="color: green; font-weight:bold; text-decoration:underline;">Date de livraison estimée : <?=date('d/m/Y', strtotime('10 days'));?></h2>
     <?php
-    foreach($recupPanier as $panier){
+    foreach($stockage as $panier){
+      $Livre = $panier->getLivre();
+      $editeur = $Livre->getEditeur();
       ?>
-      <input style="display: none;" name="idLivre[]" type="text" value="<?=$panier['idLivre'];?>">
-      <input style="display: none;" name="quantite[]" type="text" value="<?=$panier['quantite'];?>">
+      <input style="display: none;" name="idLivre[]" type="text" value="<?=$Livre->getIdLivre();?>">
+      <input style="display: none;" name="quantite[]" type="text" value="<?=$panier->getQuantite();?>">
       <div class="card mb-3 my-3 container cardlivre" style="max-width: 1400px; height: 230px;">
         <div class="row g-0">
           <div class="col-md-1">
-            <img class="imgCard" src="<?=$panier['Photo'];?>" style="max-height: 228px; width:182px" class="rounded-start" alt="...">
+            <img class="imgCard" src="<?=$Livre->getPhoto();?>" style="max-height: 228px; width:182px" class="rounded-start" alt="...">
           </div>
           <div class="col-md-10" style="margin-left: 2%;">
             <div class="card-body" style="margin-left: 5%;">
-              <h5 class="card-title"><?=$panier['Titre'];?></h5>
-              <h5 class="card-subtitle text-muted mb-4"><?=$panier['nomEditeur'];?></h5>
-              <p style="font-size: 20px;" class="card-subtitle">Quantité: <?=$panier['quantite'];?></p>
-              <p class="card-text">Prix total: <?=$panier['Prix'] * $panier['quantite'];?>€</p>
-              <input type="text" style="display: none;" name="prixTotal" value="<?=$panier['Prix'] * $panier['quantite'];?>"></input>
+              <h5 class="card-title"><?=$Livre->getTitre();?></h5>
+              <h5 class="card-subtitle text-muted mb-4"><?=$editeur->getNomEditeur();?></h5>
+              <p style="font-size: 20px;" class="card-subtitle">Quantité: <?=$panier->getQuantite();?></p>
+              <p class="card-text">Prix total: <?= $Livre->getPrix() * $panier->getQuantite();?>€</p>
+              <input type="text" style="display: none;" name="prixTotal" value="<?=$Livre->getPrix() * $panier->getQuantite();?>"></input>
               
             </div>
           </div>
@@ -239,8 +241,9 @@
     <div class="card-body">
       <?php
         $total = 0;
-          foreach($recupPanier as $detailCommande){
-        $total += $detailCommande['Prix']*$detailCommande['quantite'];
+          foreach($stockage as $detailCommande){
+            $Livre = $detailCommande->getLivre();
+        $total += $Livre->getPrix()*$detailCommande->getQuantite();
       }
       ?>
 
@@ -259,11 +262,12 @@
       <h5 style="margin-left: 3%;">Livres:</h5>
       <?php
         $total = 0;
-          foreach($recupPanier as $detailCommande){
+          foreach($stockage as $detailCommande){
+            $Livre = $detailCommande->getLivre();
         ?>
-        <p style="font-size: 15px;">x<?=$detailCommande['quantite'];?> <?=$detailCommande['Titre'];?>: <?=$detailCommande['Prix']*$detailCommande['quantite'];?>€</p>
+        <p style="font-size: 15px;">x<?=$detailCommande->getQuantite();?> <?=$Livre->getTitre();?>: <?=$Livre->getPrix()*$detailCommande->getQuantite();?>€</p>
         <?php
-        $total += $detailCommande['Prix']*$detailCommande['quantite'];
+        $total += $Livre->getPrix()*$detailCommande->getQuantite();
       }
       ?>
       <div style="border: 1px solid black; margin-bottom:5%"></div>

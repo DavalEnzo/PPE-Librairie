@@ -4,8 +4,8 @@ require_once '../modeles/modele.php';
 $commande = new Commande();
 
 $idPanier = $_SESSION['idPanier'];
-$Panier = new Panier($idPanier, $_SESSION['idUtilisateur']);
-$recupPanier = $Panier->getPanier();
+$Panier = new Panier($idPanier);
+$recupPanier = $Panier->getStockages();
 
 if( isset($_POST['pays']) && !empty($_POST['pays']) &&
     isset($_POST['nomComplet']) && !empty($_POST['nomComplet']) &&
@@ -29,7 +29,7 @@ if( isset($_POST['pays']) && !empty($_POST['pays']) &&
                                         $commande->ajouterCommande($_SESSION['idPanier'], $_SESSION['idUtilisateur'], $_POST['prixTotal'], $_POST['adresse']);
 
                                         foreach($recupPanier as $panier){
-                                            $commande->ajouterDetailsCommande($panier['idLivre'], $panier['quantite']);            
+                                            $commande->ajouterDetailsCommande($panier->getIdLivre(), $panier->getQuantite());            
                                         }
 
                                         $Panier->supprimerPanier($_SESSION['idPanier']);

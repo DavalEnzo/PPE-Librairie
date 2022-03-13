@@ -43,11 +43,10 @@ private $Auteurs = [];
                 $this->initializeComLivre($this->idLivre);
                 $this->initializeAuteurLivre($this->idLivre);
                 $this->lecture = new Lecture($this->idLivre);
-                $this->initializeAuteurLivre($this->idLivre);
                 $this->initializeEditeurLivre($this->idLivre);
                 
             }
-        }
+    }
 
         private function initializeComLivre($idLivre)
         {
@@ -58,7 +57,7 @@ private $Auteurs = [];
             foreach($com as $c)
             {
                 $commentaire = new Commentaire();
-                $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'],TRUE);
+                $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'],true);
                 $this->commentaires[]=$commentaire;
             }
         }

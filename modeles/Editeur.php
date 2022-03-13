@@ -4,6 +4,8 @@ class Editeur extends Modele
     private $idEditeur;
 
     private $nom;
+
+    private $Livre = [];
     
     public function __construct($idEditeur = null)
     {
@@ -11,12 +13,26 @@ class Editeur extends Modele
         {
             $requete=$this->getBdd()->prepare('SELECT * FROM editeurs WHERE idEditeur = ?');
             $requete->execute([$idEditeur]);
-            $recupLEditeur =  $requete->fetchAll(PDO::FETCH_ASSOC);
+            $recupLEditeur =  $requete->fetch(PDO::FETCH_ASSOC);
 
             $this->idEditeur = $recupLEditeur['idEditeur'];
             $this->nom = $recupLEditeur['nom'];
-        }
 
+            $this->initLivreEditeur($this->idEditeur);
+        }
+    }
+
+    public function initLivreEditeur($idEditeur)
+    {
+        $requete=$this->getBdd()->prepare('SELECT * FROM livres WHERE idEditeur = ?');
+        $requete->execute([$idEditeur]);
+        $editeur =  $requete->fetchAll(PDO::FETCH_ASSOC); 
+
+        foreach($editeur as $L){
+            $Livre = new Livre();
+            $Livre->initialize($L['idLivre'],$L['Titre'],$L['date_sortie'],$L['Prix'],$L['Photo'],$L['idGenre'],$L['idtypeGenre'],$L['idEditeur'],$L['date_heure'],$L['droit']);
+            $this->Livre[] =   $Livre;
+        }
     }
 
     public function initialize($idEditeur,$nom)
@@ -40,12 +56,6 @@ class Editeur extends Modele
 
 
     // GETTERS  
-    public function getEditeurLivre($idEditeur)
-    {
-        $requete=$this->getBdd()->prepare('SELECT * FROM editeurs INNER JOIN livres USING (idEditeur) WHERE idEditeur = ?');
-        $requete->execute([$idEditeur]);
-        return $requete->fetchAll(PDO::FETCH_ASSOC);
-    }
     public function getIdEditeur()
     {
         return $this->idEditeur;
@@ -53,6 +63,10 @@ class Editeur extends Modele
     public function getNomEditeur()
     {
         return $this->nom;
+    }
+    public function getLivre()
+    {
+        return $this->Livre;
     }
 
     // SETTERS

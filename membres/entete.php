@@ -62,7 +62,7 @@ require_once '../modeles/modele.php';
           <a class="nav-link active" href="editeurs.php">Editeurs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="numerique.php">Numérique</a>
+          <a class="nav-link active" href="numerique.php">Livres libre de droit</a>
         </li>
       </ul>
       <ul class="navbar-nav mx-2 mb-2 mb-lg-0">

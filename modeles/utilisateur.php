@@ -20,7 +20,6 @@ class Utilisateur extends Modele{
 
     public function __construct($idUtilisateur = null)
     {
-
         if($idUtilisateur != null)
         {
             
@@ -47,8 +46,8 @@ class Utilisateur extends Modele{
             $this->dateMentionAccepte = $User['dateMentionAcceptée'];
         
         }
-
     }
+
     /**
      * Initialise l'objet utilisateur sans passer par la requête (setters de masse)
      * @param   int     $idUtilisateur
@@ -63,7 +62,7 @@ class Utilisateur extends Modele{
      * 
      * @return  void
      */
-    public function initialize($idUtilisateur=null,$nom=null,$prenom=null,$email=null,$mdp=null,$photoProfile=null,$idPermission=null,$token=null,$dateMentionAccepte=null)
+    public function initialize($idUtilisateur=null,$nom=null,$prenom=null,$email=null,$mdp=null,$photoProfile=null,$idPermission=null,$token=null,$dateMentionAccepte=null,$actif = null)
     {
         $this->idUtilisateur = $idUtilisateur;
         $this->nom = $nom;
@@ -74,12 +73,14 @@ class Utilisateur extends Modele{
         $this->idPermission = $idPermission;
         $this->token = $token;
         $this->dateMentionAccepte = $dateMentionAccepte;
+        $this->actif = $actif;
 
         $this->initComUtilisateur($this->idUtilisateur);
-        $this->initPanierUtilisateur($this->idUtilisateur);
         $this->initCommandesUtilisateur($this->idUtilisateur);
+        $this->initPanierUtilisateur($this->idUtilisateur);
 
     }
+
      /**
       * Initialise l'objet commentaire par l'idUtilisateur
      * @param   int idUtlisateur
@@ -95,10 +96,11 @@ class Utilisateur extends Modele{
         foreach($com as $c)
         {
             $commentaire = new Commentaire();
-            $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'],1);
+            $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'],false);
             $this->commentaires[]=$commentaire;
         }
     }
+
     /**
      * initialise l'objet panier par l'idUtilisateur
      * @param   int idUtlisateur
@@ -107,17 +109,15 @@ class Utilisateur extends Modele{
      */
     public function initPanierUtilisateur($idUtilisateur)
     {
-        $requete = $this->getBdd()-> prepare ("SELECT * FROM paniers WHERE idUtilisateur = ?");
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM paniers WHERE idUtilisateur = ? AND active = 1");
         $requete -> execute([$idUtilisateur]);
-        $panier = $requete->fetchAll(PDO::FETCH_ASSOC);
+        $p = $requete->fetch(PDO::FETCH_ASSOC);
 
-        foreach($panier as $p)
-        {
-            $panier = new Panier();
-            $panier->initializePanier($p['idPanier'],$p['idUtilisateur']);
-            $this->panier=$panier;
-        }
+        $panier = new Panier();
+        $panier->initializePanier($p['idPanier'],$p['idUtilisateur']);
+        $this->panier=$panier;
     }
+
     /**
      * initialise l'objet commande par l'idUtilisateur
      * @param   int idUtlisateur
@@ -126,58 +126,38 @@ class Utilisateur extends Modele{
      */
     public function initCommandesUtilisateur($idUtilisateur)
     {
-        $requete = $this->getBdd()-> prepare ("SELECT * FROM paniers WHERE idUtilisateur = ?");
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM commandes WHERE idUtilisateur = ?");
         $requete -> execute([$idUtilisateur]);
         $commandes = $requete->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach($commandes as $c)
+        if(!empty($commandes))
         {
-            $commande = new Commande();
-            $commande->initializeCommande($c['idCommande'],$c['idPanier'],$c['idUtilisateur'],$c['prixTotal'],$c['idAdresse'],$c['dateCommande'],$c['statut']);
-            $this->commandes[]=$commande;
+            foreach($commandes as $c)
+            {
+                $commande = new Commande();
+                $commande->initializeCommande($c['idCommande'],$c['idPanier'],$c['idUtilisateur'],$c['prixTotal'],$c['idAdresse'],$c['dateCommande'],$c['statut']);
+                $this->commandes[]=$commande;
+            }
         }
     }
 
 
-
-
-
-
-
-
-
-
-
     public function verifUtilisateur()
     {
-        $requete = $this->getBdd()->prepare("SELECT email FROM utilisateurs WHERE email = ?");
-        $requete->execute([$_POST["email"]]);
-        return $requete;
-    }
-
-    public function inscriptionUtilisateur($nom,$prenom,$email,$mdp){
-        $requete = $this->getBdd()->prepare("INSERT INTO utilisateurs(nom,prenom,email,mdp,dateMentionAcceptée) VALUES(?,?,?,?, NOW())");
-        $requete->execute([$nom,$prenom,$email,$mdp]);
-    }
-
-    public function connexion($email)
-    {
         $requete = $this->getBdd()->prepare("SELECT * FROM utilisateurs WHERE email = ?");
-        $requete->execute($email);
-        return $requete;
+        $requete->execute([$_POST["email"]]);
+        $u = $requete->fetch(PDO::FETCH_ASSOC);
+        $this->initialize($u['idUtilisateur'],$u['nom'],$u['prenom'],$u['email'],$u['mdp'],$u['photoProfile'],$u['idPermission'],$u['token'],$u['dateMentionAcceptée']);
     }
 
-    public function userPanier($idUser)
-    {
-        $requete = $this->getBdd()->prepare("SELECT * FROM paniers WHERE idUtilisateur = ?");
-        $requete->execute([$idUser]);
-        return $requete;
+    public function inscriptionUtilisateur(){
+        $requete = $this->getBdd()->prepare("INSERT INTO utilisateurs(nom,prenom,email,mdp,dateMentionAcceptée) VALUES(?,?,?,?, NOW())");
+        $requete->execute([$this->nom,$this->prenom,$this->email,$this->mdp]);
     }
 
-    public function modifProfile($nom, $prenom, $email, $idUser)
+    public function modifProfile()
     {
         $requete = $this->getBdd()->prepare("UPDATE utilisateurs SET nom = ?, prenom = ?, email = ? WHERE idUtilisateur = ?");
-        $requete->execute([$nom, $prenom, $email, $idUser]);
+        $requete->execute([$this->nom, $this->prenom, $this->email, $this->idUtilisateur]);
     }
 
     public function modifPhotoProfile($idUser, $fichier)
@@ -198,12 +178,6 @@ class Utilisateur extends Modele{
         $requete->execute([$idUser]);
     }
     
-    public function fetchToken($idUser)
-    {
-        $requete = $this->getBdd()->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
-        $requete->execute([$idUser]);
-        return $requete->fetch(PDO::FETCH_ASSOC);
-    }
 
     public function addToken($token, $idUser)
     {
@@ -280,6 +254,18 @@ class Utilisateur extends Modele{
     public function getdateMentionAccepte()
     {
         return  $this->dateMentionAccepte;
+    }
+    public function getPanier()
+    {
+        return  $this->panier;
+    }
+    public function getCommandes()
+    {
+        return  $this->commandes;
+    }
+    public function getCommentaire()
+    {
+        return  $this->commentaires;
     }
 
 }

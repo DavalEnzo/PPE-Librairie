@@ -5,6 +5,7 @@ class TypeGenre extends Modele
     private $libelle;
     private $imgTypeGenre;
     private $idGenre;
+    private $Livre=[];
 
     public function __construct($idTypeGenre = null) {
 
@@ -20,12 +21,28 @@ class TypeGenre extends Modele
 
     }
 
-    public function initialize($idTypeGenre = null,$libelle = null,$imgTypeGenre = null,$idGenre = null)
+    public function initialize($idTypeGenre = null,$libelle = null,$imgTypeGenre = null,$idGenre = null, $option = false)
     {
         $this->idTypeGenre = $idTypeGenre;
         $this->libelle      = $libelle;
         $this->imgTypeGenre = $imgTypeGenre;
         $this->idGenre      = $idGenre;
+        if($option == true)
+        {
+            $this->initLivreTypeGenre( $this->idTypeGenre );
+        }
+    }
+    public function initLivreTypeGenre($idTypeGenre)
+    {
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM livres WHERE idtypeGenre = ? ");
+        $requete -> execute([$idTypeGenre]);
+        $livres = $requete->fetchAll(PDO::FETCH_ASSOC);
+        foreach($livres as $livre)
+        {
+            $Livre = new Livre();
+            $Livre->initialize($livre['idLivre'],$livre['Titre'] ,$livre['date_sortie'],$livre['Prix'],$livre['Photo'],$livre['idGenre'],$livre['idtypeGenre'],$livre['idEditeur'],$livre['date_heure'],$livre['droit']);
+            $this->Livre[]=$Livre;
+        }
     }
     //GETTERS 
     public function getIdTypeGenre()
@@ -43,5 +60,9 @@ class TypeGenre extends Modele
     public function getIdGenre()
     {
         return $this->idGenre ;
+    }
+    public function getLivre()
+    {
+        return $this->Livre ;
     }
 }
