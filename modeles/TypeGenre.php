@@ -9,14 +9,18 @@ class TypeGenre extends Modele
 
     public function __construct($idTypeGenre = null) {
 
-        $requete = $this->getBdd()->prepare('SELECT * FROM typegenre where idtypeGenre =?');
-        $requete->execute([$idTypeGenre]);
-        $TypeGenre = $requete->fetch(PDO::FETCH_ASSOC);
+        if($idTypeGenre != null){
 
-        $this->idTypeGenre = $idTypeGenre;
-        $this->libelle = $TypeGenre['libelle'];
-        $this->imgTypeGenre = $TypeGenre['imgTypeGenre'];
-        $this->idGenre = $TypeGenre['idGenre'];
+            $requete = $this->getBdd()->prepare('SELECT * FROM typegenre where idtypeGenre =?');
+            $requete->execute([$idTypeGenre]);
+            $TypeGenre = $requete->fetch(PDO::FETCH_ASSOC);
+
+            $this->idTypeGenre = $idTypeGenre;
+            $this->libelle = $TypeGenre['libelle'];
+            $this->imgTypeGenre = $TypeGenre['imgTypeGenre'];
+            $this->idGenre = $TypeGenre['idGenre'];
+
+        }
 
 
     }
