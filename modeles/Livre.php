@@ -72,7 +72,7 @@ private $Auteurs = [];
             {
                 $Auteur = new Auteur();
                 $Auteur->initialize( $a['idAuteur'],$a['nom']);
-                $this->Auteur[]=$Auteur;
+                $this->Auteurs[]=$Auteur;
 
             }
         }
@@ -115,6 +115,7 @@ private $Auteurs = [];
             $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idEditeur,date_heure,droit)
             VALUES(?,?,?,?,?,?,NOW(),?)");
             $requete->execute([$this->Titre ,$this->date_sortie,$this->Prix ,$this->Photo,$this->idGenre,$this->idEditeur,$this->droit]);
+            return true;
         }
     
 
@@ -166,7 +167,7 @@ private $Auteurs = [];
         }
         public function getAuteur()
         {
-            return $this->Auteur;
+            return $this->Auteurs;
         }
         public function getEditeur()
         {

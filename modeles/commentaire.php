@@ -84,6 +84,7 @@ class Commentaire extends Modele
             $sql = $this->getBdd() -> prepare ("INSERT INTO commentaires (contenu, idLivre, idUtilisateur,entete,grade,date_heure) VALUES (?,?,?,?,?,NOW())");
             $sql -> execute([$this->contenu,$this->idLivre,$this->idUtilisateur,$this->entete,$this->grade]);
         }
+        return true;
     }
 
     public function initLivreCom($idLivre)

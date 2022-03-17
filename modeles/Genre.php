@@ -52,10 +52,12 @@ class Genre extends Modele{
     public function insertGenre($libelle){
            $requete = $this->getBdd()->prepare("INSERT INTO genres (nomGenre) VALUES(?)");
            $requete->execute([$libelle]);
+           return true;
        }
     public function insertTypegenre($libelle,$idGenre){
         $requete=$this->getBdd()->prepare('INSERT INTO typegenre (libelle, idGenre) VALUES (?, ?)');
         $requete->execute([$libelle, $idGenre]);
+        return true;
     }
 
     // GETTERS

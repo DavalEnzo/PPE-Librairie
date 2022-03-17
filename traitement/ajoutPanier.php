@@ -37,21 +37,19 @@ if(isset($_GET['id']) && !empty($_GET['id']) && isset($_SESSION['idUtilisateur']
 
         $ajoutPanier = new Panier();
 
-        $u = new Utilisateur();
+        $u = new Utilisateur($_SESSION['idUtilisateur']);
 
         $idUtilisateur = $_SESSION['idUtilisateur'];
-
+        
             
         
         try{
             $ajoutPanier->ajouterPanierVide($idUtilisateur);
             
-            $recupPanier=$u->userPanier($idUtilisateur);
-            
-            $panier = $recupPanier->fetch(PDO::FETCH_ASSOC);
-            
-            $_SESSION["idPanier"] = $panier['idPanier'];
-            
+            $recupPanier=$u->getPanier($idUtilisateur);
+
+            $_SESSION["idPanier"] = $recupPanier->getIdPanier();
+
             foreach($ajoutPanier as $idPanier){
                 $idPanier = $idPanier['idPanier'];
             }

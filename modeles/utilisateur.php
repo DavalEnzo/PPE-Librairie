@@ -11,13 +11,14 @@ class Utilisateur extends Modele{
     private $idPermission;
     private $token;
     private $dateMentionAccepte;
+    private $active;
 
     private $commentaires = [];
 
-    private $panier = [];
+    private $panier;
 
     private $commandes = [];
-
+    
     public function __construct($idUtilisateur = null)
     {
         if($idUtilisateur != null)
@@ -44,6 +45,10 @@ class Utilisateur extends Modele{
             $this->token = $User['token'];
 
             $this->dateMentionAccepte = $User['dateMentionAcceptée'];
+
+            $this->active = $User['active'];
+
+            $this->initialize($User['idUtilisateur']);
         
         }
     }
@@ -62,7 +67,7 @@ class Utilisateur extends Modele{
      * 
      * @return  void
      */
-    public function initialize($idUtilisateur=null,$nom=null,$prenom=null,$email=null,$mdp=null,$photoProfile=null,$idPermission=null,$token=null,$dateMentionAccepte=null,$actif = null)
+    public function initialize($idUtilisateur=null,$nom=null,$prenom=null,$email=null,$mdp=null,$photoProfile=null,$idPermission=null,$token=null,$dateMentionAccepte=null,$active = null)
     {
         $this->idUtilisateur = $idUtilisateur;
         $this->nom = $nom;
@@ -73,7 +78,7 @@ class Utilisateur extends Modele{
         $this->idPermission = $idPermission;
         $this->token = $token;
         $this->dateMentionAccepte = $dateMentionAccepte;
-        $this->actif = $actif;
+        $this->active = $active;
 
         $this->initComUtilisateur($this->idUtilisateur);
         $this->initCommandesUtilisateur($this->idUtilisateur);
@@ -109,7 +114,7 @@ class Utilisateur extends Modele{
      */
     public function initPanierUtilisateur($idUtilisateur)
     {
-        $requete = $this->getBdd()-> prepare ("SELECT * FROM paniers WHERE idUtilisateur = ? AND active = 1");
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM paniers LEFT JOIN utilisateurs USING(idUtilisateur) WHERE idUtilisateur = ? AND utilisateurs.active = 1");
         $requete -> execute([$idUtilisateur]);
         $p = $requete->fetch(PDO::FETCH_ASSOC);
 
@@ -146,7 +151,15 @@ class Utilisateur extends Modele{
         $requete = $this->getBdd()->prepare("SELECT * FROM utilisateurs WHERE email = ?");
         $requete->execute([$_POST["email"]]);
         $u = $requete->fetch(PDO::FETCH_ASSOC);
-        $this->initialize($u['idUtilisateur'],$u['nom'],$u['prenom'],$u['email'],$u['mdp'],$u['photoProfile'],$u['idPermission'],$u['token'],$u['dateMentionAcceptée']);
+        $this->initialize($u['idUtilisateur'],$u['nom'],$u['prenom'],$u['email'],$u['mdp'],$u['photoProfile'],$u['idPermission'],$u['token'],$u['dateMentionAcceptée'],$u['active']);
+    }
+
+    public function verifUtilisateurMdp($email)
+    {
+        $requete = $this->getBdd()->prepare("SELECT * FROM utilisateurs WHERE email = ?");
+        $requete->execute([$email]);
+        $u = $requete->fetch(PDO::FETCH_ASSOC);
+        $this->initialize($u['idUtilisateur'],$u['nom'],$u['prenom'],$u['email'],$u['mdp'],$u['photoProfile'],$u['idPermission'],$u['token'],$u['dateMentionAcceptée'],$u['active']);
     }
 
     public function inscriptionUtilisateur(){
@@ -184,6 +197,19 @@ class Utilisateur extends Modele{
         $requete = $this->getBdd()->prepare("UPDATE utilisateurs SET token = ? WHERE idUtilisateur = ?");
         $requete->execute([$token, $idUser]);
     }
+
+    public function addUserLogs($idUtilisateur, $ip)
+    {
+        $requete = $this->getBdd()->prepare("INSERT INTO access_logs(idUtilisateur, ip, date) VALUES (?, ?, NOW())");
+        $requete->execute([$idUtilisateur, $ip]);
+    }
+
+    public function checkAdminAllowedIP($ip)
+    {
+        $requete = $this->getBdd()->prepare('SELECT * FROM allowed_ips WHERE ip = ?');
+        $requete->execute([$ip]);
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
     
 //////SETTERS
     public function setName($var = null)
@@ -217,6 +243,10 @@ class Utilisateur extends Modele{
     public function setToken($var = null)
     {
         $this->token = $var;
+    }
+    public function setActive($var = null)
+    {
+        $this->active = $var;
     }
 //// GETTERS
     public function getIdUtilisateur()
@@ -266,6 +296,10 @@ class Utilisateur extends Modele{
     public function getCommentaire()
     {
         return  $this->commentaires;
+    }
+    public function getActive()
+    {
+        return  $this->active;
     }
 
 }

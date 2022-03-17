@@ -1,0 +1,23 @@
+{
+    "name": "enzo/ppe-librairie",
+    "autoload": {
+        "psr-4": {
+            "Enzo\\PpeLibrairie\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Enzo Daval",
+            "email": "davalenzo@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Yanis Madani",
+            "email": "madaniyanis@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

@@ -24,6 +24,8 @@ if(isset($_GET['id']) && !empty($_GET['id']) && isset($_GET['token']) && !empty(
         $_SESSION["idPanier"] = $panier->getIdPanier;
     }
 
+    $u->addUserLogs($_SESSION['idUtilisateur'], $_SERVER['REMOTE_ADDR']);
+
     header('location:../membres/index.php');
     
     }else {

@@ -64,15 +64,17 @@ class Commande extends Modele{
     }
 
     public function ajouterCommande($idPanier, $idUtilisateur, $prixTotal, $adresse){
-        $requete = $this->getBdd()->prepare("INSERT INTO commandes( idPanier ,idUtilisateur,prixTotal,adresse,dateCommande,dateLivraison)
+        $requete = $this->getBdd()->prepare("INSERT INTO commandes( idPanier ,idUtilisateur,prixTotal,idAdresse,dateCommande,dateLivraison)
         VALUES(?,?,?,?,NOW(),NOW() + INTERVAL 10 DAY)");
         $requete->execute([$idPanier, $idUtilisateur, $prixTotal, $adresse]);
+        return true;
     }
 
     public function ajouterDetailsCommande($idLivre, $quantite){
         $requete = $this->getBdd()->prepare("INSERT INTO detailcommandes(idCommande, idLivre, quantite)
         VALUES((SELECT max(idCommande) FROM commandes),?,?)");
         $requete->execute([$idLivre, $quantite]);
+        return true;
     }
 
     public function getIdCommande(){

@@ -7,7 +7,7 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur']))
     if(isset($_GET['success']) && !empty($_GET['success'])){
         if($_GET['success'] == 2){
             ?>
-            <div class="alert alert-danger">Les mots de passe ne correspondent pas
+            <div class="alert alert-danger">Le mots de passe actuel ne correspond pas
         </div>
             <?php        
         }

@@ -51,6 +51,8 @@ class Editeur extends Modele
         $E = $requete->fetch(PDO::FETCH_ASSOC);
 
         $this->idEditeur = $E['idEditeur'];
+        
+        return true;
     }
   
 

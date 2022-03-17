@@ -127,10 +127,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
             <div style="margin-left: 15.5%; width:69%" class="alert alert-danger text-center">Vous devez être connecté pour pouvoir commenter un livre</div>
             <?php
         }
-    
-        $commentaires = $Livre->getCommentaires();
 
-    foreach($commentaires as $commentaire){
+    foreach($Livre->getCommentaires() as $commentaire){
 
         $user = $commentaire->getUtilisateur();
         $date = $commentaire->getDateHeure();

@@ -34,16 +34,19 @@ class Auteur extends Modele
                 $requete= $this->getBdd()->prepare("INSERT INTO ecrit (idAuteur, idLivre) VALUES (?, (SELECT max(idLivre) FROM livres))");
                 $requete->execute([$idAuteur]);
             }
+            return true;
     }
 
    public function insertAuteur(){
         $requete= $this->getBdd()->prepare("INSERT INTO auteurs (nom) VALUES (?)");
         $requete->execute([$this->nom]);
+        return true;
     }
 
    public function insertAuteur2($a){
         $requete= $this->getBdd()->prepare("INSERT INTO ecrit (idAuteur, idLivre) VALUES (?, (SELECT max(idLivre) FROM livres))");
         $requete->execute([$a]);
+        return true;
     }
     
     public function getIdAuteur()

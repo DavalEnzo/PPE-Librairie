@@ -2,16 +2,15 @@
 
 <?php
 
-$u = new Utilisateur;
+$u = new Utilisateur($_SESSION['idUtilisateur']);
 
 extract($_POST);
 
 if(isset($verifMdp) && !empty($verifMdp) && isset($newMdp) && !empty($newMdp) && isset($confirmNewMdp) && !empty($confirmNewMdp)){
-    $requete = $u->connexion([$_SESSION['email']]);
+    $requete = $u->verifUtilisateurMdp($_SESSION['email']);
 
-    $vraiMdp =$requete->fetch(PDO::FETCH_ASSOC);
-
-    if (!password_verify($verifMdp, $vraiMdp["mdp"])){ 
+    if (!password_verify($verifMdp, $u->getMdp())){
+        
 
         header("location:../membres/modificationMdp.php?id=".$_SESSION['idUtilisateur']."&success=2");
         
@@ -19,7 +18,7 @@ if(isset($verifMdp) && !empty($verifMdp) && isset($newMdp) && !empty($newMdp) &&
 
         header("location:../membres/modificationMdp.php?id=".$_SESSION['idUtilisateur']."&success=3");
 
-    }else if(password_verify($verifMdp, $vraiMdp["mdp"]) && $newMdp == $confirmNewMdp){
+    }else if(password_verify($verifMdp, $u->getMdp()) && $newMdp == $confirmNewMdp){
 
         if(strlen($newMdp) < 8){
                 

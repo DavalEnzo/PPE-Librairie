@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 require_once '../modeles/modele.php';
 
 $u = New Utilisateur();
@@ -18,17 +21,16 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
   
     // Si on a pas d'erreurs à ce stade, on va commencer les vérification dans la bdd
     if (count($erreurs) == 0) {
-        $u->verifUtilisateur([$email]);
-      
+        $u->verifUtilisateur([$email]);      
         // Vérification si l'email n'existe pas en regardant le nombre de lignes retournées par la requête
         if (!empty($u)) {
             // l'email existe
-            
+
             // Vérifier si les mots de passe ne correspondent pas
             if (!password_verify($mdp, $u->getMdp())) {
                 // le mot de passe ne correspond pas
-                $erreurs[] = "Le mot de passe saisi est incorrect";
-            }else if($u->getIdPermission() == 0){
+                $erreurs[] = "Un ou plusieurs champs sont incorrects";
+            }else if($u->getActive() == 0){
                 $erreurs[] = "Votre compte a été banni.";
             }
         } else {
@@ -48,11 +50,23 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
         $_SESSION['nomSimple'] = $u->getNom();
         $_SESSION['prenom'] = $u->getPrenom();
 
+        
+        if($u->getIdPermission() == 1)
+        {
+            $verifAdmin = $u->checkAdminAllowedIP($_SERVER['REMOTE_ADDR']);
+
+            //var_dump(gettype($verifAdmin));exit;
+            
+            if(count($verifAdmin) <= 1){
+                header('location:../membres/connexion.php?success=0&erreurs=1');
+            }
+        }
+
         if(isset($souvenir) && ($souvenir) == 1 )
         {
             $token = bin2hex(random_bytes(20));
-            $u->addToken($token,$utilisateur['idUtilisateur']);
-            setcookie('souvenir',$utilisateur['idUtilisateur']."-".$token,time() + (10 * 365 * 24 * 60 * 60), "/", "", false, true);
+            $u->addToken($token,$_SESSION['idUtilisateur']);
+            setcookie('souvenir',$_SESSION['idUtilisateur']."-".$token,time() + (10 * 365 * 24 * 60 * 60), "/", "", false, true);
         }
 
         $panier = $u->getPanier();
@@ -62,6 +76,8 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
         if($arrObj->Count() != 0){
         $_SESSION["idPanier"] = $panier->getIdPanier();
         }
+
+        $u->addUserLogs($_SESSION['idUtilisateur'], $_SERVER['REMOTE_ADDR']);
 
         header('location:../membres/connexion.php?success=1');
     } else {

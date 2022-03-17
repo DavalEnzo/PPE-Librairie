@@ -15,7 +15,7 @@ if(isset($_POST["envoi"]) && !empty($_POST["envoi"])
                 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                     $erreurs[]= "L'adresse mail est invalide, veuillez vérifier qu'il contient un '@' et un domaine (.com, .fr...).";
 
-                }elseif($arrObjet->count() > 0){
+                }elseif($arrObjet->count() > 1){
 
                     $erreurs[]= "L'adresse mail saisie existe déjà";
 

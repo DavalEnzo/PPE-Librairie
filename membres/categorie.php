@@ -30,13 +30,12 @@ require_once 'entete.php';
                 <h4><?= $genre->getNomGenre(); ?></h6>
             </div>
             <?php
-            // var_dump($genre->getTypeGenre());
             foreach ($genre->getTypeGenre() as $tg) {
             ?>
                 <div class=" d-inline-block rounded-circle text-center mx-4" style="width: 120px;height:120px;margin:auto;text-decoration:none; color:black;background-color:white;background-image:url('<?= $genre->getImgGenre(); ?>');background-size:cover;">
                     <a href="selectionGenre.php?idTypeGenre=<?= $tg->getIdTypeGenre(); ?>" style='text-decoration:none'>
                         <div class='my-4'>
-                            <p class='stext ' style='color:white'><?= $tg->getLibelle(); ?></p>
+                            <p class='stext ' style='color:white;'><?= $tg->getLibelle(); ?></p>
                         </div>
                     </a>
                 </div>
