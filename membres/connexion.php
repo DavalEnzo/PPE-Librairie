@@ -48,7 +48,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
             </label><br>
             <span><i class="fas fa-exclamation-triangle" id="exclamation" style="color: red; display:none"></i></span>
             <span id="avertissement"></span>
-            </div>
+        </div>
+        <div class = "g-recaptcha my-3" data-sitekey = "6LfcxeseAAAAAC2uSmp35Ts6ZK4-l1fqpQ4qIXDI"></div>
         <div class="form-group text-center my-2">
             <button type="submit" class="btn-balayage" style="border-radius: 20px;" name="envoi" value="1">Connexion</button>
         </div>

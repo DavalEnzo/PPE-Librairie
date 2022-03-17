@@ -11,7 +11,25 @@ extract($_POST);
 
 if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
 
+    //var_dump($_POST);exit;
+
     $erreurs = [];
+
+    if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response']) && $u->verifTentativeConnexion($_SERVER['REMOTE_ADDR']) >= 3)
+    {
+        $secret = '6LfcxeseAAAAAHpZVnzSYQuMPWt3T8hwM5sGc9AC';
+        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+        $responseData = json_decode($verifyResponse);
+        if($responseData->success)
+        { 
+            header('location:../membres/connexion.php?success=1');
+        
+        }else{
+            $erreurs[] = "Echec lors de la vérification reCaptacha. Veuillez réessayer.";
+        }
+   }else{
+    $erreurs[] = "Veuillez prouver que vous êtes humain.";
+   }
 
     if (!isset($mdp) || empty($mdp) ||
         !isset($email) || empty($email)
@@ -30,6 +48,13 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
             if (!password_verify($mdp, $u->getMdp())) {
                 // le mot de passe ne correspond pas
                 $erreurs[] = "Un ou plusieurs champs sont incorrects";
+
+
+
+                if($u->verifTentativeConnexion($_SERVER['REMOTE_ADDR']) < 3){
+                    $u->tentativeConnexionEchouee($_SERVER['REMOTE_ADDR']);                    
+                }
+
             }else if($u->getActive() == 0){
                 $erreurs[] = "Votre compte a été banni.";
             }

@@ -174,6 +174,7 @@ $(window).on('load', function () {
         } 
       });
 
+
 //   function isNumerique(){
 //   if(document.getElementById("prixAjout").value == 0){
 //       console.log(document.getElementById("prixAjout").value);

@@ -26,6 +26,7 @@ require_once '../modeles/modele.php';
 
       gtag('config', 'G-45934KF552');
     </script>
+     <script src="https://www.google.com/recaptcha/api.js"></script>
     	
     <title>Boutique de Livres</title>
 </head>

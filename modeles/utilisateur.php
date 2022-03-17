@@ -210,6 +210,19 @@ class Utilisateur extends Modele{
         $requete->execute([$ip]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function verifTentativeConnexion($ip)
+    {
+        $requete = $this->getBdd()->prepare("SELECT count(ip) FROM tentatives_connexion WHERE ip = '::1' AND date BETWEEN (NOW() - INTERVAL 1 DAY) AND NOW()");
+        $requete->execute([$ip]);
+        return $requete->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function tentativeConnexionEchouee($ip)
+    {
+        $requete = $this->getBdd()->prepare("INSERT INTO tentatives_connexion(ip, date) VALUES (?, NOW())");
+        $requete->execute([$ip]);
+    }
     
 //////SETTERS
     public function setName($var = null)
