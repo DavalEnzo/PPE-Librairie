@@ -1,4 +1,5 @@
 <?php 
+
 if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         header("Refresh:3;index.php");
         require_once 'entete.php';
@@ -27,6 +28,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
 
     }
         require_once 'entete.php';
+        $u = new Utilisateur();
       ?>
       
     <div class="container my-5">
@@ -49,7 +51,13 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
             <span><i class="fas fa-exclamation-triangle" id="exclamation" style="color: red; display:none"></i></span>
             <span id="avertissement"></span>
         </div>
-        <div class = "g-recaptcha my-3" data-sitekey = "6LfcxeseAAAAAC2uSmp35Ts6ZK4-l1fqpQ4qIXDI"></div>
+        <?php
+        if(count($u->verifTentativeConnexion($_SERVER['REMOTE_ADDR'])) == 3){
+            ?>
+            <div class = "g-recaptcha my-3" data-sitekey = "6LfcxeseAAAAAC2uSmp35Ts6ZK4-l1fqpQ4qIXDI"></div>
+            <?php
+        }
+        ?>
         <div class="form-group text-center my-2">
             <button type="submit" class="btn-balayage" style="border-radius: 20px;" name="envoi" value="1">Connexion</button>
         </div>

@@ -213,7 +213,7 @@ class Utilisateur extends Modele{
 
     public function verifTentativeConnexion($ip)
     {
-        $requete = $this->getBdd()->prepare("SELECT count(ip) FROM tentatives_connexion WHERE ip = '::1' AND date BETWEEN (NOW() - INTERVAL 1 DAY) AND NOW()");
+        $requete = $this->getBdd()->prepare("SELECT ip FROM tentatives_connexion WHERE ip = ? AND date BETWEEN (NOW() - INTERVAL 1 DAY) AND NOW()");
         $requete->execute([$ip]);
         return $requete->fetchAll(PDO::FETCH_ASSOC);
     }
