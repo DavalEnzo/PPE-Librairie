@@ -35,10 +35,10 @@ if (
     $photo = $_POST['photo'];
     $genres = $_POST['genre'];
 
-    $droit = 1;
+    $droit = 0;
 
     if ($prix == 0) {
-        $droit = 0;
+        $droit = 1;
     }
 
     if (isset($_FILES['photo']['error']) && empty($_FILES['photo']["error"])) {

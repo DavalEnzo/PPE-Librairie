@@ -61,6 +61,18 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
     
     // Si après les vérification dans la bdd je n'ai toujours pas d'erreurs
     if (count($erreurs) == 0) {
+
+        if($u->getIdPermission() == 1)
+        {
+            $verifAdmin = $u->checkAdminAllowedIP($_SERVER['REMOTE_ADDR'], $u->getIdUtilisateur());
+
+            if(count($verifAdmin) <= 1){
+                header('location:../membres/connexion.php?success=0&erreurs=1');
+
+                return false;
+            }
+        }
+
         // on connecte l'utilisateur
         $_SESSION["idUtilisateur"] = $u->getIdUtilisateur();
         $_SESSION["email"] = $u->getEmail();
@@ -69,18 +81,6 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
         $_SESSION['nom'] = $u->getPrenom().' '.$u->getNom();
         $_SESSION['nomSimple'] = $u->getNom();
         $_SESSION['prenom'] = $u->getPrenom();
-
-        
-        if($u->getIdPermission() == 1)
-        {
-            $verifAdmin = $u->checkAdminAllowedIP($_SERVER['REMOTE_ADDR']);
-
-            //var_dump(gettype($verifAdmin));exit;
-            
-            if(count($verifAdmin) <= 1){
-                header('location:../membres/connexion.php?success=0&erreurs=1');
-            }
-        }
 
         if(isset($souvenir) && ($souvenir) == 1 )
         {

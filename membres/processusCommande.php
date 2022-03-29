@@ -45,6 +45,8 @@
     $idPanier = $_SESSION['idPanier'];
     $Panier = new Panier($idPanier);
     $stockage = $Panier->getStockages();
+    $utilisateur = new Utilisateur($_SESSION['idUtilisateur']);
+    $adresse = $utilisateur->getAdresse();
 ?>
 
   <div class="alert alert-dark">
@@ -91,10 +93,34 @@
         <label for="telephone">Téléphone</label>
         <input type="text" class="form-control" id="telephone" name="telephone" maxlength="10" value="<?=(isset($_POST["telephone"]) ? $_POST["telephone"] : "");?>" placeholder="Saisissez votre numéro de téléphone">
     </div>
-    <div class="form-group mt-1">
+    <div class="form-group mt-1" id="divAdresse">
         <label for="adresse">Adresse</label>
-        <input type="text" class="form-control" id="adresse" value="<?=(isset($_POST["adresse"]) ? $_POST["adresse"] : "");?>" name="adresse" placeholder="Saisissez votre adresse">
+        <input type="text" class="form-control" id="inputAdresse" value="<?=(isset($_POST["adresse"]) ? $_POST["adresse"] : "");?>" name="adresse" placeholder="Saisissez votre adresse">
     </div>
+
+    <div class="form-group mt-1" id="Adresse" style="display: none">
+        <label for="adresses">Adresses Enregistrées</label>
+        <select name="adresses" id="adresses" disabled class="form-control">
+            ?>
+            <?php
+            foreach ($adresse as $adr) {
+                ?>
+                <option
+                        value="<?=$adr->getIdAdresse();?>">
+                    <?=$adr->getLibelle();?>
+                </option>
+                <?php
+            }
+            ?>
+        </select>
+    </div>
+
+    <div class="form-check form-switch my-3">
+         <input class="form-check-input" type="checkbox" id="nouvAdresse">
+         <label class="form-check-label" for="flexSwitchCheckDefault">Choisir parmi vos adresses enregistrées</label>
+    </div>
+
+
     <div class="form-group mt-1">
         <label for="codePostal">Code postal</label>
         <input type="text" class="form-control" id="codePostal" value="<?=(isset($_POST["codePostal"]) ? $_POST["codePostal"] : "");?>" name="codePostal" placeholder="Saisissez votre Code postal">
