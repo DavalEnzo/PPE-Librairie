@@ -1,11 +1,11 @@
 <?php
 class TypeGenre extends Modele
 {
-    private $idTypeGenre;
-    private $libelle;
-    private $imgTypeGenre;
-    private $idGenre;
-    private $Livre=[];
+    protected $idTypeGenre;
+    protected $libelle;
+    protected $imgTypeGenre;
+    protected $idGenre;
+    protected $Livre=[];
 
     public function __construct($idTypeGenre = null) {
 

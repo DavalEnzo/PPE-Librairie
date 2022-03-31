@@ -10,35 +10,6 @@ if(isset($_GET["idLivre"]) &&!empty($_GET['idLivre'])){
         header("index.php");
     }
 
-if(isset($_POST["contenu"]) && !empty($_POST["contenu"])){
-        $contenu = $_POST["contenu"];
-        $idUtilisateur =  $_SESSION["idUtilisateur"];
-    if(isset($_POST['selectGrade'])&& !empty($_POST['Entete'])){
-        $selectGrade  = $_POST['selectGrade'];
-    }else{
-        $selectGrade  = NULL;
-    }
-    if(isset($_POST['Entete'])&&!empty($_POST['Entete']))
-    {
-        $Entete  = $_POST['Entete'];
-    }    else{
-        $Entete  = NULL;
-    }
-    
-    try{
-        $com = new Commentaire();
-        $com->initializeCom(NULL,$contenu,$idUtilisateur,$idLivre,$selectGrade,$Entete,NULL,true);
-        $com->insertCom();
-        ?>
-        <div class="alert alert-success mt-3">Le commentaire a bien été enregistré</div>
-        <?php
-            header("location:../membres/pageProduit.php?idLivre=".$idLivre);
-        }catch(Exception $e){
-            echo "Il y a une erreur";
-            echo $e->getMessage();
-        }  
-};
-
 if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     ?>
       <div class="alert alert-success mt-3">Le livre <strong>"<?=$Livre->getTitre()?>"</strong> a bien été ajouté dans votre panier, vous pouvez le consulter <a href="panier.php"><strong>ici</strong></a></div>
@@ -73,7 +44,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                                 <?php
                             }
                             ?>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <h5 class="card-title">Résumé :</h5>
+                            <p class="card-text"><?=$Livre->getDescription()?></p>
                             <?php
                         if($Livre->getdroit() == 1 ){
         ?>
@@ -95,8 +67,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         
         if(isset($_SESSION) && !empty($_SESSION)){
             ?>
-            <div class="container BackGround roundBorder py-1">
-                <form method="post">
+            <div class="container BackGround roundBorder py-1 mb-2">
+                <form method="post" action = '../traitement/addComentaire.php?idLivre=<?=$idLivre?>'>
                     <div class="form-group">
                         <label class="mr-sm-2 textColor" for="selectGrade">Note du produit :</label>
                         <select class="custom-select mr-sm-2" name="selectGrade" id="selectGrade">

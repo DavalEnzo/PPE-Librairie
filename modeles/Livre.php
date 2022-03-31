@@ -11,6 +11,7 @@ protected $idTypeGenre;
 protected $idEditeur;
 protected $date_heure;
 protected $droit;
+protected $description;
 
 protected $commentaires = [];
 
@@ -49,7 +50,7 @@ protected $Auteurs = [];
 
         protected function initializeComLivre($idLivre)
         {
-            $requete = $this->getBdd()-> prepare ("SELECT * FROM commentaires WHERE idLivre = ?  ORDER BY date_heure ASC ");
+            $requete = $this->getBdd()-> prepare ("SELECT * FROM commentaires WHERE idLivre = ? and verif=1 ORDER BY date_heure ASC ");
             $requete -> execute([$idLivre]);
             $com = $requete->fetchAll(PDO::FETCH_ASSOC);
 
@@ -88,7 +89,7 @@ protected $Auteurs = [];
         }
 
 
-        public function initialize($idLivre = null,$Titre=null ,$date_sortie=null,$Prix=null,$Photo=null,$idGenre=null,$idTypeGenre=null,$idEditeur=null,$date_heure=null,$droit=null,$option=null)
+        public function initialize($idLivre = null,$Titre=null ,$date_sortie=null,$Prix=null,$Photo=null,$idGenre=null,$idTypeGenre=null,$idEditeur=null,$date_heure=null,$droit=null,$description=null,$option=null)
         {
                 $this->idLivre      = $idLivre;
                 $this->Titre        = $Titre ;
@@ -100,6 +101,7 @@ protected $Auteurs = [];
                 $this->idEditeur    = $idEditeur;
                 $this->date_heure   = $date_heure;
                 $this->droit        = $droit;
+                $this->description  = $description;
 
                 $this->initializeAuteurLivre($this->idLivre);
                 
@@ -111,9 +113,9 @@ protected $Auteurs = [];
             }
         public function insertLivre()
         {
-            $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idtypeGenre,idEditeur,date_heure,droit)
+            $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idtypeGenre,idEditeur,date_heure,droit,description)
             VALUES(?,?,?,?,?,?,?,NOW(),?)");
-            $requete->execute([$this->Titre ,$this->date_sortie,$this->Prix ,$this->Photo,$this->idGenre,$this->idTypeGenre,$this->idEditeur,$this->droit]);
+            $requete->execute([$this->Titre ,$this->date_sortie,$this->Prix ,$this->Photo,$this->idGenre,$this->idTypeGenre,$this->idEditeur,$this->droit,$this->description]);
             return true;
         }
     
@@ -163,6 +165,10 @@ protected $Auteurs = [];
         public function getCommentaires()
         {
             return $this->commentaires;
+        }
+        public function getDescription()
+        {
+            return $this->description;
         }
         public function getAuteur()
         {
