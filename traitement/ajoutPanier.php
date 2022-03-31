@@ -67,4 +67,4 @@ if(isset($_GET['id']) && !empty($_GET['id']) && isset($_SESSION['idUtilisateur']
 }else{
     header('location:../membres/connexion.php?nonconnecte=1');
 }
-?>
+

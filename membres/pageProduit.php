@@ -68,7 +68,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         if(isset($_SESSION) && !empty($_SESSION)){
             ?>
             <div class="container BackGround roundBorder py-1 mb-2">
-                <form method="post" action = '../traitement/addComentaire.php?idLivre=<?=$idLivre?>'>
+                <form method="post" action = '../traitement/ajoutCommentaire.php?idLivre=<?=$idLivre?>'>
                     <div class="form-group">
                         <label class="mr-sm-2 textColor" for="selectGrade">Note du produit :</label>
                         <select class="custom-select mr-sm-2" name="selectGrade" id="selectGrade">
@@ -82,7 +82,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                     </div>    
                     <div class="form-group my-1">
                         <!-- <label for="contenu" class=" textColor ">Titre du commentaire:</label> -->
-                        <input type="text" class ="form-control" name="Entete" id="Entete" placeholder="Saisisser votre titre ici !"></input>
+                        <input type="text" class="form-control" name="Entete" id="Entete"
+                               placeholder="Saisisser votre titre ici !"/>
                     </div>    
                     <div class="form-group">
                         <!-- <label for="contenu" class=" textColor ">Contenu du Commentaire :</label> -->

@@ -60,6 +60,21 @@ class Adresse extends Modele
         $this -> idUtilisateur = $idUtilisateur;
     }
 
+    public function insertAdresse()
+    {
+        $requete = $this->getBdd()->prepare("INSERT INTO adresses(libelle, ville, codePostal, complementAdresse, idUtilisateur)
+            VALUES(?,?,?,?,?)");
+        $requete->execute([$this->libelle, $this->ville, $this->codePostal, $this->complementAdresse, $this->idUtilisateur]);
+        return true;
+    }
+
+    public function selectMaxIdAdresse()
+    {
+        $requete = $this->getBdd()->prepare("SELECT MAX(idAdresse) as idAdresse FROM adresses");
+        $requete->execute();
+        return $requete->fetch(PDO::FETCH_ASSOC);
+    }
+
 //GETTERS
     public function getIdAdresse()
     {

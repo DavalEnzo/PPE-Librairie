@@ -54,6 +54,7 @@ class Utilisateur extends Modele{
             {
                 $this->initComUtilisateur($this->idUtilisateur);
                 $this->initCommandesUtilisateur($this->idUtilisateur);
+                $this->initCommandeAdresse($this->idUtilisateur);
                 $this->initPanierUtilisateur($this->idUtilisateur);
             }
         }
@@ -168,7 +169,7 @@ class Utilisateur extends Modele{
         {
             foreach ($adresses as $a) {
                 $adresse = new Adresse();
-                $adresse->initializeAdresse($a['idUtilisateur'], $a['idAdresse'], $a['libelle']);
+                $adresse->initializeAdresse($a['idUtilisateur'], $a['idAdresse'], $a['libelle'], $a['ville'], $a['codePostal'], $a['complementAdresse']);
                 $this->adresse[] = $adresse;
             }
         }
