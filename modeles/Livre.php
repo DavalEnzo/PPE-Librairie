@@ -113,8 +113,7 @@ protected $Auteurs = [];
             }
         public function insertLivre()
         {
-            $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idtypeGenre,idEditeur,date_heure,droit,description)
-            VALUES(?,?,?,?,?,?,?,NOW(),?)");
+            $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idtypeGenre,idEditeur,date_heure,droit,description) VALUES(?,?,?,?,?,?,?,NOW(),?,?)");
             $requete->execute([$this->Titre ,$this->date_sortie,$this->Prix ,$this->Photo,$this->idGenre,$this->idTypeGenre,$this->idEditeur,$this->droit,$this->description]);
             return true;
         }

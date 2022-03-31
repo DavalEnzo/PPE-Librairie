@@ -83,7 +83,12 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
 
     <div class="form-group mt-1">
         <label for="titre">Titre</label>
-        <input type="text" class="form-control" name="titre" placeholder="Saisissez le titre du livre">
+        <input type="textarea" class="form-control" name="titre" placeholder="Saisissez le titre du livre">
+    </div>
+
+    <div class="form-group mt-1">
+        <label for="description">Résumé</label>
+        <input type="text" class="form-control" name="description" placeholder="Saisissez le résumé du livre">
     </div>
 
     <div class="form-group mt-1" id="nouvAuteur" style="display: none;">

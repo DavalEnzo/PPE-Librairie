@@ -11,8 +11,9 @@ if (
     isset($_POST["prix"]) && !empty($_POST["prix"]) &&
     isset($_POST["date"]) && !empty($_POST["date"]) &&
     isset($_POST['genre']) && !empty($_POST['genre'])&&
-    isset($_POST['typeGenre']) && !empty($_POST['typeGenre'])
-) {
+    isset($_POST['typeGenre']) && !empty($_POST['typeGenre'])&&
+    isset($_POST['description']) && !empty($_POST['description'])) {
+
     if (isset($_POST['auteur']) && !empty($_POST['auteur'])) {
         $auteur = $_POST['auteur'];
         $a = $_POST['auteurs'];
@@ -30,24 +31,12 @@ if (
 
 
     $titre = $_POST['titre'];
-
+    $description = $_POST['description'];
     $date = $_POST['date'];
     $prix = $_POST['prix'];
     $photo = $_POST['photo'];
-
-    if(is_int($_POST['genre']))
-    {
-        $genres = $_POST['genre'];
-    }else{
-        $genres = 0;
-    }
-
-    if(is_int($_POST['typeGenre']))
-    {
-        $typeGenre = $_POST['typeGenre'];
-    }else{
-        $typeGenre = 0;
-    }
+    $genres = $_POST['genre'];
+    $typeGenre = $_POST['typeGenre'];
 
     $droit = 0;
 
@@ -60,7 +49,11 @@ if (
         $nom = "photoLivre";
         $dossier = "../membres/img/photoLivre/";
         $fichier = null;
-        $extension = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION));
+        $search = array(' ',"'",'"',":");
+        $replace = array('-');
+        $name = $_FILES['photo']['name'] ;
+        $name = str_replace($search,$replace,$name);
+        $extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
 
         $fichier = $dossier . $nom . "-" . $titre . "." . $extension;
 
@@ -103,7 +96,7 @@ if (
     if (isset($_POST['auteur']) && !empty($_POST['auteur']) && $a == 0) {
 
         try {
-            $Livre->initialize(null, $titre, $date, $prix, $fichier, $genres, $typeGenre, $editeur, null, $droit, null);
+            $Livre->initialize(null, $titre, $date, $prix, $fichier, $genres, $typeGenre, $editeur, null, $droit,$description, null);
             $Livre->insertLivre();
             $aut->initialize(null, $auteur);
             $aut->insertAuteur();
@@ -120,7 +113,7 @@ if (
     }
     if (isset($_POST['auteurs']) && !empty($_POST['auteurs']) && $a > 0 && empty($_POST["auteur"])) {
         try {
-            $Livre->initialize(null, $titre, $date, $prix, $fichier, $genres,  $typeGenre, $editeur, null, $droit, null);
+            $Livre->initialize(null, $titre, $date, $prix, $fichier, $genres,  $typeGenre, $editeur, null, $droit,$description, null);
             $Livre->insertLivre();
             $aut->insertEcrit($a);
             header("location:../membres/ajoutLivre.php?success=1");
