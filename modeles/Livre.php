@@ -177,4 +177,12 @@ protected $Auteurs = [];
         {
             return $this->editeur;
         }
+        public function getMaxIdLivre()
+        {
+            $result = $this->getBdd()->prepare("SELECT MAX(idLivre) as idLivre FROM livres");
+            $result->execute();
+            $idLivre = $result->fetch(PDO::FETCH_ASSOC); 
+            $this->idLivre = $idLivre['idLivre'];
+            return $this->idLivre;
+        }
 }
