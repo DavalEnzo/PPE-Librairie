@@ -5,7 +5,6 @@ require_once 'entete.php';
 if(isset($_GET["id"]) &&!empty($_GET['id'])){
     $idLivre = $_GET["id"];
     $lectures = new Lecture($idLivre);
-    var_dump($lectures);
 }else{
     header("index.php");
 }
