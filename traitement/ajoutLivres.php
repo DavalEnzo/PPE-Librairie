@@ -102,7 +102,8 @@ if (
             $replace = array('-');
             $name = $titre;
             $name = str_replace($search, $replace, $name);
-            $pdf = $dossier . $nom . "-" . $name . "." . $extension;
+            $movePdf = $dossier . $nom . "-" . $name . "." . $extension;
+            $pdf ="livres/". $nom . "-" . $name . "." . $extension;
             $continue = true;
             if (move_uploaded_file($_FILES['numerique']['tmp_name'], $pdf)) {
             } else {
