@@ -93,18 +93,16 @@ $(window).on('load', function () {
 
     $('#enregistrerCoordonnees').on('click', function() {
 
-        if($('#adresse').is('disabled')){
-            alert("salut");
+        if($('#adresses').is(':disabled')){
             $('#coordonees').show();
             $('#noAdresse').text('');
             $('#nomPrenom').val( 'Nom et prénom: ' + $('#nomComplet').val() );
             $('#coordonneeValues').val('Adresse: ' + $('#inputAdresse').val() + ', ' + $('#codePostal').val() + ', ' + $('#ville').val() + ', ' + $('#pays').val());
         }else{
-
             $('#coordonees').show();
             $('#noAdresse').text('');
             $('#nomPrenom').val( 'Nom et prénom: ' + $('#nomComplet').val() );
-            $('#coordonneeValues').val('Adresse: ' + $('#adresses').find(':selected').text().trim() + ', ' + $('#codePostal').val() + ', ' + $('#ville').val() + ', ' + $('#pays').val());
+            $('#coordonneeValues').val('Adresse: ' + $('#adresses').find(':selected').text().trim());
         }
 
       });
@@ -171,13 +169,21 @@ $(window).on('load', function () {
         if($('#divAdresse').is(':visible'))
         {
             $('#divAdresse').hide();
+            $('#detailsAdresse').hide();
             $('#inputAdresse').attr("disabled", true);
+            $('#codePostal').attr("disabled", true);
+            $('#ville').attr("disabled", true);
+            $('#complementAdresse').attr("disabled", true);
             $('#Adresse').attr("visible", true);
             $('#adresses').attr("disabled", false);
         }else{
             $('#inputAdresse').attr("disabled", false);
+            $('#codePostal').attr("disabled", false);
+            $('#ville').attr("disabled", false);
+            $('#complementAdresse').attr("disabled", false);
             $('#adresses').attr("disabled", true);
             $('#divAdresse').show();
+            $('#detailsAdresse').show();
         }
         $("#Adresse").toggle(this.unchecked);
     });

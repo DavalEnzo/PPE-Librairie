@@ -98,36 +98,43 @@
         <input type="text" class="form-control" id="inputAdresse" value="<?=(isset($_POST["adresse"]) ? $_POST["adresse"] : "");?>" name="adresse" placeholder="Saisissez votre adresse">
     </div>
 
-    <div class="form-group mt-1" id="Adresse" style="display: none">
-        <label for="adresses">Adresses Enregistrées</label>
-        <select name="adresses" id="adresses" disabled class="form-control">
-            ?>
-            <?php
-            foreach ($adresse as $adr) {
+
+        <div class="form-group mt-1" id="Adresse" style="display: none">
+            <label for="adresses">Adresses Enregistrées</label>
+            <select name="adresses" id="adresses" disabled class="form-control">
                 ?>
-                <option
-                        value="<?=$adr->getIdAdresse();?>">
-                    <?=$adr->getLibelle();?>
-                </option>
                 <?php
-            }
-            ?>
-        </select>
-    </div>
+                foreach ($adresse as $adr) {
+                    ?>
+                    <option
+                            value="<?=$adr->getIdAdresse();?>">
+                        <?=$adr->getLibelle();?>, <?=$adr->getCodePostal();?>, <?=$adr->getVille();?>
+                    </option>
+                    <?php
+                }
+                ?>
+            </select>
+        </div>
 
-    <div class="form-check form-switch my-3" id="divAdresse">
-         <input class="form-check-input" type="checkbox" id="nouvAdresse">
-         <label class="form-check-label" for="flexSwitchCheckDefault">Choisir parmi vos adresses enregistrées</label>
-    </div>
+        <div class="form-check form-switch my-3">
+             <input class="form-check-input" type="checkbox" id="nouvAdresse">
+             <label class="form-check-label" for="flexSwitchCheckDefault">Choisir parmi vos adresses enregistrées</label>
+        </div>
+    <div id="detailsAdresse">
 
+        <div class="form-group mt-1">
+            <label for="complementAdresse">Complément d'adresse</label>
+            <input type="text" class="form-control" id="complementAdresse" value="<?=(isset($_POST["adresse"]) ? $_POST["adresse"] : "");?>" name="complementAdresse" placeholder="Saisissez un complément d'adresse (optionnel)">
+        </div>
 
-    <div class="form-group mt-1">
-        <label for="codePostal">Code postal</label>
-        <input type="text" class="form-control" id="codePostal" value="<?=(isset($_POST["codePostal"]) ? $_POST["codePostal"] : "");?>" name="codePostal" placeholder="Saisissez votre Code postal">
-    </div>
-    <div class="form-group mt-1">
-        <label for="ville">Ville</label>
-        <input type="text" class="form-control" id="ville" value="<?=(isset($_POST["ville"]) ? $_POST["ville"] : "");?>" name="ville" placeholder="Saisissez votre ville">
+        <div class="form-group mt-1">
+            <label for="codePostal">Code postal</label>
+            <input type="text" class="form-control" id="codePostal" value="<?=(isset($_POST["codePostal"]) ? $_POST["codePostal"] : "");?>" name="codePostal" placeholder="Saisissez votre Code postal">
+        </div>
+        <div class="form-group mt-1">
+            <label for="ville">Ville</label>
+            <input type="text" class="form-control" id="ville" value="<?=(isset($_POST["ville"]) ? $_POST["ville"] : "");?>" name="ville" placeholder="Saisissez votre ville">
+        </div>
     </div>
       </div>
       <div class="modal-footer">
