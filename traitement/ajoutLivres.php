@@ -10,7 +10,8 @@ if (
     isset($_POST["titre"]) && !empty($_POST["titre"]) &&
     isset($_POST["prix"]) && !empty($_POST["prix"]) &&
     isset($_POST["date"]) && !empty($_POST["date"]) &&
-    isset($_POST['genre']) && !empty($_POST['genre'])
+    isset($_POST['genre']) && !empty($_POST['genre'])&&
+    isset($_POST['typeGenre']) && !empty($_POST['typeGenre'])
 ) {
     if (isset($_POST['auteur']) && !empty($_POST['auteur'])) {
         $auteur = $_POST['auteur'];
@@ -33,12 +34,25 @@ if (
     $date = $_POST['date'];
     $prix = $_POST['prix'];
     $photo = $_POST['photo'];
-    $genres = $_POST['genre'];
 
-    $droit = 1;
+    if(is_int($_POST['genre']))
+    {
+        $genres = $_POST['genre'];
+    }else{
+        $genres = 0;
+    }
+
+    if(is_int($_POST['typeGenre']))
+    {
+        $typeGenre = $_POST['typeGenre'];
+    }else{
+        $typeGenre = 0;
+    }
+
+    $droit = 0;
 
     if ($prix == 0) {
-        $droit = 0;
+        $droit = 1;
     }
 
     if (isset($_FILES['photo']['error']) && empty($_FILES['photo']["error"])) {
@@ -89,7 +103,7 @@ if (
     if (isset($_POST['auteur']) && !empty($_POST['auteur']) && $a == 0) {
 
         try {
-            $Livre->initialize(null, $titre, $date, $prix, $fichier, $genres, null, $editeur, null, $droit, null);
+            $Livre->initialize(null, $titre, $date, $prix, $fichier, $genres, $typeGenre, $editeur, null, $droit, null);
             $Livre->insertLivre();
             $aut->initialize(null, $auteur);
             $aut->insertAuteur();
@@ -106,7 +120,7 @@ if (
     }
     if (isset($_POST['auteurs']) && !empty($_POST['auteurs']) && $a > 0 && empty($_POST["auteur"])) {
         try {
-            $Livre->initialize(null, $titre, $date, $prix, $fichier, $genres, null, $editeur, null, $droit, null);
+            $Livre->initialize(null, $titre, $date, $prix, $fichier, $genres,  $typeGenre, $editeur, null, $droit, null);
             $Livre->insertLivre();
             $aut->insertEcrit($a);
             header("location:../membres/ajoutLivre.php?success=1");

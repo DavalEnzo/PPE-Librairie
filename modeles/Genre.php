@@ -1,18 +1,18 @@
 <?php
 class Genre extends Modele{
 
-    private $idGenre;
-    private $nomGenre;
-    private $imgGenre;
+    protected $idGenre;
+    protected $nomGenre;
+    protected $imgGenre;
 
-    private $TypeGenre = [];
+    protected $TypeGenre = [];
 
     public function __construct($idGenre=null)
     {
 
         if($idGenre!=null){
 
-            $requete=$this->getBdd()->prepare("CALL select_genre_with_livre_and_auteur(?)");
+            $requete=$this->getBdd()->prepare("SELECT * FROM genres WHERE idGenre = ?");
             $requete->execute([$idGenre]);  
             $genre= $requete->fetch(PDO::FETCH_ASSOC);
             
@@ -33,10 +33,8 @@ class Genre extends Modele{
         $this->initTypeGenre($this->idGenre);
     }
 
-
     public function initTypeGenre($idGenre)
     {
-        
         $requete=$this->getBdd()->prepare("SELECT * FROM typegenre where idGenre = ?");
         $requete->execute([$idGenre]);  
         $tGenre= $requete->fetchAll(PDO::FETCH_ASSOC);

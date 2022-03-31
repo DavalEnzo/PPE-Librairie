@@ -2,10 +2,10 @@
 
 class Panier extends Modele{
 
-    private $idPanier;
-    private $idUtilisateur;
+    protected $idPanier;
+    protected $idUtilisateur;
 
-    private $Stockages=[];
+    protected $Stockages=[];
 
     public function __construct($idPanier = null)
     {

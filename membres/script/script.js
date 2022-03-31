@@ -174,17 +174,15 @@ $(window).on('load', function () {
         } 
       });
 
-
-//   function isNumerique(){
-//   if(document.getElementById("prixAjout").value == 0){
-//       console.log(document.getElementById("prixAjout").value);
-//       document.getElementById("numerique").style.display = "visible";
-      
-//     }else if(document.getElementById("prixAjout").value > 0.00){
-//         console.log(document.getElementById("prixAjout").value);
-//         document.getElementById("numerique").style.display = "none"
-//     }
-
-// }
-// console.log(isNumerique());
-
+var genre = document.getElementById('genre');
+   genre.addEventListener('change',function(){
+        var selected = genre.value;
+        document.querySelectorAll('#typeGenre option').forEach(function(option){
+            if(option.dataset.idgenre == selected )
+            {
+                option.style.display = 'block';
+            }else{
+                option.style.display = 'none';
+            }
+        }) ;
+    });

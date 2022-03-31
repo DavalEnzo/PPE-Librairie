@@ -156,19 +156,36 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
             <div class="form-group mt-1">
                 <label for="genre">Genre de l'oeuvre</label>
                 <select name="genre" id="genre" class="form-control">
+                <option selected disabled>Selectionner un Genre</option>
                     <?php
-    foreach ($genres as $genre) {
-        ?>
-                            <option
-                            value="<?=$genre->getIdGenre();?>">
-                            <?=$genre->getNomGenre();?>
-                        </option>
-                        <?php
-    }
-    ?>
+                    foreach ($genres as $genre) {
+                        ?>
+                                            <option
+                                            value="<?=$genre->getIdGenre();?>">
+                                            <?=$genre->getNomGenre();?>
+                                        </option>
+                                        <?php
+                    }
+                    ?>
+                </select>
+                <label for="typeGenre">sous-genre de l'oeuvre</label>
+                <select name="typeGenre" id="typeGenre" class="form-control">
+                    <option selected disabled>Selectionner un sous-genre</option>
+                    <?php
+                    foreach ($genres as $genre) {
+                        foreach($genre->gettypeGenre() as $tp){
+                        ?>
+                            <option data-idGenre="<?=$tp->getIdGenre();?>"
+                                            value="<?=$tp->getIdTypeGenre();?>">
+                                <?=$tp->getLibelle();?>
+                            </option>
+                                        <?php
+                        }
+                    }
+                    ?>
                 </select>
 
-                <div class="form-group" id="numerique">
+                            <div class="form-group" id="numerique">
                                 <label for="numerique">Entrez le pdf du livre numérique</label>
                                 <input type="file" class="form-control" id="inputGroupFile01" name="numerique">
                             </div>  

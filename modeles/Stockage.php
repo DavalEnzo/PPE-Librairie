@@ -2,12 +2,12 @@
 
 class Stockage extends Modele{
 
-    private $idStockage;
-    private $idPanier;
-    private $idLivre;
-    private $quantite;
+    protected $idStockage;
+    protected $idPanier;
+    protected $idLivre;
+    protected $quantite;
 
-    private $Livre =[];
+    protected $Livre =[];
     public function __construct($idStockage = null)
     {
        if($idStockage!=null)

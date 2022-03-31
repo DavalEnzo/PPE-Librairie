@@ -2,24 +2,24 @@
 
 class Utilisateur extends Modele{
   
-    private $idUtilisateur;
-    private $nom;
-    private $prenom;
-    private $email;
-    private $mdp;
-    private $photoProfile;
-    private $idPermission;
-    private $token;
-    private $dateMentionAccepte;
-    private $active;
+    protected $idUtilisateur;
+    protected $nom;
+    protected $prenom;
+    protected $email;
+    protected $mdp;
+    protected $photoProfile;
+    protected $idPermission;
+    protected $token;
+    protected $dateMentionAccepte;
+    protected $active;
 
-    private $commentaires = [];
+    protected $commentaires = [];
 
-    private $panier;
+    protected $panier;
 
-    private $commandes = [];
+    protected $commandes = [];
     
-    public function __construct($idUtilisateur = null)
+    public function __construct($idUtilisateur = null,$option=true)
     {
         if($idUtilisateur != null)
         {
@@ -47,9 +47,13 @@ class Utilisateur extends Modele{
             $this->dateMentionAccepte = $User['dateMentionAcceptée'];
 
             $this->active = $User['active'];
-
-            $this->initialize($User['idUtilisateur']);
-        
+            
+            if($option)
+            {
+                $this->initComUtilisateur($this->idUtilisateur);
+                $this->initCommandesUtilisateur($this->idUtilisateur);
+                $this->initPanierUtilisateur($this->idUtilisateur);
+            }
         }
     }
 

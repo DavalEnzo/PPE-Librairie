@@ -2,15 +2,15 @@
 class Bibliotheque extends Modele 
 {
 
-// private $infoId;
+// protected $infoId;
 
-private $Auteurs    =   [];//LIste des Auteurs 
+protected $Auteurs    =   [];//Liste des Auteurs 
 
-private $Editeurs   =   [];// liste des Editeurs
+protected $Editeurs   =   [];//liste des Editeurs
 
-private $Genres     =   [];//LIste des Genres 
+protected $Genres     =   [];//Liste des Genres 
 
-private $Livres     =   [];//LIste des livres 
+protected $Livres     =   [];//Liste des livres 
 
 
     public function __construct($recherche = true)

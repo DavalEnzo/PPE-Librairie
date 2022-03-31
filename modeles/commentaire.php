@@ -1,16 +1,16 @@
 <?php
 class Commentaire extends Modele
 {   
-    private $idCom;
-    private $entete;
-    private $contenu;
-    private $idUtilisateur;
-    private $idLivre;
-    private $grade;
-    private $dateHeure;
+    protected $idCom;
+    protected $entete;
+    protected $contenu;
+    protected $idUtilisateur;
+    protected $idLivre;
+    protected $grade;
+    protected $dateHeure;
 
-    private $utilisateur;
-    private $Livre;
+    protected $utilisateur;
+    protected $Livre;
 
     public function __construct($idCom = null)
     {
@@ -57,7 +57,7 @@ class Commentaire extends Modele
         $this->initLivreCom($this->idLivre);
         
         if($option == true){
-            $this->utilisateur  = new Utilisateur($this->idUtilisateur);
+            $this->utilisateur  = new Utilisateur($this->idUtilisateur,false);
         }
         
     }

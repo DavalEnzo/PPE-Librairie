@@ -1,11 +1,11 @@
 <?php
 class Lecture extends Modele{
 
-    private $idLivre;
+    protected $idLivre;
 
-    private $contenu;
+    protected $contenu;
 
-    private $idLecture;
+    protected $idLecture;
 
 public function __construct($idLivre=null){
     if($idLivre!=null){

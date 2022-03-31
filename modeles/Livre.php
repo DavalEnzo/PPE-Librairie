@@ -1,24 +1,24 @@
 <?php
 class Livre extends Modele
 {
-private $idLivre;
-private $Titre;
-private $date_sortie;
-private $Prix;
-private $Photo;
-private $idGenre;
-private $idTypeGenre;
-private $idEditeur;
-private $date_heure;
-private $droit;
+protected $idLivre;
+protected $Titre;
+protected $date_sortie;
+protected $Prix;
+protected $Photo;
+protected $idGenre;
+protected $idTypeGenre;
+protected $idEditeur;
+protected $date_heure;
+protected $droit;
 
-private $commentaires = [];
+protected $commentaires = [];
 
-private $editeur;
+protected $editeur;
 
-private $lecture;
+protected $lecture;
 
-private $Auteurs = [];
+protected $Auteurs = [];
 
     public function __construct($idLivre = null)
     {
@@ -26,29 +26,28 @@ private $Auteurs = [];
             {
                 $requete = $this->getBdd()-> prepare ("SELECT * FROM livres WHERE idLivre = ? ");
                 $requete -> execute([$idLivre]);
-                $infoId = $requete->fetch(PDO::FETCH_ASSOC);
+                $livre = $requete->fetch(PDO::FETCH_ASSOC);
 
-                $this->idLivre      = $infoId['idLivre'];
-                $this->Titre        = $infoId['Titre'];
-                $this->date_sortie  = $infoId['date_sortie'];
-                $this->Prix         = $infoId['Prix'];
-                $this->Photo        = $infoId['Photo'];
-                $this->idGenre      = $infoId['idGenre'];
-                $this->idTypeGenre  = $infoId['idtypeGenre'];
-                $this->idEditeur    = $infoId['idEditeur'];
-                $this->date_heure   = $infoId['date_heure'];
-                $this->droit        = $infoId['droit'];
-
+                $this->idLivre      = $livre['idLivre'];
+                $this->Titre        = $livre['Titre'];
+                $this->date_sortie  = $livre['date_sortie'];
+                $this->Prix         = $livre['Prix'];
+                $this->Photo        = $livre['Photo'];
+                $this->idGenre      = $livre['idGenre'];
+                $this->idTypeGenre  = $livre['idtypeGenre'];
+                $this->idEditeur    = $livre['idEditeur'];
+                $this->date_heure   = $livre['date_heure'];
+                $this->droit        = $livre['droit'];
+                $this->description  = $livre['description'];
 
                 $this->initializeComLivre($this->idLivre);
                 $this->initializeAuteurLivre($this->idLivre);
                 $this->lecture = new Lecture($this->idLivre);
                 $this->initializeEditeurLivre($this->idLivre);
-                
             }
     }
 
-        private function initializeComLivre($idLivre)
+        protected function initializeComLivre($idLivre)
         {
             $requete = $this->getBdd()-> prepare ("SELECT * FROM commentaires WHERE idLivre = ?  ORDER BY date_heure ASC ");
             $requete -> execute([$idLivre]);
@@ -62,7 +61,7 @@ private $Auteurs = [];
             }
         }
 
-        private function initializeAuteurLivre($idLivre)
+        protected function initializeAuteurLivre($idLivre)
         {
             $requete = $this->getBdd()-> prepare ("SELECT a.idAuteur,a.nom FROM auteurs as a LEFT JOIN ecrit as e using(idAuteur) WHERE idLivre = ?  ");
             $requete -> execute([$idLivre]);
@@ -77,7 +76,7 @@ private $Auteurs = [];
             }
         }
 
-        private function initializeEditeurLivre($idLivre)
+        protected function initializeEditeurLivre($idLivre)
         {
             $requete = $this->getBdd()-> prepare("SELECT e.idEditeur, e.nom FROM editeurs as e LEFT JOIN livres USING(idEditeur) WHERE idLivre = ?");
             $requete -> execute([$idLivre]);
@@ -112,9 +111,9 @@ private $Auteurs = [];
             }
         public function insertLivre()
         {
-            $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idEditeur,date_heure,droit)
-            VALUES(?,?,?,?,?,?,NOW(),?)");
-            $requete->execute([$this->Titre ,$this->date_sortie,$this->Prix ,$this->Photo,$this->idGenre,$this->idEditeur,$this->droit]);
+            $requete = $this->getBdd()->prepare("INSERT INTO livres( Titre ,date_sortie,Prix,Photo,idGenre,idtypeGenre,idEditeur,date_heure,droit)
+            VALUES(?,?,?,?,?,?,?,NOW(),?)");
+            $requete->execute([$this->Titre ,$this->date_sortie,$this->Prix ,$this->Photo,$this->idGenre,$this->idTypeGenre,$this->idEditeur,$this->droit]);
             return true;
         }
     
