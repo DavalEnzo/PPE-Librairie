@@ -36,6 +36,7 @@ if (empty($resultats)) {
 
     foreach ($resultats as $resultat) {
   ?>
+   <a href="pageProduit.php?idLivre=<?= $resultat->getIdLivre() ?>">
       <div class="card mx-3 my-5 cardlivre" style="max-height:450px;max-width:17rem;min-width:17rem;min-height:450px;border:none;">
         <img class="card-img-top" style="max-height:340px" src="<?= $resultat->getPhoto() ?>">
         <div class="card-body" id="card" style="min-height:105px;">
@@ -53,12 +54,8 @@ if (empty($resultats)) {
           }
           ?>
         </div>
-
-        <div class="card-footer hide">
-          <a href="pageProduit.php?idLivre=<?= $resultat->getIdLivre() ?>"> <button class="btn btn-success">Voir le produit</button></a>
-        </div>
-
       </div>
+      </a>
   <?php
     }
   }
