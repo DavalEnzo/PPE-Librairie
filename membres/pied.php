@@ -15,7 +15,7 @@
     <section>
       <form action="">
         <p style="margin-right:12%;">
-      <strong>Inscrivez vous à notre newsletter</strong></p>
+      <strong>Formulaire de contact</strong></p>
         <div class="row d-flex justify-content-center">
           <div class="col-auto">
             <p class="pt-2">
@@ -29,7 +29,7 @@
           </div>
           <div class="col-auto">
             <button type="submit" class="btn btn-outline-light mb-4">
-              Abonnez vous à la newsletter
+              Contacter nous !
             </button>
           </div>
         </div>

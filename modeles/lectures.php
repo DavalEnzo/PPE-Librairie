@@ -12,16 +12,26 @@ public function __construct($idLivre=null){
         $sql = $this->getBdd()->prepare("SELECT * FROM lectures WHERE idLivre = ?");
         $sql -> execute([$idLivre]);
         $livre = $sql-> fetch(PDO::FETCH_ASSOC);
-
-        $this->idLivre          = $idLivre;
         
-        if(isset($livre['contenu']) && !empty($livre['contenu'])){
-            $this->contenu          = $livre['contenu'];
-            $this->idLecture        = $livre['idLecture'];
-        }
+        $this->idLivre          = $idLivre;
+        $this->contenu          = $livre['contenu'];
+        $this->idLecture        = $livre['idLecture'];
+        
     }
 }
 
+public function initLecture($idLecture = null, $idLivre = null, $contenu = null)
+{
+    $this->idLecture    =   $idLecture;
+    $this->idLivre      =   $idLivre;
+    $this->contenu      =   $contenu;
+}
+
+public function insertLecture()
+{
+    $result = $this->getBdd()->prepare("INSERT INTO lectures (contenu,idLivre) values (?,?)");
+    $result->execute([$this->contenu,$this->idLivre]);
+}
 
 ////GETTERS
 
