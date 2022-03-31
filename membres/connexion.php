@@ -20,7 +20,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         <div class="alert alert-danger">Vous devez être connecté afin de pouvoir ajouter des livres au panier. Si vous n'avez pas encore
             de compte, <a href="inscription.php" style="text-decoration: underline; font-weight:bold">Inscrivez-vous</a>.<br></div>
         <?php
-    }else if (isset($_GET["success"])&& $_GET['success'] == 0 && $_GET['erreurs'] == 1) {
+    }else if (isset($_GET["success"]) && $_GET['success'] == 0 && $_GET['erreurs'] == 1) {
         require_once 'entete.php';
         ?>        
         <div class="alert alert-danger">Votre compte n'est pas autorisé à se connecter sur ce poste</div>

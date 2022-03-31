@@ -92,10 +92,21 @@ $(window).on('load', function () {
     
 
     $('#enregistrerCoordonnees').on('click', function() {
-        $('#coordonees').show();
-        $('#noAdresse').text('');
-        $('#nomPrenom').val( 'Nom et prénom: ' + $('#nomComplet').val() );
-        $('#coordonneeValues').val('Adresse: ' + $('#adresse').val() + ', ' + $('#codePostal').val() + ', ' + $('#ville').val() + ', ' + $('#pays').val());
+
+        if($('#adresse').is('disabled')){
+            alert("salut");
+            $('#coordonees').show();
+            $('#noAdresse').text('');
+            $('#nomPrenom').val( 'Nom et prénom: ' + $('#nomComplet').val() );
+            $('#coordonneeValues').val('Adresse: ' + $('#inputAdresse').val() + ', ' + $('#codePostal').val() + ', ' + $('#ville').val() + ', ' + $('#pays').val());
+        }else{
+
+            $('#coordonees').show();
+            $('#noAdresse').text('');
+            $('#nomPrenom').val( 'Nom et prénom: ' + $('#nomComplet').val() );
+            $('#coordonneeValues').val('Adresse: ' + $('#adresses').find(':selected').text().trim() + ', ' + $('#codePostal').val() + ', ' + $('#ville').val() + ', ' + $('#pays').val());
+        }
+
       });
 
     $('#enregistrerCb').on('click', function() {
@@ -153,6 +164,22 @@ $(window).on('load', function () {
             $('#inputEditeur').attr("disabled", true);
         }
         $("#editeur").toggle(this.unchecked);
+    });
+
+    $('#nouvAdresse').click(function() {
+        $("#divAdresse").toggle(this.checked);
+        if($('#divAdresse').is(':visible'))
+        {
+            $('#divAdresse').hide();
+            $('#inputAdresse').attr("disabled", true);
+            $('#Adresse').attr("visible", true);
+            $('#adresses').attr("disabled", false);
+        }else{
+            $('#inputAdresse').attr("disabled", false);
+            $('#adresses').attr("disabled", true);
+            $('#divAdresse').show();
+        }
+        $("#Adresse").toggle(this.unchecked);
     });
 
     $('#cvc').on('keyup', function () {

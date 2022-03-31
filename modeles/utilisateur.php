@@ -2,22 +2,24 @@
 
 class Utilisateur extends Modele{
   
-    protected $idUtilisateur;
-    protected $nom;
-    protected $prenom;
-    protected $email;
-    protected $mdp;
-    protected $photoProfile;
-    protected $idPermission;
-    protected $token;
-    protected $dateMentionAccepte;
-    protected $active;
+    private $idUtilisateur;
+    private $nom;
+    private $prenom;
+    private $email;
+    private $mdp;
+    private $photoProfile;
+    private $idPermission;
+    private $token;
+    private $dateMentionAccepte;
+    private $active;
 
-    protected $commentaires = [];
+    private $adresse = [];
 
-    protected $panier;
+    private $commentaires = [];
 
-    protected $commandes = [];
+    private $panier;
+
+    private $commandes = [];
     
     public function __construct($idUtilisateur = null,$option=true)
     {
@@ -68,10 +70,11 @@ class Utilisateur extends Modele{
      * @param   int     $idPermission
      * @param   string  $token
      * @param   date    $dateMentionAccepte
-     * 
+     * @param   int     $adresse
+     *
      * @return  void
      */
-    public function initialize($idUtilisateur=null,$nom=null,$prenom=null,$email=null,$mdp=null,$photoProfile=null,$idPermission=null,$token=null,$dateMentionAccepte=null,$active = null)
+    public function initialize($idUtilisateur=null,$nom=null,$prenom=null,$email=null,$mdp=null,$photoProfile=null,$idPermission=null,$token=null,$dateMentionAccepte=null,$active = null, $adresse = null)
     {
         $this->idUtilisateur = $idUtilisateur;
         $this->nom = $nom;
@@ -87,6 +90,7 @@ class Utilisateur extends Modele{
         $this->initComUtilisateur($this->idUtilisateur);
         $this->initCommandesUtilisateur($this->idUtilisateur);
         $this->initPanierUtilisateur($this->idUtilisateur);
+        $this->initCommandeAdresse($this->idUtilisateur);
 
     }
 
@@ -149,6 +153,27 @@ class Utilisateur extends Modele{
         }
     }
 
+    /**
+     * initialise l'objet adresse par l'idUtilisateur
+     * @param   int idUtlisateur
+     *
+     * @return void
+     */
+    public function initCommandeAdresse($idUtilisateur)
+    {
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM adresses WHERE idUtilisateur = ?");
+        $requete -> execute([$idUtilisateur]);
+        $adresses = $requete->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($adresses))
+        {
+            foreach ($adresses as $a) {
+                $adresse = new Adresse();
+                $adresse->initializeAdresse($a['idUtilisateur'], $a['idAdresse'], $a['libelle']);
+                $this->adresse[] = $adresse;
+            }
+        }
+    }
+
 
     public function verifUtilisateur()
     {
@@ -194,7 +219,6 @@ class Utilisateur extends Modele{
         $requete = $this->getBdd()->prepare("DELETE FROM utilisateurs WHERE idUtilisateur = ?");
         $requete->execute([$idUser]);
     }
-    
 
     public function addToken($token, $idUser)
     {
@@ -208,10 +232,10 @@ class Utilisateur extends Modele{
         $requete->execute([$idUtilisateur, $ip]);
     }
 
-    public function checkAdminAllowedIP($ip)
+    public function checkAdminAllowedIP($ip, $idUtilisateur)
     {
-        $requete = $this->getBdd()->prepare('SELECT * FROM allowed_ips WHERE ip = ?');
-        $requete->execute([$ip]);
+        $requete = $this->getBdd()->prepare('SELECT * FROM allowed_ips WHERE ip = ? AND idUtilisateur = ?');
+        $requete->execute([$ip, $idUtilisateur]);
         return $requete->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -265,6 +289,11 @@ class Utilisateur extends Modele{
     {
         $this->active = $var;
     }
+
+    public function setAdresse($var = null)
+    {
+        $this->adresse = $var;
+    }
 //// GETTERS
     public function getIdUtilisateur()
     {
@@ -286,6 +315,12 @@ class Utilisateur extends Modele{
     {
         return  $this->mdp;
     }
+
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
     public function getToken()
     {
         return  $this->token;
