@@ -83,9 +83,9 @@ $(window).on('load', function () {
 
   $('#prixAjout ,#numerique').on('keyup', function () {
       if ($('#prixAjout').val() == 0) {
-          $('#numerique').hide();
+          $('#numerique').show();
         }else{
-            $('#numerique').show();
+            $('#numerique').hide();
     }
     });
 

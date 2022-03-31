@@ -45,7 +45,7 @@
     $idPanier = $_SESSION['idPanier'];
     $Panier = new Panier($idPanier);
     $stockage = $Panier->getStockages();
-    $utilisateur = new Utilisateur($_SESSION['idUtilisateur']);
+    $utilisateur = new Utilisateur($_SESSION['idUtilisateur'], true);
     $adresse = $utilisateur->getAdresse();
 ?>
 
@@ -115,7 +115,7 @@
         </select>
     </div>
 
-    <div class="form-check form-switch my-3">
+    <div class="form-check form-switch my-3" id="divAdresse">
          <input class="form-check-input" type="checkbox" id="nouvAdresse">
          <label class="form-check-label" for="flexSwitchCheckDefault">Choisir parmi vos adresses enregistrées</label>
     </div>

@@ -7,6 +7,12 @@ class Adresse extends Modele
 
     private $libelle;
 
+    private $ville;
+
+    private $codePostal;
+
+    private $complementAdresse;
+
     private $idUtilisateur;
 
     public function __construct($idAdresse = null)
@@ -21,6 +27,12 @@ class Adresse extends Modele
 
             $this -> libelle = $u['libelle'];
 
+            $this -> ville = $u['ville'];
+
+            $this -> codePostal = $u['codePostal'];
+
+            $this -> complementAdresse = $u['complementAdresse'];
+
             $this -> idUtilisateur = $u['idUtilisateur'];
         }
     }
@@ -29,12 +41,21 @@ class Adresse extends Modele
      * @param   int  $idAdresse
      * @param   int  $idUtilisateur
      * @param   string  $libelle
+     * @param   string  $ville
+     * @param   int  $codePostal
+     * @param   string  $complementAdresse
      */
-    public function initializeAdresse($idUtilisateur = null, $idAdresse = null, $libelle = null)
+    public function initializeAdresse($idUtilisateur = null, $idAdresse = null, $libelle = null, $ville = null, $codePostal = null, $complementAdresse = null)
     {
         $this -> idAdresse = $idAdresse;
 
         $this -> libelle = $libelle;
+
+        $this -> ville = $ville;
+
+        $this -> codePostal = $codePostal;
+
+        $this -> complementAdresse = $complementAdresse;
 
         $this -> idUtilisateur = $idUtilisateur;
     }
@@ -45,10 +66,24 @@ class Adresse extends Modele
         return $this->idAdresse;
     }
 
-
     public function getLibelle()
     {
         return $this->libelle;
+    }
+
+    public function getCodePostal()
+    {
+        return $this->codePostal;
+    }
+
+    public function getComplementAdresse()
+    {
+        return $this->complementAdresse;
+    }
+
+    public function getVille()
+    {
+        return $this->ville;
     }
 
     public function getIdUtilisateur()
@@ -62,17 +97,29 @@ class Adresse extends Modele
         $this->idAdresse = $var;
     }
 
-    public function setLibelle($libelle)
+    public function setLibelle($var = null)
     {
-        $this->libelle = $libelle;
+        $this->libelle = $var;
     }
 
-    public function setIdUtilisateur($idUtilisateur)
+    public function setCodePostal($var = null)
     {
-        $this->idUtilisateur = $idUtilisateur;
+        $this->codePostal = $var;
     }
 
+    public function setComplementAdresse($var = null)
+    {
+        $this->complementAdresse = $var;
+    }
 
+    public function setVille($var = null)
+    {
+        $this->ville = $var;
+    }
 
+    public function setIdUtilisateur($var = null)
+    {
+        $this->idUtilisateur = $var;
+    }
 
 }

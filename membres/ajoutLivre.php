@@ -115,7 +115,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
 
     <div class="form-group mt-1">
         <label for="prixAjout">Prix</label>
-        <input type="number" class="form-control" id="prixAjout" name="prix" oninput="isNumerique()" min="0.00" placeholder="Saisissez le prix du livre" step="0.01" value="0.00">
+        <input type="number" class="form-control" id="prixAjout" name="prix" min="0.00" placeholder="Saisissez le prix du livre (chiffre uniquement, pas de symboles)" step="0.01"">
     </div>    
 
     <div class="form-group mt-1" id="auteur">
