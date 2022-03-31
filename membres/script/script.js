@@ -144,22 +144,36 @@ $(window).on('load', function () {
 
     $('#auteurEnregistré').click(function() {
         $("#nouvAuteur").toggle(this.checked);
-        if($('#inputAuteur').is(':visible'))
+        if($('#nouvAuteur').is(':visible'))
         {
-            $('#inputAuteur').attr("disabled", false);
-        }else{
             $('#inputAuteur').attr("disabled", true);
+            $('#nouvAuteur').hide();
+            $('#auteur').attr("visible", true);
+            $('#auteurs').attr("disabled", false);
+
+        }else{
+            $('#inputAuteur').attr("disabled", false);
+            $('#nouvAuteur').attr("visible", false);
+            $('#auteur').attr("visible", false);
+            $('#auteurs').attr("disabled", true);
         }
         $("#auteur").toggle(this.unchecked);
     });
 
     $('#editeurEnregistré').click(function() {
         $("#nouvEditeur").toggle(this.checked);
-        if($('#inputEditeur').is(':visible'))
+        if($('#nouvEditeur').is(':visible'))
         {
-            $('#inputEditeur').attr("disabled", false);
-        }else{
             $('#inputEditeur').attr("disabled", true);
+            $('#nouvEditeur').hide();
+            $('#editeur').attr("visible", true);
+            $('#editeurs').attr("disabled", false);
+
+        }else{
+            $('#inputEditeur').attr("disabled", false);
+            $('#nouvEditeur').show();
+            $('#editeur').attr("visible", false);
+            $('#editeurs').attr("disabled", true);
         }
         $("#editeur").toggle(this.unchecked);
     });
