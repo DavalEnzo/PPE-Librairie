@@ -207,3 +207,13 @@ body{
 background-size: contain;
 background-repeat: no-repeat;
 }
+@media screen and (width >=  768px) {
+    .descriptionProduit{
+        min-width: 700px;
+    }
+}
+@media screen and (width <=  768px) {
+    .produitImage{
+        text-align: center!important;
+    }
+}

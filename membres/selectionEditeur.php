@@ -7,7 +7,9 @@ $e = new Editeur($idEditeur);
 $Livres = $e->getLivre();
 $nomEditeur = $e->getNomEditeur();
 $arrObj = new ArrayObject($Livres);
-
+?>
+<main style="min-height: 70vh;">
+<?php
 if ($arrObj->count() != 0) {
 ?>
     <div class="alert alert-info">
@@ -64,5 +66,6 @@ if ($arrObj->count() != 0) {
     }
     ?>
 </div>
+</main>
 <?php
 require_once 'pied.php';

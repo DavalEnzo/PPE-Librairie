@@ -4,33 +4,41 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         header("Refresh:3;index.php");
         require_once 'entete.php';
         ?>
+        <main style="height:65.4vh">
         <div class="alert alert-success mt-3">Connexion réussie ! Connecté en tant que <?=$_SESSION['email'];?><br>
         <a href="index.php">Cliquez ici pour revenir à l'accueil</a>
     </div>
         <?php        
     }else if(isset($_GET["success"])&& $_GET['success'] == 0 && $_GET['erreurs'] != 1){
         require_once 'entete.php';
-        ?>        
+        ?>   
+        <main style="height:70vh">     
         <div class="alert alert-danger">La connexion n'a pas pu être finalisée<br>
         Erreur: <?= $_GET['erreurs'];?></div>
         <?php
     }else if(isset($_GET["nonconnecte"])&& $_GET['nonconnecte'] == 1 ){
         require_once 'entete.php';
-        ?>        
+        ?>    
+        <main style="height:65.4vh">    
         <div class="alert alert-danger">Vous devez être connecté afin de pouvoir ajouter des livres au panier. Si vous n'avez pas encore
             de compte, <a href="inscription.php" style="text-decoration: underline; font-weight:bold">Inscrivez-vous</a>.<br></div>
         <?php
     }else if (isset($_GET["success"]) && $_GET['success'] == 0 && $_GET['erreurs'] == 1) {
         require_once 'entete.php';
-        ?>        
+        ?>   
+        <main style="height:65.4vh">     
         <div class="alert alert-danger">Votre compte n'est pas autorisé à se connecter sur ce poste</div>
         <?php
 
+    }else{
+        ?>
+        <main style="height:77.5vh"> 
+        <?php
     }
         require_once 'entete.php';
         $u = new Utilisateur();
       ?>
-      
+ 
     <div class="container my-5">
     <div class="rounded" style="background-color: white; width:50%; margin:auto; padding:2%; box-shadow: 1px 1px 10px black;">
     <h1>Se connecter</h1>
@@ -65,6 +73,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     </div>
     </div>
     <div style="margin-top: 13.97%;">
+</main>
     <?php
     require_once 'pied.php';
     ?>
