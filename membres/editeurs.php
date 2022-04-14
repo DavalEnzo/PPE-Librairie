@@ -14,9 +14,12 @@ $editeurs=$e->getEditeurs();
 
 foreach($editeurs as $editeur){
     ?>
-  <ul class="list-group rounded-pill text-center my-2">
-    <a href="selectionEditeur.php?idEditeur=<?=$editeur->getIdEditeur();?>" class="list-group-item btn-grad" style="text-decoration:none; color:black; width:20%;margin:auto;"><?=$editeur->getNomEditeur();?></a>
+  <ul class="list-group rounded-pill text-center my-2" style="width: 100%;">
+    <a href="selectionEditeur.php?idEditeur=<?=$editeur->getIdEditeur();?>" class="list-group-item btn-grad" style="text-decoration:none; color:black;margin:auto;"><?=$editeur->getNomEditeur();?></a>
     </ul>
 <?php
 }
 ?>
+<?php
+
+require_once 'pied.php';

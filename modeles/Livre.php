@@ -5,7 +5,7 @@ protected $idLivre;
 protected $Titre;
 protected $date_sortie;
 protected $Prix;
-protected $Photo;
+public $Photo;
 protected $idGenre;
 protected $idTypeGenre;
 protected $idEditeur;
@@ -57,7 +57,7 @@ protected $Auteurs = [];
             foreach($com as $c)
             {
                 $commentaire = new Commentaire();
-                $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'],true);
+                $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'], $c['verif'],true);
                 $this->commentaires[]=$commentaire;
             }
         }

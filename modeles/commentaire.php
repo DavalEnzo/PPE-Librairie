@@ -8,6 +8,7 @@ class Commentaire extends Modele
     protected $idLivre;
     protected $grade;
     protected $dateHeure;
+    protected $verif;
 
     protected $utilisateur;
     protected $Livre;
@@ -34,11 +35,13 @@ class Commentaire extends Modele
 
             $this->dateHeure = $com['date_heure'];
 
+            $this->verif = $com['verif'];
+
             $this->utilisateur = new Utilisateur($this->idUtilisateur);
         }
     }
 
-    public function initializeCom($idCom=null,$contenu,$idUtilisateur,$idLivre,$grade = null,$entete = null,$dateHeure = null,$option = false)
+    public function initializeCom($idCom=null,$contenu,$idUtilisateur,$idLivre,$grade = null,$entete = null,$dateHeure = null,$verif = null,$option = false)
     {
         $this->idCom = $idCom;
 
@@ -53,6 +56,8 @@ class Commentaire extends Modele
         $this->grade = $grade;
 
         $this->dateHeure = $dateHeure;
+
+        $this->verif = $verif;
 
         $this->initLivreCom($this->idLivre);
         
@@ -138,6 +143,11 @@ class Commentaire extends Modele
     public function getLivre()
     {
         return $this->Livre;
+    }
+
+    public function getVerif()
+    {
+        return $this->verif;
     }
 
 

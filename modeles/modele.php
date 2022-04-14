@@ -46,6 +46,7 @@ require_once 'Editeur.php';
 require_once 'Lectures.php';
 require_once '../modeles/Panier.php';
 require_once 'Stockage.php';
+require_once 'DetailCommandes.php';
 require_once 'Utilisateur.php';
 require_once 'Commande.php';
 require_once 'Adresse.php';

@@ -103,14 +103,14 @@ class Utilisateur extends Modele{
      */
     public function initComUtilisateur($idUtilisateur)
     {
-        $requete = $this->getBdd()-> prepare ("SELECT * FROM commentaires WHERE idUtilisateur = ?  ORDER BY date_heure ASC ");
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM commentaires WHERE idUtilisateur = ? ORDER BY date_heure ASC ");
         $requete -> execute([$idUtilisateur]);
         $com = $requete->fetchAll(PDO::FETCH_ASSOC);
 
         foreach($com as $c)
         {
             $commentaire = new Commentaire();
-            $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'],false);
+            $commentaire->initializeCom( $c['idCommentaire'],$c['contenu'],$c['idUtilisateur'],$c['idLivre'],$c['grade'],$c['entete'],$c['date_heure'], $c['verif'],false);
             $this->commentaires[]=$commentaire;
         }
     }
@@ -148,7 +148,7 @@ class Utilisateur extends Modele{
             foreach($commandes as $c)
             {
                 $commande = new Commande();
-                $commande->initializeCommande($c['idCommande'],$c['idPanier'],$c['idUtilisateur'],$c['prixTotal'],$c['idAdresse'],$c['dateCommande'],$c['statut']);
+                $commande->initializeCommande($c['idCommande'],$c['idPanier'],$c['idUtilisateur'],$c['prixTotal'],$c['idAdresse'],$c['dateCommande'],$c['statut'], $c['dateLivraison']);
                 $this->commandes[]=$commande;
             }
         }

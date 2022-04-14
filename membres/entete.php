@@ -130,7 +130,7 @@ require_once '../modeles/modele.php';
     if (isset($_SESSION['idPanier']) && !empty($_SESSION['idPanier'])) {
               
       ?>
-        <a href="panier.php" class="btn-sm btn-light" style="width: 2.9%; margin-left:0.7%;  margin-right:0.7%;"><img style="width: 80%;" src="https://cdn0.iconfinder.com/data/icons/minimal-set-seven/32/minimal-49-512.png" alt=""></a>
+        <a href="panier.php" class="btn-sm btn-light" style="width: 55px; margin-left:0.7%;  margin-right:0.7%;"><img style="width: 80%;" src="https://cdn0.iconfinder.com/data/icons/minimal-set-seven/32/minimal-49-512.png" alt=""></a>
         <form class="d-flex mb-lg-0 collapse navbar-collapse" style="margin-left:0.7%" action="resultatRecherche.php">
           <input class="form-control me-1" type="search" placeholder="Rechercher un livre" aria-label="Rechercher" id="recherche" name="recherche">
           <button class="btn btn-light" type="submit">Rechercher</button>

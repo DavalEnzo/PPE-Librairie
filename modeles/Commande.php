@@ -7,9 +7,12 @@ class Commande extends Modele{
     private $prixTotal;
     private $idAdresse;
     private $dateCommande;
+    private $dateLivraison;
     private $statut;
 
     private $panier;
+
+    private $detailCommandes = [];
 
     public function __construct($idCommande = null)
     {
@@ -31,9 +34,13 @@ class Commande extends Modele{
 
             $this->dateCommande = $com['dateCommande'];
 
+            $this->dateLivraison = $com['dateLivraison'];
+
             $this->statut = $com['statut'];
 
             $this->panier = new Panier($this->idPanier);
+
+            $this->initDetailCommande($idCommande);
 
         }
     }
@@ -50,7 +57,7 @@ class Commande extends Modele{
      * 
      * @return  void
      */
-    public function initializeCommande($idCommande=null,$idPanier=null,$idUtilisateur=null,$prixTotal=null,$idAdresse=null,$dateCommande=null,$statut=null)
+    public function initializeCommande($idCommande=null,$idPanier=null,$idUtilisateur=null,$prixTotal=null,$idAdresse=null,$dateCommande=null,$statut=null, $dateLivraison=null)
     {
         $this->idCommande       =   $idCommande;
         $this->idPanier         =   $idPanier;
@@ -58,9 +65,25 @@ class Commande extends Modele{
         $this->prixTotal        =   $prixTotal;
         $this->idAdresse        =   $idAdresse;
         $this->dateCommande     =   $dateCommande;
+        $this->dateLivraison    =   $dateLivraison;
         $this->statut           =   $statut;
 
         $this->panier = new Panier($this->idPanier);
+        $this->initDetailCommande($this->idCommande);
+    }
+
+    public function initDetailCommande($idCommande)
+    {
+        $requete = $this->getBdd()-> prepare ("SELECT * FROM detailcommandes WHERE idCommande = ?");
+        $requete -> execute([$idCommande]);
+        $detC = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($detC as $det)
+        {
+            $detailCommandes = new DetailCommandes();
+            $detailCommandes->initializeDetailCommande($det['idDetailCommande'], $det['idCommande'], $det['quantite'], $det['idLivre']);
+            $this->detailCommandes[]= $detailCommandes;
+        }
     }
 
     public function ajouterCommande($idPanier, $idUtilisateur, $prixTotal, $adresse){
@@ -96,6 +119,9 @@ class Commande extends Modele{
     public function getIdAdresse(){
         return $this->idAdresse;
     }
+    public function getDateLivraison(){
+        return $this->dateLivraison;
+    }
 
     public function getDateCommande(){
         return $this->dateCommande;
@@ -107,5 +133,9 @@ class Commande extends Modele{
     public function getPanier()
     {
         return $this->panier;
+    }
+
+    public function getDetailCommande(){
+        return $this->detailCommandes;
     }
 }

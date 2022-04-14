@@ -2,7 +2,7 @@
 
 <?php
 
-    $uti = new Utilisateur($_SESSION['idUtilisateur']);
+    $uti = new Utilisateur($_SESSION['idUtilisateur'], false);
     $uti->initComUtilisateur($_SESSION['idUtilisateur']);
     $commentaires = $uti->getCommentaire();
 
@@ -16,7 +16,15 @@
         $heureSeulement = substr($dateFormatee, -8);
         ?>
 
-    <div class="container roundedBorders my-3" style="width: 60%;">
+    <div class="container roundedBorders my-3" style="width: auto;">
+    <?php
+        if($commentaire->getVerif() == 0){
+            ?>
+            <span><i class="fas fa-exclamation-triangle" style="color: red;"></i></span>
+            <p class="text-muted" style="display: inline-block;"> Ce commentaire est en cours d'approbation</p>
+            <?php
+        }
+    ?>
         <div class="row">
                 <div class="col-md-3 text-center">
                         <h4><?=$uti->getNom()." ".$uti->getPrenom()?></h4>
@@ -68,7 +76,7 @@
                         }
                         ?>
                     </div>
-                    <div class="col-md-6" style="text-align: right;" >
+                    <div class="col-md-6" style="text-align: right; width:auto;" >
                         <span>Publié le : <?=$dateSeulement;?> à <?=$heureSeulement;?> sur le livre <a href="pageProduit.php?idLivre=<?=$commentaire->getLivre()->getIdLivre();?>"><strong><?=$commentaire->getLivre()->getTitre();?></strong></a></span>
                     </div>
                      <?php

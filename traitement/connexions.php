@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 require_once '../modeles/modele.php';
 
 $u = New Utilisateur();
@@ -62,16 +60,17 @@ if (isset($_POST["envoi"]) && !empty($_POST["envoi"]) && $_POST["envoi"] == 1) {
     // Si après les vérification dans la bdd je n'ai toujours pas d'erreurs
     if (count($erreurs) == 0) {
 
-        if($u->getIdPermission() == 1)
-        {
-            $verifAdmin = $u->checkAdminAllowedIP($_SERVER['REMOTE_ADDR'], $u->getIdUtilisateur());
+        // if($u->getIdPermission() == 1)
+        // {
+        //     // Vérification que l'ip de l'admin est autorisé dans la bdd (uniquement en dev)
+        //     $verifAdmin = $u->checkAdminAllowedIP($_SERVER['REMOTE_ADDR'], $u->getIdUtilisateur());
 
-            if(count($verifAdmin) <= 1){
-                header('location:../membres/connexion.php?success=0&erreurs=1');
+        //     if(count($verifAdmin) <= 1){
+        //         header('location:../membres/connexion.php?success=0&erreurs=1');
 
-                return false;
-            }
-        }
+        //         return false;
+        //     }
+        // }
 
         // on connecte l'utilisateur
         $_SESSION["idUtilisateur"] = $u->getIdUtilisateur();
