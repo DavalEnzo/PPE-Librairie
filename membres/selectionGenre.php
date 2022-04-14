@@ -12,6 +12,7 @@ $arrObj = new ArrayObject($livresGenre);
 
 
 ?>
+<main style="min-height:70vh">
 <div class="alert alert-info">
  <?php
     if($arrObj->count()<2){
@@ -59,5 +60,6 @@ foreach($livresGenre as $livre){
 }
 ?>
 </div>
+</main>
 <?php
 require_once 'pied.php';

@@ -3,9 +3,12 @@ require_once "entete.php";
 $BibliNum = new Bibliotheque();
 
 $livrenums = $BibliNum->getLivres();
-
+?>
+<main style="min-height:45vh">
+<?php
 if (isset($_SESSION["idUtilisateur"]) && !empty($_SESSION['idUtilisateur'])) {
 ?>
+
     <div class='card-group' style="margin-left: 10%;">
         <?php
         foreach ($livrenums as $livrenum) {
@@ -42,12 +45,14 @@ if (isset($_SESSION["idUtilisateur"]) && !empty($_SESSION['idUtilisateur'])) {
         ?>
     </div>
 <?php
-    require_once 'pied.php';
+ 
 } else {
 ?>
     <div class="alert alert-danger container text-center" style="margin-top: 15%;">Vous devez vous connecter et/ou être inscrit afin de pouvoir lire des livres numériques</div>
-    <?php
-    require_once 'pied.php';
-    ?>
 <?php
-}
+}  
+?>
+</main>
+<?php
+require_once 'pied.php';
+?>
