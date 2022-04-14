@@ -24,6 +24,9 @@
           </div>
           <div class="col-md-5 col-12">
             <div class="form-outline form-white mb-4">
+              <form type="POST">
+                  <label></label>
+              </form>
               <input type="email" id="email" class="form-control" placeholder="renseignez votre adresse email"/>
             </div>
           </div>

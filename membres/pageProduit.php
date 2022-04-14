@@ -22,12 +22,12 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
 ?>
 
         <div class="container  d-flex justify-content-center my-2" >
-            <div class="card mb-3" >
+            <div class="card mb-3 descriptionProduit" >
                 <div class="row g-0">
-                    <div class="col-md-3">
+                    <div class="col-md-5 produitImage">
                         <img style="max-width: 300px;" src="<?=$Livre->getPhoto()?>" >
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <div class="card-body">
                             <h3 class="card-title"><?=$Livre->getTitre()?></h3>
                             <?php
@@ -45,7 +45,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
                             }
                             ?>
                             <h5 class="card-title">Résumé :</h5>
-                            <p class="card-text"><?=$Livre->getDescription()?></p>
+                            <p class="card-text "><?=$Livre->getDescription()?></p>
                             <?php
                         if($Livre->getdroit() == 1 ){
         ?>
