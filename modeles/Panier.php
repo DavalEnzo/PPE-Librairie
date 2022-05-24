@@ -79,7 +79,7 @@ class Panier extends Modele{
         $requete = $this->getBdd()->prepare('SELECT max(idPanier) FROM paniers');
         $requete->execute();
 
-        $requete->fetch(PDO::FETCH_ASSOC);
+        return $requete->fetch(PDO::FETCH_ASSOC);
     }
     
         public function supprimerPanier($idPanier)

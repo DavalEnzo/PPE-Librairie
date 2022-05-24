@@ -40,31 +40,29 @@ if(isset($_GET['id']) && !empty($_GET['id']) && isset($_SESSION['idUtilisateur']
         $u = new Utilisateur($_SESSION['idUtilisateur']);
 
         $idUtilisateur = $_SESSION['idUtilisateur'];
-        
-            
+    }
         
         try{
+
+            $ajoutPanier = new Panier();
+
             $ajoutPanier->ajouterPanierVide($idUtilisateur);
+
+            $lastPanierId = $ajoutPanier->SelectMaxidPanier();
             
-            $recupPanier=$u->getPanier($idUtilisateur);
-
-            $_SESSION["idPanier"] = $recupPanier->getIdPanier();
-
-            foreach($ajoutPanier as $idPanier){
-                $idPanier = $idPanier['idPanier'];
-            }
+            $_SESSION["idPanier"] = $lastPanierId['max(idPanier)'];
 
             $idLivre = $_GET['id'];
 
-            $stocker->insertStockage($_SESSION['idPanier'], $idLivre, $quantite);
+            $stocker->insertStockage($lastPanierId['max(idPanier)'], $idLivre, $quantite);
 
             header('location:../membres/pageProduit.php?idLivre='.$_GET['id'].'&success=1');
 
         }catch (Exception $e){
+            var_dump($e->getMessage());exit;
             header('location:../membres/pageProduit.php?idLivre='.$_GET['id'].'&success=0');
         }
-    }
-}else{
+    }else{
     header('location:../membres/connexion.php?nonconnecte=1');
 }
 
