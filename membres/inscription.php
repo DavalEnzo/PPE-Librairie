@@ -24,7 +24,7 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     <div class="container my-3">
     <div class="rounded" style="background-color: white; width:50%; margin:auto; padding: 1% 2% 2% 2%;box-shadow: 1px 1px 10px black;">
         <h1 class="text-center my-3">Inscription</h1>
-        <form method = "post" action="../Traitement/ajoutInscription.php"> 
+        <form method = "post" action="../traitement/ajoutInscription.php">
 
             <div class="form-group">
                 <label for="nom">Nom</label>

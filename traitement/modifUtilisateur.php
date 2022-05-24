@@ -2,7 +2,7 @@
 
 <?php
 
-$utilisateur = new Utilisateur;
+$utilisateur = new Utilisateur();
 
 
 if(isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["prenom"]) 
@@ -31,23 +31,23 @@ if(isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["prenom"])
                                         $_SESSION['photoProfile'] = $fichier;
                                         }catch(Exception $e){
                                             echo $erreur = $e->getMessage();
-                                            header("location:../membres/profil?success=2&e=".$erreur);
+                                            header("location:../membres/profil.php?success=2&e=".$erreur);
                                         }
                                     }else{
                                         $erreur = 1;
-                                        header("location:../membres/profil?success=2&erreur=".$erreur);
+                                        header("location:../membres/profil.php?success=2&erreur=".$erreur);
                                     }
                                 }else{
                                     $erreur = 2;
-                                    header("location:../membres/profil?success=2&erreur=".$erreur);
+                                    header("location:../membres/profil.php?success=2&erreur=".$erreur);
                                 }
                             }else{
                                 $erreur = 3;
-                                header("location:../membres/profil?success=2&erreur=".$erreur);
+                                header("location:../membres/profil.php?success=2&erreur=".$erreur);
                             }               
                     }else{
                        $erreur = 4;
-                       header("location:../membres/profil?success=2&erreur=".$erreur);exit;
+                       header("location:../membres/profil.php?success=2&erreur=".$erreur);
                     }
                 }
 
@@ -55,18 +55,19 @@ if(isset($_POST["nom"]) && !empty($_POST['nom']) && isset($_POST["prenom"])
 
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $erreur = 6;
-                    header("location:../membres/profil?success=2&erreur=".$erreur);exit;
+                    header("location:../membres/profil.php?success=2&erreur=".$erreur);
                   }
 
-                $utilisateur->modifProfile($nom, $prenom, $email, $_SESSION['idUtilisateur']);
+                $utilisateur->initialize($_SESSION['idUtilisateur'], $nom, $prenom, $email);
+                $utilisateur->modifProfile();
 
                 $_SESSION['nomSimple'] = $nom; 
                 $_SESSION['prenom'] = $prenom; 
                 $_SESSION['email'] = $email; 
 
-                header("location:../membres/profil?id=".$_SESSION['idUtilisateur']."&success=1");
+                header("location:../membres/profil.php?id=".$_SESSION['idUtilisateur']."&success=1");
 
 }else{
     $erreur = "Un champ n'a pas été rempli, veuillez vérifier votre saisie.";
-    header("location:../membres/profil?success=3&erreur=".$erreur);
+    header("location:../membres/profil.php?success=3&erreur=".$erreur);
 }

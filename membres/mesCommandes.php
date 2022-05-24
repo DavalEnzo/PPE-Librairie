@@ -47,6 +47,10 @@ foreach($commandes as $commande){
                     ?>
                     <h5 class="card-title"  style="color: red;">Retard sur la commande</h5>
                     <?php
+                }else if($commande->getStatut() == 3){
+                    ?>
+                    <h5 class="card-title"  style="color: red;">Commande annulée</h5>
+                    <?php
                 }
               ?>
               <p class="card-text">Prix total: <?=$commande->getPrixTotal();?>€</p>              

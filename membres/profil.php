@@ -80,7 +80,7 @@ if(isset($_SESSION['idUtilisateur']) && !empty($_SESSION['idUtilisateur'])){
             </div>
             <div style="display: inline-block; height: 400.27px; width:0%; margin-left:5%; border: 1px solid black;"></div>
             
-            <form style="display: inline-block; margin-left:10%; width: 50%;" method = "post" enctype="multipart/form-data" action="../Traitement/modifUtilisateur.php"> 
+            <form style="display: inline-block; margin-left:10%; width: 50%;" method = "post" enctype="multipart/form-data" action="../traitement/modifUtilisateur.php">
                 <div class="form-group">
                     <label for="nom">Nom</label>
                     <input type="text" class ="form-control" style="border-radius: 20px;" name="nom" id="nom" value="<?=$_SESSION['nomSimple'];?>"/>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 28 avr. 2022 à 08:59
+-- Généré le : mar. 24 mai 2022 à 10:18
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -26,39 +26,39 @@ DELIMITER $$
 -- Procédures
 --
 DROP PROCEDURE IF EXISTS `insert_livre_with_auteur`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_livre_with_auteur` ()  BEGIN
+CREATE  PROCEDURE `insert_livre_with_auteur` ()  BEGIN
 	INSERT INTO ecrit (idAuteur, idLivre) VALUES ((SELECT max(idAuteur) FROM auteurs),(SELECT max(idLivre) FROM bibliotheque));
 END$$
 
 DROP PROCEDURE IF EXISTS `select_allComs_user`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `select_allComs_user` (IN `p_idUtilisateur` INT)  BEGIN
+CREATE  PROCEDURE `select_allComs_user` (IN `p_idUtilisateur` INT)  BEGIN
 	SELECT c.*, u.nom, u.prenom, u.photoProfile, u.idUtilisateur, b.Titre  FROM commentaires AS c LEFT JOIN utilisateurs as u on u.idUtilisateur = c.idUtilisateur LEFT JOIN livres as b on c.idLivre = b.idLivre Where c.idUtilisateur = p_idUtilisateur ORDER BY c.date_heure;
 END$$
 
 DROP PROCEDURE IF EXISTS `select_commentaires_by_user_and_livre`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `select_commentaires_by_user_and_livre` (IN `p_idLivre` INT)  BEGIN
+CREATE  PROCEDURE `select_commentaires_by_user_and_livre` (IN `p_idLivre` INT)  BEGIN
 	SELECT c.*, u.nom, u.prenom, u.photoProfile, u.idUtilisateur  FROM commentaires AS c LEFT JOIN utilisateurs as u on u.idUtilisateur = c.idUtilisateur Where c.idLivre = p_idLivre ORDER BY c.date_heure;
 END$$
 
 DROP PROCEDURE IF EXISTS `select_commentaires_non_approuve`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `select_commentaires_non_approuve` ()  BEGIN
+CREATE  PROCEDURE `select_commentaires_non_approuve` ()  BEGIN
 
 	SELECT idCommentaire, contenu, CONCAT(CONCAT(utilisateurs.prenom, ' '), utilisateurs.nom) AS utilisateur, bibliotheque.Titre, commentaires.date_heure, verif FROM `commentaires` LEFT JOIN bibliotheque USING (idLivre) LEFT JOIN utilisateurs USING (idUtilisateur) WHERE verif = 0;
     
 END$$
 
 DROP PROCEDURE IF EXISTS `select_genre_with_livre_and_auteur`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `select_genre_with_livre_and_auteur` (`p_idGenre` INT)  BEGIN
+CREATE  PROCEDURE `select_genre_with_livre_and_auteur` (`p_idGenre` INT)  BEGIN
 	SELECT * FROM genres INNER JOIN bibliotheque USING(idGenre) LEFT JOIN ecrit USING(idLivre) WHERE idGenre = p_idGenre;
 END$$
 
 DROP PROCEDURE IF EXISTS `select_panier`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `select_panier` (IN `p_idPanier` INT, IN `p_idUtilisateur` INT)  BEGIN
+CREATE  PROCEDURE `select_panier` (IN `p_idPanier` INT, IN `p_idUtilisateur` INT)  BEGIN
 	SELECT *, editeurs.nom as nomEditeur FROM paniers INNER JOIN stockage USING (idPanier) INNER JOIN livres ON stockage.idLivre = livres.idLivre INNER JOIN editeurs ON livres.idEditeur = 					editeurs.idEditeur INNER JOIN utilisateurs USING (idUtilisateur) WHERE idPanier = p_idPanier AND idUtilisateur = p_idUtilisateur;
 END$$
 
 DROP PROCEDURE IF EXISTS `verif_commentaire`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `verif_commentaire` ()  BEGIN
+CREATE  PROCEDURE `verif_commentaire` ()  BEGIN
 
 	DECLARE nbComms INT DEFAULT 0;
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `access_logs` (
   `ip` varchar(20) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`idLog`)
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `access_logs`
@@ -153,7 +153,17 @@ INSERT INTO `access_logs` (`idLog`, `idUtilisateur`, `ip`, `date`) VALUES
 (56, 23, '127.0.0.1', '2022-04-14 11:21:56'),
 (57, 20, '127.0.0.1', '2022-04-14 14:24:09'),
 (58, 20, '127.0.0.1', '2022-04-14 15:06:37'),
-(59, 20, '127.0.0.1', '2022-04-14 16:46:26');
+(59, 20, '127.0.0.1', '2022-04-14 16:46:26'),
+(60, 24, '::1', '2022-05-24 09:21:17'),
+(61, 1, '::1', '2022-05-24 09:21:33'),
+(62, 24, '::1', '2022-05-24 09:48:13'),
+(63, 1, '::1', '2022-05-24 09:48:26'),
+(64, 1, '::1', '2022-05-24 09:52:54'),
+(65, 24, '::1', '2022-05-24 10:01:44'),
+(66, 1, '::1', '2022-05-24 10:01:52'),
+(67, 1, '::1', '2022-05-24 10:02:18'),
+(68, 1, '::1', '2022-05-24 10:02:56'),
+(69, 1, '::1', '2022-05-24 10:03:51');
 
 --
 -- Déclencheurs `access_logs`
@@ -270,11 +280,19 @@ CREATE TABLE IF NOT EXISTS `commandes` (
   `idPanier` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
   `prixTotal` int(11) NOT NULL,
-  `adresse` int(11) NOT NULL,
+  `idAdresse` int(11) NOT NULL,
   `dateCommande` date NOT NULL,
-  `statut` int(11) NOT NULL,
+  `dateLivraison` date NOT NULL,
+  `statut` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idCommande`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `commandes`
+--
+
+INSERT INTO `commandes` (`idCommande`, `idPanier`, `idUtilisateur`, `prixTotal`, `idAdresse`, `dateCommande`, `dateLivraison`, `statut`) VALUES
+(1, 9, 1, 18, 1, '2022-05-24', '2022-06-03', 3);
 
 --
 -- Déclencheurs `commandes`
@@ -334,7 +352,14 @@ CREATE TABLE IF NOT EXISTS `detailcommandes` (
   `idLivre` int(11) NOT NULL,
   `quantite` int(11) NOT NULL,
   PRIMARY KEY (`idDetailCommande`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `detailcommandes`
+--
+
+INSERT INTO `detailcommandes` (`idDetailCommande`, `idCommande`, `idLivre`, `quantite`) VALUES
+(1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -441,7 +466,7 @@ CREATE TABLE IF NOT EXISTS `lectures` (
   `contenu` varchar(100) NOT NULL,
   `idLivre` int(11) NOT NULL,
   PRIMARY KEY (`idLecture`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `lectures`
@@ -454,7 +479,9 @@ INSERT INTO `lectures` (`idLecture`, `contenu`, `idLivre`) VALUES
 (4, 'livres/zola_germinal.pdf', 22),
 (5, 'livres/Le_Paysan_parvenu.pdf', 26),
 (6, 'livres/Discours_de_la_servitude_volontaire_Édition_1922_Texte_entier.pdf', 28),
-(8, 'livres/photoLivre_Femmes.pdf', 43);
+(8, 'livres/photoLivre_Femmes.pdf', 43),
+(9, 'livres/sun_tzu_art_de_la_guerre.pdf', 31),
+(10, 'livres/sun_tzu_art_de_la_guerre.pdf', 31);
 
 -- --------------------------------------------------------
 
@@ -511,17 +538,17 @@ CREATE TABLE IF NOT EXISTS `paniers` (
   `idUtilisateur` int(11) NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idPanier`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `paniers`
 --
 
 INSERT INTO `paniers` (`idPanier`, `idUtilisateur`, `active`) VALUES
-(9, 1, 1),
 (10, 2, 1),
 (13, 20, 1),
-(14, 23, 1);
+(14, 23, 1),
+(15, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -536,7 +563,7 @@ CREATE TABLE IF NOT EXISTS `stockage` (
   `idLivre` int(11) NOT NULL,
   `quantite` int(11) NOT NULL,
   PRIMARY KEY (`idStockage`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `stockage`
@@ -546,7 +573,8 @@ INSERT INTO `stockage` (`idStockage`, `idPanier`, `idLivre`, `quantite`) VALUES
 (24, 12, 1, 1),
 (25, 13, 1, 1),
 (22, 10, 3, 1),
-(23, 11, 28, 1);
+(23, 11, 28, 1),
+(26, 9, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -560,7 +588,7 @@ CREATE TABLE IF NOT EXISTS `tentatives_connexion` (
   `ip` varchar(20) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`idTentative`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -642,17 +670,18 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `active` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idUtilisateur`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`idUtilisateur`, `nom`, `prenom`, `email`, `mdp`, `photoProfile`, `idPermission`, `token`, `dateMentionAcceptée`, `active`) VALUES
-(1, 'Admin', 'Administrateur', 'admin@gmail.com', '$2y$10$UOesYZ20Egkgxa8zUoU3R.kjc8LCrmORMGGkY8PvbbdwM7tLU6swe', '../membres/photoProfile/img/profilePicture-idUser=1.jpg', 1, '5a2077f98c6137939e1ca14d820e59a2ed5ab446', '', 1),
+(1, 'Admin', 'Administrateur', 'admin@gmail.com', '$2y$10$iVU1rwJ/2gdwrmMX7a0xg.jO24VuKD5NAbx9ODvZVi1o5Onyx9bta', '../membres/img/photoProfile/profilePicture-idUser=1.jpg', 1, '5a2077f98c6137939e1ca14d820e59a2ed5ab446', '', 1),
 (12, 'Eric', 'Francis', 'eric@gmail.com', '$2y$10$yjBKAbNLXCYHVbYyHYh8seNh484n5/7q2Gxbfh5lp0Yrq01QbrKL.', '../membres/img/photoProfile/112008_people_512x512.png', 0, NULL, '', 1),
 (20, 'Madani', 'Yanis', 'madaniyanis@gmail.com', '$2y$10$opbGC6FH1IsA.Zvl46kBXuCJrtUYmx3Nys516Q1.ZXkPD2e2qEegC', '../membres/img/photoProfile/profilePicture-idUser=20.png', 1, 'a919332873e9e2412618839a4ef0372d2cd154da', '2022-02-15 12:22:11', 1),
-(23, 'Tulipe', 'Rose', 'gerrard@yahoo.fr', '$2y$10$tCifVa037xN9LYNJ4.9CuOkI0tnlZFBflujnJF51MZ2hyhgR6xpsC', '../membres/img/photoProfile/profilePicture-idUser=23.png', 1, '0f094e9d4d65edc65ed715866eaa524bb282b468', '2022-03-03 11:46:53', 1);
+(23, 'Tulipe', 'Rose', 'gerrard@yahoo.fr', '$2y$10$tCifVa037xN9LYNJ4.9CuOkI0tnlZFBflujnJF51MZ2hyhgR6xpsC', '../membres/img/photoProfile/profilePicture-idUser=23.png', 1, '0f094e9d4d65edc65ed715866eaa524bb282b468', '2022-03-03 11:46:53', 1),
+(24, 'User', 'user', 'user@gmail.com', '$2y$10$l6eAg4hioFiSkDryOA4n1.JGPQ3YyF53c3Pd.NNxup6plRDx8Oj1S', '../membres/img/photoProfile/112008_people_512x512.png', 0, NULL, '2022-05-24 09:21:13', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
