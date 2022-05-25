@@ -1,4 +1,4 @@
-<?php include_once 'entete.php'?>
+<?php require_once 'entete.php'?>
 
 <?php
 
@@ -8,6 +8,7 @@
 
 <?php
 
+if(isset($commandes) && !empty($commandes)){
 
 foreach($commandes as $commande){
     $det = $commande->getDetailCommande();
@@ -60,3 +61,21 @@ foreach($commandes as $commande){
 </div>
 <?php
     }
+    ?>
+        <div style="margin-top: 20vh;">
+        <?php
+    require_once 'pied.php';
+    ?>
+    </div>
+<?php
+}else{
+    ?>        
+    <div class="alert alert-danger container text-center" style="margin-top: 15%; width:30%">Vous n'avez pas encore effectué de commandes</div>
+    <div style="margin-top: 31.1vh;">
+        <?php
+    require_once 'pied.php';
+    ?>
+    </div>
+
+    <?php
+}
