@@ -10,7 +10,7 @@
   </body>
 
 
-<footer class="BackGround text-center text-white">
+<footer style="bottom: 0; width: 100%;" class="BackGround text-center text-white">
   <div class="container p-4">
     <section>
       <form action="">

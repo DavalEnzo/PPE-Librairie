@@ -66,5 +66,8 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
         </form>
     </div>
     </div>
-    <?php
-    require_once 'pied.php';
+    <div style="margin-top:5.9vh">
+        <?php
+        require_once 'pied.php';
+        ?>
+    </div>

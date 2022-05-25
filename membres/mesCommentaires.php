@@ -99,11 +99,6 @@
     }else{
         ?>
         <div class="alert alert-danger container text-center" style="margin-top: 15%; width:30%">Vous n'avez aucun commentaire de publié actuellement.</div>
-        <div style="margin-top: 16.5%;">
             <?php
         require_once 'pied.php';
-        ?>
-        </div>
-        <?php
     }
-    require_once 'pied.php';

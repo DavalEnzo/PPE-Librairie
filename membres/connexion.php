@@ -72,11 +72,9 @@ if(isset($_GET["success"])&& $_GET['success'] == 1 ){
     </form>
     </div>
     </div>
-    <div style="margin-top: 13.97%;">
 </main>
     <?php
     require_once 'pied.php';
     ?>
-    </div>
     <?php
 
